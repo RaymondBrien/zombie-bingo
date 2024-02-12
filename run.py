@@ -14,12 +14,14 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('zombie_bingo')
 
-def get_sheet():
+def get_wordbank_list():
     """
-    Returns a reference to the sheet
+    Returns all words in the wordbank as a list.
     """
-    sales = SHEET.worksheet('wordbank')
-    data = sales.col_values(2)
-    pprint(data)
+    wordbank = SHEET.worksheet('wordbank')
+    wordbank_list = wordbank.col_values(2)
+    pprint(wordbank_list)
+    
+    return wordbank_list
 
-get_sheet()
+get_wordbank_list()
