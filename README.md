@@ -92,31 +92,34 @@ IMPORTANT: Remember to always include a screenshot of each individual feature!
 
 ### Existing Features
 
-- **Title for feature #1**
+- **Wordbank List**
 
     - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
 
 ![screenshot](documentation/feature01.png)
 
-- **Title for feature #2**
+- **News Headlines API **
 
     - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
 
 ![screenshot](documentation/feature02.png)
 
-- **Title for feature #3**
+- **Text Processing**
 
-    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
+    - To remove all punctuation and parse to lowercase characters.
 
 ![screenshot](documentation/feature03.png)
 
+- **Buzzwords Finder**
+
+    - Removes most common words using tokenizing methods from the NLTK library.
+
+![screenshot](documentation/feature03.png)
+
+<!-- Add more features here  -->
+
 🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
 
-Repeat as necessary for as many features as your site contains.
-
-Hint: the more, the merrier!
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
 
 ### Future Features
 
