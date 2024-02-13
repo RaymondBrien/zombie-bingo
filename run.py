@@ -31,7 +31,7 @@ def get_wordbank_list():
 
 def get_headlines():
     """
-    Returns a list of words from the buzzwords list. 
+    Returns a list of headlines titles as strings, from top newsnow API. 
     """
     url = "https://newsnow.p.rapidapi.com/newsv2"
     with open('newsnowCreds.json', 'r') as f:  
@@ -53,20 +53,23 @@ def get_headlines():
         "X-RapidAPI-Key": creds["X-RapidAPI-Key"],
         "X-RapidAPI-Host": "newsnow.p.rapidapi.com"
     }
-
-    response = requests.post(url, json=payload, headers=headers)
-
-    primary_text = response.json()
-    title_collection = []
-    for news_item in primary_text['news']:
-        title_collection.append(news_item['title'])
-    print(title_collection)
     
+    try:
+        response = requests.post(url, json=payload, headers=headers)
+
+        primary_text = response.json()
+        title_collection = []
+        for news_item in primary_text['news']:
+            title_collection.append(news_item['title'])
+        print(title_collection)
+    except Exception as e:
+        print(e)
     return title_collection
 
 def get_buzzwords(data):
     """
-    Returns a dictionary of the most common words in the data.
+    Returns a list of the most common words in the data and 
+    how often each word appears.
     """
     tokens = word_tokenize(data)
 
@@ -78,7 +81,7 @@ def get_buzzwords(data):
     buzzwords = word_counts.most_common(num_keywords)
     print('buzzwords:')
     for buzzword, frequency in buzzwords:
-        print(buzzword, '-', frequency)
+        pprint(buzzword, '-', frequency)
     
     
 def validate_data(data):
@@ -92,14 +95,11 @@ def main():
     """
     Runs the main functions.
     """
-    wordbank_list = get_wordbank_list()
-    pprint(wordbank_list)
-    headlines = get_headlines
-    buzzwords = get_buzzwords(headlines)
+    headlines = get_headlines()
+
     pprint(buzzwords)
 
 
     
-# main()
-get_headlines()
+main()
 
