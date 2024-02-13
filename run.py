@@ -4,6 +4,10 @@ from google.oauth2.service_account import Credentials
 import json
 from pprint import pprint
 import requests
+import nltk
+from nltk.tokenize import word_tokenize 
+from nltk.corpus import stopwords
+from collections import Counter
 
 SCOPE = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -25,16 +29,25 @@ def get_wordbank_list():
     
     return wordbank_list
 
-def get_buzzwords():
+def get_headlines():
     """
     Returns a list of words from the buzzwords list. 
     """
-    with open('newsnowCreds.json', 'r') as f:
+    url = "https://newsnow.p.rapidapi.com/newsv2"
+    with open('newsnowCreds.json', 'r') as f:  
         creds = json.load(f)
     
-    url = "https://newsnow.p.rapidapi.com/headline"
-
-    payload = { "text": "Europe" }
+    payload = {
+        "query": "AI",
+        "time_bounded": True,
+        "from_date": "01/02/2021",
+        "to_date": "05/06/2021",
+        "location": "us",
+        "language": "en",
+        "more_information": False,
+        "max_result": 10
+    }
+    
     headers = {
         "content-type": "application/json",
         "X-RapidAPI-Key": creds["X-RapidAPI-Key"],
@@ -43,29 +56,31 @@ def get_buzzwords():
 
     response = requests.post(url, json=payload, headers=headers)
 
-    pprint(response.json())    
+    primary_text = response.json()
+    title_collection = []
+    for news_item in primary_text['news']:
+        title_collection.append(news_item['title'])
+    print(title_collection)
+    
+    return title_collection
 
-
-def process_text(text):
-    """
-    Returns a list of words from the text. 
-    Parses into lowercase, removes punctuation, and splits on whitespace.
-    """
-    words = text.split()
-    return words
-
-def find_most_common_words(data):
+def get_buzzwords(data):
     """
     Returns a dictionary of the most common words in the data.
     """
-    word_counts = {}
-    for word in data:
-        if word in word_counts:
-            word_counts[word] += 1
-        else:
-            word_counts[word] = 1
-    return word_counts
+    tokens = word_tokenize(data)
 
+    stop_words = set(stopwords.words('english'))
+    filtered_words = [w for w in tokens if w not in stop_words]
+    word_counts = Counter(filtered_words)
+    
+    num_keywords = 10
+    buzzwords = word_counts.most_common(num_keywords)
+    print('buzzwords:')
+    for buzzword, frequency in buzzwords:
+        print(buzzword, '-', frequency)
+    
+    
 def validate_data(data):
     """
     Returns True if words are correctly formatted. 
@@ -73,14 +88,18 @@ def validate_data(data):
     Otherwise returns False with error message.
     """
     
-    
 def main():
     """
     Runs the main functions.
     """
     wordbank_list = get_wordbank_list()
-    buzzwords = get_buzzwords()
     pprint(wordbank_list)
+    headlines = get_headlines
+    buzzwords = get_buzzwords(headlines)
     pprint(buzzwords)
+
+
     
-main()
+# main()
+get_headlines()
+
