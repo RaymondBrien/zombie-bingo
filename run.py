@@ -8,6 +8,7 @@ import nltk
 from nltk.tokenize import word_tokenize 
 from nltk.corpus import stopwords
 from collections import Counter
+import re
 
 SCOPE = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -66,6 +67,15 @@ def get_headlines():
         print(e)
     return title_collection
 
+def process_data(data):
+    """
+    Returns text string all lowercase, with punctuation removed.
+    """
+    data = str(data)
+    data.lower()
+    data = re.sub(r'[^\w\s]','', data)
+    return data
+
 def get_buzzwords(data):
     """
     Returns a list of the most common words in the data and 
@@ -96,8 +106,9 @@ def main():
     Runs the main functions.
     """
     headlines = get_headlines()
+    processed_headlines = process_data(headlines)
+    pprint(processed_headlines)
 
-    pprint(buzzwords)
 
 
     
