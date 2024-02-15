@@ -170,16 +170,33 @@ def add_new_worksheet_single_cell(worksheet_name, data):
     except Exception as e:
         raise e.with_traceback()
     
+def get_user_input(prompt):
+    """
+    Returns user input.
+    """
+    try:
+        user_input1 = input(prompt)
+        user_input2 = input(prompt)
+    except Exception as e:
+        raise e.with_traceback()
+    return user_input1, user_input2    
+    
 def main():
     """
     Runs all program functions.
     """
+    print('Running Zombie Bingo...\n')
+    print('----------------------------------------------------------------')
+    print('Welcome to the Zombie Bingo!\n')
+    
     headlines = get_headlines()
     processed_headlines = process_data(headlines)
     keyword_list = remove_common_words(processed_headlines)
     percentage = percentage_of_wordbank_matches(keyword_list)
     matches = get_wordbank_matches_list(keyword_list)
     
+    # remove prints below when user input functions are added. 
+    # these will be shown only after input from user received.    
     print(f'Today\'s apocalypse likelihood: {percentage}%')
     print(f'Number of headline words which match doomsday wordbank: {len(matches)}')
     print(f'Keyword matches: {matches}')
