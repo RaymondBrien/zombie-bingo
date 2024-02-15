@@ -138,12 +138,12 @@ def get_wordbank_matches_list(data):
 
     return matches
     
-def add_to_spreadsheet(data, keyword):
+def add_to_spreadsheet(data, keyword, i):
     """
     Adds data to spreadsheet.
     """
     try:
-        SHEET.worksheet(data).append_row([keyword, data])
+        SHEET.worksheet(data).append_row([keyword, i])
     except Exception as e:
         raise e.with_traceback()
 
@@ -152,13 +152,13 @@ def main():
     Runs all program functions.
     """
     headlines = get_headlines()
-    print(headlines)
     processed_headlines = process_data(headlines)
-    pprint(processed_headlines)
     keyword_list = remove_common_words(processed_headlines)
-    print(keyword_list)
-    percentage = percentage_of_buzzwords(keyword_list)
-    print(percentage)
+    percentage = percentage_of_wordbank_matches(keyword_list)
+    matches = get_wordbank_matches_list(keyword_list)
+    print(f'Today\'s apocalypse likelihood: {percentage}%')
+    print(f'Number of headline words which match doomsday wordbank: {len(matches)}')
+    print(f'Keyword matches: {matches}')
 
     
 main()
