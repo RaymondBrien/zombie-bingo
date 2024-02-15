@@ -10,6 +10,7 @@ from nltk.corpus import stopwords
 from collections import Counter
 import re
 import inflect
+import math 
 
 SCOPE = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -83,10 +84,9 @@ def process_data(data):
     data = ' '.join(data)
     return data
 
-def get_buzzwords(data):
+def remove_common_words(data):
     """
-    Returns a list of the most common words in the data and 
-    how often each word appears.
+    Returns string list with common words removed.
     """
     # tokens = word_tokenize(data)
 
@@ -104,20 +104,49 @@ def get_buzzwords(data):
     common_words = SHEET.worksheet('wordbank').col_values(3)[1:]
     try:
         #find all words in data that are not in common_words
-        buzzwords = [set(common_words).intersection(data)]
+        keywords = [set(common_words).intersection(data)]
+        # buzzwords = [word for word in buzzwords if word not in stopwords.words('english')]
         
     except Exception as e:
         raise e.with_traceback()
-    return buzzwords
+    return keywords
     
-    
-def percentage_of_matches(data):
+def percentage_of_wordbank_matches(data):
     """
-    Returns percentage of headline words (data) that are in the buzzword list.
+    Returns percentage of matches between data and wordbank.
+    This defines the percentage likelihood of apocalypse.
     """
+    wordbank = SHEET.worksheet('wordbank').col_values(2)[1:]
     
+    #find number of matches between data and wordbank 
+    matches = set(wordbank).intersection(data)
+
+    #find percentage of wordbank matches
+    percentage = len(matches) / (len(wordbank)) * 100
+    percentage = math.floor(percentage)
     
+    return percentage
+
+def get_wordbank_matches_list(data):
+    """
+    Returns list of wordbank matches.
+    """
+    wordbank = SHEET.worksheet('wordbank').col_values(2)[1:]
     
+    #find number of matches between data and wordbank 
+    matches = set(wordbank).intersection(data)
+
+    return matches
+    
+def add_to_spreadsheet(data, keyword):
+    """
+    Adds data to spreadsheet.
+    """
+    try:
+        SHEET.worksheet(data).append_row([keyword, data])
+    except Exception as e:
+        raise e.with_traceback()
+
 def main():
     """
     Runs all program functions.
@@ -126,11 +155,11 @@ def main():
     print(headlines)
     processed_headlines = process_data(headlines)
     pprint(processed_headlines)
-    buzzword_list = get_buzzwords(processed_headlines)
-    print(buzzword_list)
-
-
+    keyword_list = remove_common_words(processed_headlines)
+    print(keyword_list)
+    percentage = percentage_of_buzzwords(keyword_list)
+    print(percentage)
 
     
-# main()
-get_headlines()
+main()
+
