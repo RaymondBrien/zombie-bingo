@@ -138,15 +138,38 @@ def get_wordbank_matches_list(data):
 
     return matches
     
-def add_to_spreadsheet(data, keyword, i):
+def add_new_worksheet_row(worksheet_name, data):
     """
     Adds data to spreadsheet.
     """
+    # col = 1
+    
     try:
-        SHEET.worksheet(data).append_row([keyword, i])
+        print(f'Updating {worksheet_name} worksheet...\n')
+        #adds new row to worksheet
+        SHEET.worksheet(worksheet_name).append_row(data) 
+        
+        print(f'{worksheet_name} worksheet successfully updated...\n')
+    
     except Exception as e:
         raise e.with_traceback()
 
+def add_new_worksheet_single_cell(worksheet_name, data):
+    """
+    Adds data to spreadsheet.
+    """
+    # col = 1
+    
+    try:
+        print(f'Updating {worksheet_name} worksheet...\n')
+        #adds new row to worksheet
+        SHEET.worksheet(worksheet_name).append_row(data) 
+        
+        print(f'{worksheet_name} worksheet successfully updated...\n')
+    
+    except Exception as e:
+        raise e.with_traceback()
+    
 def main():
     """
     Runs all program functions.
@@ -156,9 +179,14 @@ def main():
     keyword_list = remove_common_words(processed_headlines)
     percentage = percentage_of_wordbank_matches(keyword_list)
     matches = get_wordbank_matches_list(keyword_list)
+    
     print(f'Today\'s apocalypse likelihood: {percentage}%')
     print(f'Number of headline words which match doomsday wordbank: {len(matches)}')
     print(f'Keyword matches: {matches}')
+
+ 
+    # add_new_worksheet_single_cell('end_calculator', percentage)
+    # add_new_worksheet_row('keywords', matches)
 
     
 main()
