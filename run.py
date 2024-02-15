@@ -9,6 +9,7 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from collections import Counter
 import re
+import inflect
 
 SCOPE = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -25,10 +26,9 @@ def get_wordbank_list():
     """
     Returns all words in the wordbank as a list.
     """
-    wordbank = SHEET.worksheet('wordbank')
-    wordbank_list = wordbank.col_values(2)[1:]
+    wordbank = SHEET.worksheet('wordbank').col_values(2)[1:]
     
-    return wordbank_list
+    return wordbank
 
 def get_headlines():
     """
@@ -62,18 +62,25 @@ def get_headlines():
         title_collection = []
         for news_item in primary_text['news']:
             title_collection.append(news_item['title'])
-        print(title_collection)
     except Exception as e:
         print(e)
     return title_collection
 
 def process_data(data):
     """
-    Returns text string all lowercase, with punctuation removed.
+    Returns string list all lowercase, with punctuation removed.
     """
     data = str(data)
-    data.lower()
+    # remove punctuation
     data = re.sub(r'[^\w\s]','', data)
+    data = data.lower()
+    data = data.split()
+    
+    # turn any int within text into words
+    for word in data:
+        if word is int:
+            word = inflect.engine().number_to_words(word)
+    data = ' '.join(data)
     return data
 
 def get_buzzwords(data):
@@ -81,36 +88,49 @@ def get_buzzwords(data):
     Returns a list of the most common words in the data and 
     how often each word appears.
     """
-    tokens = word_tokenize(data)
+    # tokens = word_tokenize(data)
 
-    stop_words = set(stopwords.words('english'))
-    filtered_words = [w for w in tokens if w not in stop_words]
-    word_counts = Counter(filtered_words)
+    # stop_words = set(stopwords.words('english'))
+    # filtered_words = [w for w in tokens if w not in stop_words]
+    # word_counts = Counter(filtered_words)
     
-    num_keywords = 10
-    buzzwords = word_counts.most_common(num_keywords)
-    print('buzzwords:')
-    for buzzword, frequency in buzzwords:
-        pprint(buzzword, '-', frequency)
+    # num_keywords = 10
+    # buzzwords = word_counts.most_common(num_keywords)
+    # for buzzword, frequency in buzzwords:
+    #     pprint(buzzword, frequency)
+    # buzzwords_count = f'buzzwords: {buzzwords}'
+    # return buzzwords_count
+
+    common_words = SHEET.worksheet('wordbank').col_values(3)[1:]
+    try:
+        #find all words in data that are not in common_words
+        buzzwords = [set(common_words).intersection(data)]
+        
+    except Exception as e:
+        raise e.with_traceback()
+    return buzzwords
     
     
-def validate_data(data):
+def percentage_of_matches(data):
     """
-    Returns True if words are correctly formatted. 
-    Words must be in string format, single words and lowercase. 
-    Otherwise returns False with error message.
+    Returns percentage of headline words (data) that are in the buzzword list.
     """
+    
+    
     
 def main():
     """
-    Runs the main functions.
+    Runs all program functions.
     """
     headlines = get_headlines()
+    print(headlines)
     processed_headlines = process_data(headlines)
     pprint(processed_headlines)
+    buzzword_list = get_buzzwords(processed_headlines)
+    print(buzzword_list)
 
 
 
     
-main()
-
+# main()
+get_headlines()
