@@ -172,7 +172,7 @@ def add_new_worksheet_single_cell(worksheet_name, data):
     
 def get_user_input1():
     """
-    Returns user input.
+    Returns user input 1.
     """
     while True:
         print('------------------------------------------------------------')
@@ -183,7 +183,8 @@ def get_user_input1():
         input_data = input('Enter a number: ')
         user_answer = input_data.split('\n')
 
-        if validate_user_input1(input_data):
+        if validate_user_input1(user_answer):
+            print('answer received, thank you!\n')
             break
             
     return user_answer
@@ -204,9 +205,43 @@ def validate_user_input1(user_input1):
 
     return True
 
+def get_user_input2():
+    """
+    Returns user input 2 as list of strings.
+    """
+    while True:
+        print('------------------------------------------------------------')
+        print('Nice one. \n')
+        print('For some bonus points, enter 3 buzzwords you think are in the news today \n')
+        print('Example: apocalypse, AI, mutation\n')
+        print('------------------------------------------------------------')
+        input_data = input('Enter 3 buzzwords: ')
+        user_answer = input_data.split(',')
 
+        if validate_user_input2(user_answer):
+            print('------------------------------------------------------------')
+            print('Answer received, thank you!\n')
+            break
+            
+    return user_answer
     
+def validate_user_input2(user_input2):
+    """
+    If user input is not a string, or if total number of provided buzzwords
+    is not 3, raises ValueError exception.
+    """
+    try:
+        [str(value) for value in user_input2]
+        if len(user_input2)!= 3:
+            raise ValueError(
+                f'Please enter 3 buzzwords, separated by commas.\n You entered: {len(user_input2)}\n')
     
+    except ValueError as e:
+        print(f'Invalid: {e}. Please enter 3 buzzwords. Numbers are not allowed.\n')
+        return False
+
+    return True
+  
 def main():
     """
     Runs all program functions.
@@ -221,6 +256,11 @@ def main():
     percentage = percentage_of_wordbank_matches(keyword_list)
     matches = get_wordbank_matches_list(keyword_list)
     
+    answer1 = get_user_input1()
+    add_new_worksheet_single_cell('worksheet name', answer1)
+    answer2 = get_user_input2()
+    add_new_worksheet_row('worksheet name', answer2)
+    
     # remove prints below when user input functions are added. 
     # these will be shown only after input from user received.    
     print(f'Today\'s apocalypse likelihood: {percentage}%')
@@ -233,4 +273,4 @@ def main():
 
     
 # main()
-get_user_input1()
+get_user_input2()
