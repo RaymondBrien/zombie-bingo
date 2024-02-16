@@ -170,16 +170,42 @@ def add_new_worksheet_single_cell(worksheet_name, data):
     except Exception as e:
         raise e.with_traceback()
     
-def get_user_input(prompt):
+def get_user_input1():
     """
     Returns user input.
     """
+    while True:
+        print('------------------------------------------------------------')
+        print('Welcome pesimist. How likely is doomsday today? (/100)\n')
+        print('Your answer should be a number between 1 and 100.\n')
+        print('Example: 65\n')
+        print('------------------------------------------------------------')
+        input_data = input('Enter a number: ')
+        user_answer = input_data.split('\n')
+
+        if validate_user_input1(input_data):
+            break
+            
+    return user_answer
+ 
+def validate_user_input1(user_input1):
+    """
+    Converts user input to integer.
+    If user input is not an integer, or if number 
+    is not between 0 and 100, raises ValueError exception.
+    """
     try:
-        user_input1 = input(prompt)
-        user_input2 = input(prompt)
-    except Exception as e:
-        raise e.with_traceback()
-    return user_input1, user_input2    
+        if int(user_input1) < 0 or int(user_input1) >100:
+            raise ValueError(f'Invalid input: {user_input1}. Your number must be between 0 and 100')
+    
+    except ValueError as e:
+        print(f'You wrote: {e}. Please enter a number between 1 and 100.\n')
+        return False
+
+    return True
+
+
+    
     
 def main():
     """
@@ -206,5 +232,5 @@ def main():
     # add_new_worksheet_row('keywords', matches)
 
     
-main()
-
+# main()
+get_user_input1()
