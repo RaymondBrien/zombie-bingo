@@ -113,7 +113,6 @@ def remove_common_words(data):
 
     common_words = SHEET.worksheet('wordbank').col_values(3)[1:]
     try:
-        print(f'common words to remove from headlines line 113: {common_words}')
         #find all words in data that are not in common_words
         words_to_remove = [set(common_words).intersection(data)]
         # buzzwords = [word for word in buzzwords if word not in stopwords.words('english')]
@@ -132,12 +131,10 @@ def percentage_of_wordbank_matches(data):
     #find number of matches between data and wordbank 
     matches = set(wordbank).intersection(data)
 
-    print(f'matches line 148: {matches}')
     #find percentage of wordbank matches
-    print(f'percetage = {len(matches)} divided by {len(wordbank)} * 100')
+    print(f'percentage = {len(matches)} divided by {len(wordbank)} * 100')
     percentage = len(matches) / (len(wordbank)) * 100
     percentage = math.floor(percentage)
-    
     return percentage
 
 def get_wordbank_matches_list(data):
@@ -148,7 +145,6 @@ def get_wordbank_matches_list(data):
     
     #find number of matches between data and wordbank 
     matches = set(wordbank).intersection(data)
-    print(f'matches line 148: {matches}')
     return matches
     
 def add_new_worksheet_row(worksheet_name, data):
@@ -192,12 +188,11 @@ def get_user_input1():
         print('Welcome pesimist. How likely is doomsday today? (/100)\n')
         print('Your answer should be a number between 1 and 100.\n')
         print('Example: 65\n')
-        print('------------------------------------------------------------')
-        input_data = input('Enter a number: ')
-        user_answer = input_data.split('\n')
+        print('------------------------------------------------------------\n')
+        user_answer = int(input('\nEnter a number: '))
 
         if validate_user_input1(user_answer):
-            print('answer received, thank you!\n')
+            print('Answer received, thank you!\n')
             break
             
     return user_answer
@@ -207,13 +202,15 @@ def validate_user_input1(user_input1):
     Converts user input to integer.
     If user input is not an integer, or if number 
     is not between 0 and 100, raises ValueError exception.
+    Returns int.
     """
     try:
-        if int(user_input1) < 0 or int(user_input1) > 100:
-            raise ValueError(f'Invalid input: {user_input1}. Your number must be between 0 and 100')
+        while int(user_input1) == True:
+            if user_input1 < 0 or user_input1 > 100:
+                raise ValueError(f'Invalid input: {user_input1}. Your number must be between 0 and 100')
     
     except ValueError as e:
-        print(f'You wrote: {e}. Please enter a number between 1 and 100.\n')
+        print(f'You wrote: {e}.\n Please enter a number between 1 and 100.\n') 
         return False
 
     return True
@@ -259,7 +256,7 @@ def main():
     """
     Runs all program functions.
     """
-    print('Running Zombie Bingo...\n')
+    print('\nRunning Zombie Bingo...\n')
     print('----------------------------------------------------------------')
     print('Welcome to the Zombie Bingo!\n')
     
@@ -272,18 +269,24 @@ def main():
     percentage = percentage_of_wordbank_matches(keyword_list)
     matches = get_wordbank_matches_list(keyword_list)
     
+
     answer1 = get_user_input1()
-    add_new_worksheet_single_cell('user_input', answer1)
-    answer2 = get_user_input2()
-    add_new_worksheet_row('user_input', answer2)
+    answer2 = get_user_input2() 
+    # convert answer 1 to string list to concatenate with answer 2 as full answer
+    answer1 = list(str(answer1))
+    full_answer = answer1 + answer2
+    
+    print(f'full_answer: {full_answer}')
+    
+    # add_new_worksheet_row('user_input', answer2)
        
-    print(f'Today\'s apocalypse likelihood: {percentage}%')
-    print(f'Number of headline words which match doomsday wordbank: {len(matches)}')
-    print(f'Keyword matches: {matches}')
+    # print(f'Today\'s apocalypse likelihood: {percentage}%')
+    # print(f'Number of headline words which match doomsday wordbank: {len(matches)}')
+    # print(f'Keyword matches: {matches}')
 
  
-    add_new_worksheet_single_cell('end_calculator', percentage)
-    add_new_worksheet_row('keywords', matches)
+    # add_new_worksheet_single_cell('end_calculator', percentage)
+    # add_new_worksheet_row('keywords', matches)
 
     
 main()
