@@ -77,6 +77,7 @@ def test_get_headlines():
 def process_data(data):
     """
     Returns string list all lowercase, with punctuation removed.
+    Turns any ints into version (e.g. 1 -> 'one').
     """
     data = str(data)
     # remove punctuation
@@ -88,7 +89,9 @@ def process_data(data):
     for word in data:
         if word is int:
             word = inflect.engine().number_to_words(word)
-    data = ' '.join(data)
+            data = ' '.join(data)
+        data = list(data)
+        
     return data
 
 def remove_common_words(data):
@@ -110,13 +113,14 @@ def remove_common_words(data):
 
     common_words = SHEET.worksheet('wordbank').col_values(3)[1:]
     try:
+        print(f'common words to remove from headlines line 113: {common_words}')
         #find all words in data that are not in common_words
-        keywords = [set(common_words).intersection(data)]
+        words_to_remove = [set(common_words).intersection(data)]
         # buzzwords = [word for word in buzzwords if word not in stopwords.words('english')]
-        
+        data = [word for word in data if word not in stopwords.words('english') and word not in words_to_remove]
     except Exception as e:
         raise e.with_traceback()
-    return keywords
+    return data
     
 def percentage_of_wordbank_matches(data):
     """
@@ -128,7 +132,9 @@ def percentage_of_wordbank_matches(data):
     #find number of matches between data and wordbank 
     matches = set(wordbank).intersection(data)
 
+    print(f'matches line 148: {matches}')
     #find percentage of wordbank matches
+    print(f'percetage = {len(matches)} divided by {len(wordbank)} * 100')
     percentage = len(matches) / (len(wordbank)) * 100
     percentage = math.floor(percentage)
     
@@ -142,7 +148,7 @@ def get_wordbank_matches_list(data):
     
     #find number of matches between data and wordbank 
     matches = set(wordbank).intersection(data)
-
+    print(f'matches line 148: {matches}')
     return matches
     
 def add_new_worksheet_row(worksheet_name, data):
@@ -257,7 +263,10 @@ def main():
     print('----------------------------------------------------------------')
     print('Welcome to the Zombie Bingo!\n')
     
-    headlines = get_headlines()
+    #commented output for testing purposes, using testing headlines instead to avoid maxing API requests
+    # headlines = get_headlines()
+    
+    headlines = test_get_headlines()
     processed_headlines = process_data(headlines)
     keyword_list = remove_common_words(processed_headlines)
     percentage = percentage_of_wordbank_matches(keyword_list)
@@ -265,19 +274,16 @@ def main():
     
     answer1 = get_user_input1()
     add_new_worksheet_single_cell('user_input', answer1)
-    # answer2 = get_user_input2()
-    # add_new_worksheet_row('user_input', answer2)
-    
-    # remove prints below when user input functions are added. 
-    # these will be shown only after input from user received.    
+    answer2 = get_user_input2()
+    add_new_worksheet_row('user_input', answer2)
+       
     print(f'Today\'s apocalypse likelihood: {percentage}%')
     print(f'Number of headline words which match doomsday wordbank: {len(matches)}')
     print(f'Keyword matches: {matches}')
 
  
-    # add_new_worksheet_single_cell('end_calculator', percentage)
-    # add_new_worksheet_row('keywords', matches)
+    add_new_worksheet_single_cell('end_calculator', percentage)
+    add_new_worksheet_row('keywords', matches)
 
     
-# main()
-# get_user_input2()
+main()
