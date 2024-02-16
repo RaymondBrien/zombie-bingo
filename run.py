@@ -67,6 +67,13 @@ def get_headlines():
         print(e)
     return title_collection
 
+def test_get_headlines():
+    """
+    FOR TESTING PURPOSES ONLY TO AVOID MAXING OUT API REQUESTS.
+    """
+    title_collection = 'Global Leaders Convene for Climate Summit; Pledge Action on Climate Change. Tech Giants Unveil New Innovations at Annual Conference, Economic Uncertainty Looms as Stock Markets Fluctuate, Health Experts Warn of Potential New Wave of Pandemic Cases. Renewable Energy Surges, Outpacing Fossil Fuel Investments, Political Turmoil Erupts in Region, Raising Concerns for Stability. Breakthrough in Medical Research Offers Hope for Rare Diseases, Education Sector Faces Challenges Amidst Shift to Online Learning. Space Exploration Reaches New Heights with Successful Satellite Launch, Environmentalists Rally for Conservation Efforts in Face of Biodiversity Loss.'
+    return title_collection
+    
 def process_data(data):
     """
     Returns string list all lowercase, with punctuation removed.
@@ -196,7 +203,7 @@ def validate_user_input1(user_input1):
     is not between 0 and 100, raises ValueError exception.
     """
     try:
-        if int(user_input1) < 0 or int(user_input1) >100:
+        if int(user_input1) < 0 or int(user_input1) > 100:
             raise ValueError(f'Invalid input: {user_input1}. Your number must be between 0 and 100')
     
     except ValueError as e:
@@ -257,9 +264,9 @@ def main():
     matches = get_wordbank_matches_list(keyword_list)
     
     answer1 = get_user_input1()
-    add_new_worksheet_single_cell('worksheet name', answer1)
-    answer2 = get_user_input2()
-    add_new_worksheet_row('worksheet name', answer2)
+    add_new_worksheet_single_cell('user_input', answer1)
+    # answer2 = get_user_input2()
+    # add_new_worksheet_row('user_input', answer2)
     
     # remove prints below when user input functions are added. 
     # these will be shown only after input from user received.    
@@ -273,4 +280,4 @@ def main():
 
     
 # main()
-get_user_input2()
+# get_user_input2()
