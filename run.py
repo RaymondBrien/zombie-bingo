@@ -147,27 +147,10 @@ def get_wordbank_matches_list(data):
     matches = set(wordbank).intersection(data)
     return matches
     
-def add_new_worksheet_row(worksheet_name, data):
+def add_to_worksheet_(worksheet_name, data):
     """
-    Adds data to spreadsheet.
+    Adds data to spreadsheet as a new row.
     """
-    # col = 1
-    
-    try:
-        print(f'Updating {worksheet_name} worksheet...\n')
-        #adds new row to worksheet
-        SHEET.worksheet(worksheet_name).append_row(data) 
-        
-        print(f'{worksheet_name} worksheet successfully updated...\n')
-    
-    except Exception as e:
-        raise e.with_traceback()
-
-def add_new_worksheet_single_cell(worksheet_name, data):
-    """
-    Adds data to spreadsheet.
-    """
-    # col = 1
     
     try:
         print(f'Updating {worksheet_name} worksheet...\n')
@@ -252,13 +235,25 @@ def validate_user_input2(user_input2):
 
     return True
   
+def calculate_user_buzzword_points(keyword_list, user_list):
+    """
+    Find any matches between API headlines and user buzzwords.
+    Generate score - one point per matched buzzword.
+    Maximum of three points per turn.
+    """
+    
+    matches_list = set(list).intersection(keyword_list)
+    points = len(matches_list)
+    
+    return points
+
 def main():
     """
     Runs all program functions.
     """
     print('\nRunning Zombie Bingo...\n')
     print('----------------------------------------------------------------')
-    print('Welcome to the Zombie Bingo!\n')
+    print('\nWelcome to the Zombie Bingo!\n')
     
     #commented output for testing purposes, using testing headlines instead to avoid maxing API requests
     # headlines = get_headlines()
@@ -280,11 +275,10 @@ def main():
     
     # add_new_worksheet_row('user_input', answer2)
        
-    # print(f'Today\'s apocalypse likelihood: {percentage}%')
-    # print(f'Number of headline words which match doomsday wordbank: {len(matches)}')
-    # print(f'Keyword matches: {matches}')
+    print(f'Today\'s apocalypse likelihood: {percentage}%')
+    print(f'Number of headline words which match doomsday wordbank: {len(matches)}')
+    print(f'Keyword matches: {matches}')
 
- 
     # add_new_worksheet_single_cell('end_calculator', percentage)
     # add_new_worksheet_row('keywords', matches)
 
