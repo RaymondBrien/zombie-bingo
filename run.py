@@ -242,10 +242,30 @@ def calculate_user_buzzword_points(keyword_list, user_list):
     Maximum of three points per turn.
     """
     
-    matches_list = set(list).intersection(keyword_list)
+    matches_list = set(user_list).intersection(keyword_list)
     points = len(matches_list)
     
     return points
+
+def calculate_user_percentage_score(user_input1, percentage):
+    """
+    If user is within 10% range of actual percentage, 
+    return 1 point. Else return 0.
+    """
+    if user_input1 <= percentage + 10 and user_input1 >= percentage - 10:
+        return 1
+    else:
+        return 0
+    
+# def calculate_user_total_score(score1, score2):
+#     """
+#     Returns total score of user input.
+#     """
+#     # score1 = calculate_user_buzzword_points()
+#     # score2 = calculate_user_percentage_score()
+    
+#     total = score1 + score2
+#     return total
 
 def main():
     """
@@ -255,14 +275,15 @@ def main():
     print('----------------------------------------------------------------')
     print('\nWelcome to the Zombie Bingo!\n')
     
-    #commented output for testing purposes, using testing headlines instead to avoid maxing API requests
+    # commented output for testing purposes, using testing headlines instead 
+    # to avoid maxing API requests
     # headlines = get_headlines()
     
     headlines = test_get_headlines()
     processed_headlines = process_data(headlines)
     keyword_list = remove_common_words(processed_headlines)
     percentage = percentage_of_wordbank_matches(keyword_list)
-    matches = get_wordbank_matches_list(keyword_list)
+    headline_matches = get_wordbank_matches_list(keyword_list)
     
 
     answer1 = get_user_input1()
@@ -270,14 +291,19 @@ def main():
     # convert answer 1 to string list to concatenate with answer 2 as full answer
     answer1 = list(str(answer1))
     full_answer = answer1 + answer2
-    
     print(f'full_answer: {full_answer}')
+    
+    user_matches = calculate_user_buzzword_points(answer2, headline_matches)
+    user_percentage_score = calculate_user_percentage_score(answer1, percentage)
+    user_total_score = user_matches + user_percentage_score
     
     # add_new_worksheet_row('user_input', answer2)
        
     print(f'Today\'s apocalypse likelihood: {percentage}%')
-    print(f'Number of headline words which match doomsday wordbank: {len(matches)}')
-    print(f'Keyword matches: {matches}')
+    print(f'Number of headline words which match doomsday wordbank: {len(headline_matches)}')
+    print(f'Keyword matches: {headline_matches}')
+    print('\n----------------------------------------------------------------\n')
+    print(f'\nYour score: {user_total_score}\n')
 
     # add_new_worksheet_single_cell('end_calculator', percentage)
     # add_new_worksheet_row('keywords', matches)
