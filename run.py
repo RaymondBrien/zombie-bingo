@@ -69,6 +69,7 @@ def get_headlines():
 
 def test_get_headlines():
     """
+    TODO take it out
     FOR TESTING PURPOSES ONLY TO AVOID MAXING OUT API REQUESTS.
     """
     title_collection = 'Global Leaders Convene for Climate Summit; Pledge Action on Climate Change. Tech Giants Unveil New Innovations at Annual Conference, Economic Uncertainty Looms as Stock Markets Fluctuate, Health Experts Warn of Potential New Wave of Pandemic Cases. Renewable Energy Surges, Outpacing Fossil Fuel Investments, Political Turmoil Erupts in Region, Raising Concerns for Stability. Breakthrough in Medical Research Offers Hope for Rare Diseases, Education Sector Faces Challenges Amidst Shift to Online Learning. Space Exploration Reaches New Heights with Successful Satellite Launch, Environmentalists Rally for Conservation Efforts in Face of Biodiversity Loss.'
@@ -126,7 +127,9 @@ def percentage_of_wordbank_matches(data):
     Returns percentage of matches between data and wordbank.
     This defines the percentage likelihood of apocalypse.
     """
+    #TODO add as a function to avoid repeating this
     wordbank = SHEET.worksheet('wordbank').col_values(2)[1:]
+    
     
     #find number of matches between data and wordbank 
     matches = set(wordbank).intersection(data)
@@ -147,7 +150,7 @@ def get_wordbank_matches_list(data):
     matches = set(wordbank).intersection(data)
     return matches
     
-def add_to_worksheet_(worksheet_name, data):
+def add_to_worksheet(worksheet_name, data):
     """
     Adds data to spreadsheet as a new row.
     """
@@ -168,7 +171,7 @@ def get_user_input1():
     """
     while True:
         print('------------------------------------------------------------')
-        print('Welcome pesimist. How likely is doomsday today? (/100)\n')
+        print('Welcome pessimist. How likely is doomsday today? (/100)\n')
         print('Your answer should be a number between 1 and 100.\n')
         print('Example: 65\n')
         print('------------------------------------------------------------\n')
@@ -188,10 +191,12 @@ def validate_user_input1(user_input1):
     Returns int.
     """
     try:
-        while int(user_input1) == True:
+        if type(user_input1) == int:
+        # while int(user_input1) == True:
             if user_input1 < 0 or user_input1 > 100:
                 raise ValueError(f'Invalid input: {user_input1}. Your number must be between 0 and 100')
-    
+        else:
+            raise ValueError(f'Invalid input, expected an integer, got {type(user_input1)}')
     except ValueError as e:
         print(f'You wrote: {e}.\n Please enter a number between 1 and 100.\n') 
         return False
@@ -224,7 +229,7 @@ def validate_user_input2(user_input2):
     is not 3, raises ValueError exception.
     """
     try:
-        [str(value) for value in user_input2]
+        [str(value) for value in user_input2] #TODO: make this a for loop
         if len(user_input2)!= 3:
             raise ValueError(
                 f'Please enter 3 buzzwords, separated by commas.\n You entered: {len(user_input2)}\n')
@@ -242,7 +247,7 @@ def calculate_user_buzzword_points(keyword_list, user_list):
     Maximum of three points per turn.
     """
     
-    matches_list = set(user_list).intersection(keyword_list)
+    matches_list = set(user_list).intersection(keyword_list) #TODO use a function
     points = len(matches_list)
     
     return points
@@ -289,8 +294,7 @@ def main():
     answer1 = get_user_input1()
     answer2 = get_user_input2() 
     # convert answer 1 to string list to concatenate with answer 2 as full answer
-    answer1 = list(str(answer1))
-    full_answer = answer1 + answer2
+    full_answer = list(str(answer1)) + answer2
     print(f'full_answer: {full_answer}')
     
     user_matches = calculate_user_buzzword_points(answer2, headline_matches)
@@ -308,5 +312,5 @@ def main():
     # add_new_worksheet_single_cell('end_calculator', percentage)
     # add_new_worksheet_row('keywords', matches)
 
-    
-main()
+if __name__ == '__main__':    
+    main()
