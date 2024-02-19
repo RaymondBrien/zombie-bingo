@@ -281,6 +281,17 @@ def calculate_user_percentage_score(user_input1, percentage):
         return 1
     else:
         return 0
+    
+def play_again():
+    """ 
+    Starts program again if y.
+    Finishes program if n.
+    """
+    if input('Would you like to play again? (y/n): ').lower() == 'y':
+        main()
+    elif input('Would you like to play again? (y/n): ').lower() == 'n':
+        print('Thank you for playing!')
+        exit()
 
 def main():
     """
@@ -315,14 +326,6 @@ def main():
     user_total_score = user_matches + user_percentage_score
     # print(f'user_total_score: {user_total_score}')
     
-    print('\n----------------------------------------------------------------\n') #TODO tabulate these data points so looks nice in terminal. Or write as a function?
-    print(f'Your answers: {user_full_answer}\n')
-    print(f'Today\'s keywords in the news headlines were: {headline_matches}\n')
-    print(f'You won: {user_total_score} points\n')
-    print('\n----------------------------------------------------------------\n') 
-    print(f'Today there is a {percentage}% chance of apocalypse!\n')
-    print('\n----------------------------------------------------------------\n')
-
     # update worksheets
     update_worksheet_row('program_answers', program_full_answer)
     update_worksheet_row('user_answers', user_full_answer)
@@ -330,6 +333,17 @@ def main():
     end_results = [percentage, user_total_score]
     print(f'End results: {end_results}\n')
     update_worksheet_cell('end_calculator', end_results)
+    
+    print('\n----------------------------------------------------------------\n') #TODO tabulate these data points so looks nice in terminal. Or write as a function?
+    print(f'Your answers: {user_full_answer}\n')
+    print(f'Today\'s keywords in the news headlines were: {headline_matches}\n')
+    print(f'You won: {user_total_score} points\n') #TODO add graphic depending on how many points out of max won. (Smiley face or cool terminal graphic)
+    print('\n----------------------------------------------------------------\n') 
+    print(f'Today there is a {percentage}% chance of apocalypse!\n')
+    print('\n----------------------------------------------------------------\n')
+
+    play_again()
+
 
 
 
