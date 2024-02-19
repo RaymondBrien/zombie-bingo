@@ -14,9 +14,8 @@ import math
 import colorama
 from colorama import Fore, Back, Style
 
-#https://www.youtube.com/watch?v=u51Zjlnui4Y
+
 colorama.init(autoreset=True) #auto-reset color for each new line
-print(f'{Fore.GREEN}{Back.CYAN}{Style.DIM}Welcome to the program!')
 
 
 # REFACTORING TODOs:
@@ -27,14 +26,25 @@ print(f'{Fore.GREEN}{Back.CYAN}{Style.DIM}Welcome to the program!')
 # TODO error handling with SPEICIFIC error types
 # TODO error for second user questsion - if not right type, look back to ask second Q again so doesn't just complete the program running
 # TODO validate against marking criteria 
-# TODO 
+# TODO add an average point score updating the user each time the game finishes. Easy to do. Mean average of sum of all user final scores in col.
 # TODO 
 # TODO 
 
 
 import time
 import sys
-# https://medium.com/@joloiuy/creating-captivating-terminal-animations-in-python-a-fun-and-interactive-guide-2eeb2a6b25ec
+
+def center_text(text):
+    """
+    Center text in terminal with star.
+    """
+    text_string = text.center(14, '*')
+    return text_string
+
+#INIT
+welcome_message = f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}WELCOME TO ZOMBIE BINGO'
+message = welcome_message.center(14, '*')
+print(message)
 
 def animation_loop():
     animation = "|/-\\"
@@ -47,8 +57,6 @@ def animation_loop():
         if time.time() - start_time > 10:  # The animation will last for 10 seconds
             break
     sys.stdout.write("\rDone!")
-
-
 
 
 SCOPE = [
@@ -197,7 +205,7 @@ def update_worksheet_row(worksheet_name, values):
     try:
         print(f'Updating {worksheet_name} worksheet...\n')
         SHEET.worksheet(worksheet_name).append_row(values) 
-        print(f'{worksheet_name} worksheet successfully updated...\n')
+        print(f'{Fore.LIGHTGREEN_EX}{worksheet_name} worksheet successfully updated...\n')
         
     except TypeError as e:
         raise TypeError('data must be a list') and pprint(e.with_traceback()) #TODO sort so doesn't finish program, will ask to start again.
@@ -227,7 +235,7 @@ def get_user_input1():
         user_answer = int(input('\nEnter a number: '))
 
         if validate_user_input1(user_answer):
-            print('Answer received, thank you!\n')
+            print(f'{Fore.LIGHTGREEN_EX}Answer received, thank you!\n')
             break
             
     return user_answer
@@ -267,7 +275,7 @@ def get_user_input2():
 
         if validate_user_input2(user_answer):
             print('------------------------------------------------------------')
-            print('Answer received, thank you!\n')
+            print('f{Fore.LIGHTGREEN_EX}Answer received, thank you!\n')
             print('------------------------------------------------------------\n')
             break
             
@@ -324,15 +332,12 @@ def play_again():
         print('Thank you for playing!')
         exit()
 
-
-
 def main():
     """
     Runs all program functions.
     """
-    print('\nRunning Zombie Bingo...\n')
     print('\n----------------------------------------------------------------\n')
-    print('\nWelcome to the Zombie Bingo!\n')
+    print(f'{Fore.GREEN}Welcome to the Zombie Bingo!\n')
     
     # commented output for testing purposes, using testing headlines instead 
     # to avoid maxing API requests
@@ -372,16 +377,11 @@ def main():
     print(f'{Fore.RED}Today\'s keywords in the news headlines were: {headline_matches}\n')
     print(f'You won: {user_total_score} points\n') #TODO add graphic depending on how many points out of max won. (Smiley face or cool terminal graphic). Will need new function.
     print('\n----------------------------------------------------------------\n') 
-    print(f'{Fore.RED}Today there is a {percentage}% chance of apocalypse!\n')
+    print(f'{Fore.RED}{Back.LIGHTBLACK_EX}{Style.BRIGHT}Today there is a {percentage}% chance of apocalypse!\n')
     print('\n----------------------------------------------------------------\n')
 
     play_again()
 
+if __name__ == '__main__':    
+    main()
 
-#TODO add an average point score updating the user each time the game finishes. Easy to do. Mean average of sum of all user final scores in col.
-
-
-#if __name__ == '__main__':    
-#    main()
-
-play_again()

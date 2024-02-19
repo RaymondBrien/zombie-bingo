@@ -222,8 +222,8 @@ I've used the following Python packages and/or external imported packages.
 - `os`: used for adding a `clear()` function
 - `colorama`: used for including color in the terminal
 - `nltk`: used for stopwords to remove generic works from news headlines
-- 're'
-- 'inflect'
+<!-- - 're' -->
+<!-- - 'inflect' -->
 - 'math': to create clear percentage calculations with math.floor
 
 
@@ -336,10 +336,10 @@ You can fork this repository by using the following steps:
 It is common practice to use code from other repositories and tutorials,
 however, it is important to be very specific about these sources to avoid plagiarism. -->
 
-- Stackoverflow (http://stackoverflow.com) (UPDATE URL): set find difference 
+<!-- - Stackoverflow (http://stackoverflow.com) (UPDATE URL): set find difference  -->
 
 
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+
 
 ### Content
 
@@ -353,9 +353,13 @@ Ideally, you should provide an actual link to every resource used, not just a ge
 | Source | Location | Notes |
 | --- | --- | --- |
 | [Markdown Builder](https://tim.2bn.dev/markdown-builder) | README and TESTING | tool to help generate the Markdown files |
-| [StackOverflow](https://stackoverflow.com/a/2450976) | quiz page | Fisher-Yates/Knuth shuffle in JS |
-| [strftime](https://strftime.org) | CRUD functionality | helpful tool to format date/time from string |
-| [WhiteNoise](http://whitenoise.evans.io) | entire site | hosting static files on Heroku temporarily |
+| [Tech with Tim](https://www.youtube.com/watch?v=u51Zjlnui4Y) | terminal styling | tutorial on using colorama to add colors to terminal |
+| [Medium](https://medium.com/@joloiuy/creating-captivating-terminal-animations-in-python-a-fun-and-interactive-guide-2eeb2a6b25ec) | Loading animations | blog post on animations in the terminal |
+| [StackOverflow](https://stackoverflow.com/questions/3462143/get-difference-between-two-lists-with-unique-entries) | Finding differences function | forum on effective difference checker methods between lists |
+| [StackOverflow](https://stackoverflow.com/questions/9953619/technique-to-remove-common-wordsand-their-plural-versions-from-a-string) | text processing functions | forum on usage of stopwords to process text to remove common words with nltk |
+| [Markdown Builder](https://tim.2bn.dev/markdown-builder) | README and TESTING | tool to help generate the Markdown files |
+<!-- | [strftime](https://strftime.org) | CRUD functionality | helpful tool to format date/time from string | -->
+<!-- | [WhiteNoise](http://whitenoise.evans.io) | entire site | hosting static files on Heroku temporarily | -->
 
 ### Media
 
