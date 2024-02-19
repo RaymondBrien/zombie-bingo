@@ -11,6 +11,13 @@ from collections import Counter #TODO remove?
 import re
 import inflect
 import math 
+import colorama
+from colorama import Fore, Back, Style
+
+#https://www.youtube.com/watch?v=u51Zjlnui4Y
+colorama.init(autoreset=True) #auto-reset color for each new line
+print(f'{Fore.GREEN}{Back.CYAN}{Style.DIM}Welcome to the program!')
+
 
 # REFACTORING TODOs:
 # TODO make single function for set find diff 
@@ -19,7 +26,7 @@ import math
 # TODO more user feedback informing user what is happening including LOADING so don't press key too soon
 # TODO error handling with SPEICIFIC error types
 # TODO error for second user questsion - if not right type, look back to ask second Q again so doesn't just complete the program running
-# TODO 
+# TODO validate against marking criteria 
 # TODO 
 # TODO 
 # TODO 
@@ -311,11 +318,13 @@ def play_again():
     Starts program again if y.
     Finishes program if n.
     """
-    if input('Would you like to play again? (y/n): ').lower() == 'y':
+    if input(f'Would you like to play again? {Fore.LIGHTBLACK_EX}({Fore.GREEN}y{Fore.LIGHTBLACK_EX}/{Fore.RED}n{Fore.LIGHTBLACK_EX}): ').lower() == 'y':
         main()
-    else: #TODO test as n needed sbubmitting twice- perhaps not elif? Use else? ALso style with border?
+    else:
         print('Thank you for playing!')
         exit()
+
+
 
 def main():
     """
@@ -359,11 +368,11 @@ def main():
     update_worksheet_cell('end_calculator', end_results)
     
     print('\n----------------------------------------------------------------\n') #TODO tabulate these data points so looks nice in terminal. Or write as a function?
-    print(f'Your answers: {user_full_answer}\n') #TODO picks up a two digit number as two numbers: e.g. 65, 66 = '6','6' - DEBUG
-    print(f'Today\'s keywords in the news headlines were: {headline_matches}\n')
-    print(f'You won: {user_total_score} points\n') #TODO add graphic depending on how many points out of max won. (Smiley face or cool terminal graphic)
+    print(f'{Fore.GREEN}Your answers: {user_full_answer}\n') #TODO picks up a two digit number as two numbers: e.g. 65, 66 = '6','6' - DEBUG
+    print(f'{Fore.RED}Today\'s keywords in the news headlines were: {headline_matches}\n')
+    print(f'You won: {user_total_score} points\n') #TODO add graphic depending on how many points out of max won. (Smiley face or cool terminal graphic). Will need new function.
     print('\n----------------------------------------------------------------\n') 
-    print(f'Today there is a {percentage}% chance of apocalypse!\n')
+    print(f'{Fore.RED}Today there is a {percentage}% chance of apocalypse!\n')
     print('\n----------------------------------------------------------------\n')
 
     play_again()
@@ -372,8 +381,7 @@ def main():
 #TODO add an average point score updating the user each time the game finishes. Easy to do. Mean average of sum of all user final scores in col.
 
 
+#if __name__ == '__main__':    
+#    main()
 
-
-
-if __name__ == '__main__':    
-    main()
+play_again()
