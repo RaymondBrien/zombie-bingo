@@ -112,31 +112,29 @@ IMPORTANT: Remember to always include a screenshot of each individual feature! -
 
 ![screenshot](documentation/featurex.png)
 
-- **User input via terminal **
+- **User input via terminal**
 
     - .
 
 ![screenshot](documentation/featurex.png)
 
-- ** **
+- **User feedback**
 
     - .
 
 ![screenshot](documentation/featurex.png)
 
-- ** **
+- **Game restart**
 
     - .
 
 ![screenshot](documentation/featurex.png)
 
-- ** **
+- **Game Answers**
 
     - .
 
 ![screenshot](documentation/featurex.png)
-
-<!-- Add more features here  -->
 
 ### Future Features
 
@@ -145,12 +143,12 @@ Fantastic! List them here!
 It's always great to have plans for future improvements!
 Consider adding any helpful links or notes to help remind you in the future, if you revisit the project in a couple years. -->
 
-- Title for future feature #1
-    - Any additional notes about this feature.
-- Title for future feature #2
-    - Any additional notes about this feature.
-- Title for future feature #3
-    - Any additional notes about this feature.
+- Optional headline filtering via terminal
+    - The user could add optional filters of criteria for the news API to use, including its main sources or number of results.
+- Add further wordbank entries
+    - Users could add additional stopwords and buzzwords to the wordbank to refine the game further, espeically if some words become more common over time due to media trends.
+- Analytics and interpretation
+    - At the end of each week, users will receive insights on their average point scores over time.
 
 ## Tools & Technologies Used
 
@@ -169,11 +167,10 @@ Feel free to delete any unused items below as necessary.
 - [GitHub](https://github.com) used for secure online code storage.
 - [Heroku](https://www.heroku.com) used for hosting the deployed back-end site.
 - [Gspread](https://www.google.com...) used for...
-- [Google Charts](https://www.google.com...), user for...
-
-Google sheets
-Google Cloud Platform
-
+- [Google Sheets](https://www.google.com...), used for...
+- [NewsNowAPI](https://newsnow...), used for...
+- [Google Cloud](https://www.google.com...), used for...
+- [Google Charts](https://www.google.com...), used for...
 
 ## Data Model
 
@@ -189,7 +186,7 @@ Below is the flowchart of the main process of this Python program. It shows the 
 
 ### Classes & Functions
 
-The program uses classes as a blueprint for the project's objects (OOP). This allows for the object to be reusable.
+<!-- The program uses classes as a blueprint for the project's objects (OOP). This allows for the object to be reusable.
 
 ```python
 class Person:
@@ -199,22 +196,32 @@ class Person:
         self.age = age
         self.health = health
         self.inventory = inventory
-```
+``` -->
 
 The primary functions used on this application are:
 
 - `get_headlines()`
     <!-- - Get sales figures input from the user. -->
-- `validate_data()`
-    - Converts all string values into integers.
-- `update_worksheet()`
-    - Update the relevant worksheet with the data provided.
-- `calculate_surplus_data()`
-    - Compare sales with stock and calculate the surplus for each item type.
-- `get_last_5_entries_sales()`
-    - Collects columns of data from sales worksheet.
-- `calculate_stock_data()`
-    -  Calculate the average stock for each item type, adding 10%.
+- `process_data()`
+    <!-- - Converts all string values into integers. -->
+- `remove_common_words()`
+    <!-- - Update the relevant worksheet with the data provided. -->
+- `percentage_of_wordbank_matches()`
+    <!-- - Compare sales with stock and calculate the surplus for each item type. -->
+- `get_wordbank_matches_list()`
+    <!-- - Collects columns of data from sales worksheet.
+- `get_user_input()`
+    <!-- -  Calculate the average stock for each item type, adding 10%. -->
+- `update_worksheet_cell()`
+    <!-- -  Calculate the average stock for each item type, adding 10%. -->
+- `update_worksheet_row()`
+    <!-- -  Calculate the average stock for each item type, adding 10%. -->
+- `calculate_user_buzzword_points()`
+    <!-- -  Calculate the average stock for each item type, adding 10%. -->
+- `calculate_user_percentage_score()`
+    <!-- -  Calculate the average stock for each item type, adding 10%. -->
+- `play_again()`
+    <!-- -  Calculate the average stock for each item type, adding 10%. -->
 - `main()`
     - Run all program functions.
 

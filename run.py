@@ -345,7 +345,7 @@ def main():
     play_again()
 
 
-
+#TODO add an average point score updating the user each time the game finishes. Easy to do. Mean average of sum of all user final scores in col.
 
 
 
