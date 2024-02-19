@@ -4,7 +4,7 @@ from google.oauth2.service_account import Credentials
 import json
 from pprint import pprint #TODO remove?
 import requests
-import nltk
+import nltk #TODO remove?
 from nltk.tokenize import word_tokenize  #TODO remove?
 from nltk.corpus import stopwords
 from collections import Counter #TODO remove?
@@ -12,6 +12,7 @@ import re
 import inflect
 import math 
 
+# REFACTORING TODOs:
 # TODO make single function for set find diff 
 # TODO add picle art?
 # TODO use google charts and spinning typer icon 
@@ -19,6 +20,29 @@ import math
 # TODO error handling with SPEICIFIC error types
 # TODO error for second user questsion - if not right type, look back to ask second Q again so doesn't just complete the program running
 # TODO 
+# TODO 
+# TODO 
+# TODO 
+
+
+import time
+import sys
+# https://medium.com/@joloiuy/creating-captivating-terminal-animations-in-python-a-fun-and-interactive-guide-2eeb2a6b25ec
+
+def animation_loop():
+    animation = "|/-\\"
+    start_time = time.time()
+    while True:
+        for i in range(4):
+            time.sleep(0.6)  # Feel free to experiment with the speed here
+            sys.stdout.write("\r" + animation[i % len(animation)])
+            sys.stdout.flush()
+        if time.time() - start_time > 10:  # The animation will last for 10 seconds
+            break
+    sys.stdout.write("\rDone!")
+
+
+
 
 SCOPE = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -72,7 +96,7 @@ def get_headlines():
         for news_item in primary_text['news']:
             title_collection.append(news_item['title'])
     except Exception as e: #TODO handle with SPECIFIC exception
-        raise Exception
+        raise Exception #TODO as above
     return title_collection
 
 def test_get_headlines():
@@ -121,7 +145,7 @@ def remove_common_words(data):
     # buzzwords_count = f'buzzwords: {buzzwords}'
     # return buzzwords_count
 
-    common_words = SHEET.worksheet('wordbank').col_values(3)[1:]
+    common_words = SHEET.worksheet('wordbank').col_values(3)[1:] #TODO make a function to avoid repeating this
     try:
         #find all words in data that are not in common_words
         words_to_remove = [set(common_words).intersection(data)]
@@ -289,7 +313,7 @@ def play_again():
     """
     if input('Would you like to play again? (y/n): ').lower() == 'y':
         main()
-    elif input('Would you like to play again? (y/n): ').lower() == 'n': #TODO test as n needed sbubmitting twice- perhaps not elif? Use else? ALso style with border?
+    else: #TODO test as n needed sbubmitting twice- perhaps not elif? Use else? ALso style with border?
         print('Thank you for playing!')
         exit()
 

@@ -102,7 +102,7 @@ IMPORTANT: Remember to always include a screenshot of each individual feature! -
 
 - **Keywords Finder**
 
-    - Removes most common words using tokenizing methods from the NLTK library.
+    - Removes most common words using stopwords from the NLTK library and common words defined in the wordbank.
 
 ![screenshot](documentation/feature03.png)
 
@@ -114,34 +114,29 @@ IMPORTANT: Remember to always include a screenshot of each individual feature! -
 
 - **User input via terminal**
 
-    - .
+    - The user answers questions directly typing into the terminal.
 
 ![screenshot](documentation/featurex.png)
 
 - **User feedback**
 
-    - .
+    - The user is prompted, kept informed of current processes running and when processes have successfully finished or raised an error.
 
 ![screenshot](documentation/featurex.png)
 
 - **Game restart**
 
-    - .
+    - At the end of the game, the user is prompted to restart the game or finished the game.
 
 ![screenshot](documentation/featurex.png)
 
 - **Game Answers**
 
-    - .
+    - After the user has answered both main questions, the game provides the game answers alongside the user's answers, with an aplocalypse probability based on the current headlines and their respective buzzwords.
 
 ![screenshot](documentation/featurex.png)
 
 ### Future Features
-
-<!-- Do you have additional ideas that you'd like to include on your project in the future?
-Fantastic! List them here!
-It's always great to have plans for future improvements!
-Consider adding any helpful links or notes to help remind you in the future, if you revisit the project in a couple years. -->
 
 - Optional headline filtering via terminal
     - The user could add optional filters of criteria for the news API to use, including its main sources or number of results.
@@ -152,16 +147,7 @@ Consider adding any helpful links or notes to help remind you in the future, if 
 
 ## Tools & Technologies Used
 
-🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-In this section, you should explain the various tools and technologies used to develop the project.
-Make sure to put a link (where applicable) to the source, and explain what each was used for.
-Some examples have been provided, but this is just a sample only, your project might've used others.
-Feel free to delete any unused items below as necessary.
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-
+<!-- UPDATE LINKS -->
 - [Python](https://www.python.org) used as the back-end programming language.
 - [Git](https://git-scm.com) used for version control. (`git add`, `git commit`, `git push`)
 - [GitHub](https://github.com) used for secure online code storage.
@@ -340,15 +326,11 @@ You can fork this repository by using the following steps:
 
 ### Local VS Deployment
 
-🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
 <!-- Use this space to discuss any differences between the local version you've developed, and the live deployment site on Heroku. -->
 
 🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
 
 ## Credits
-
-🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
 
 <!-- In this section you need to reference where you got your content, media, and extra help from.
 It is common practice to use code from other repositories and tutorials,
@@ -371,15 +353,7 @@ Ideally, you should provide an actual link to every resource used, not just a ge
 | Source | Location | Notes |
 | --- | --- | --- |
 | [Markdown Builder](https://tim.2bn.dev/markdown-builder) | README and TESTING | tool to help generate the Markdown files |
-| [Chris Beams](https://chris.beams.io/posts/git-commit) | version control | "How to Write a Git Commit Message" |
-| [W3Schools](https://www.w3schools.com/howto/howto_js_topnav_responsive.asp) | entire site | responsive HTML/CSS/JS navbar |
-| [W3Schools](https://www.w3schools.com/howto/howto_css_modals.asp) | contact page | interactive pop-up (modal) |
-| [W3Schools](https://www.w3schools.com/css/css3_variables.asp) | entire site | how to use CSS :root variables |
-| [Flexbox Froggy](https://flexboxfroggy.com/) | entire site | modern responsive layouts |
-| [Grid Garden](https://cssgridgarden.com) | entire site | modern responsive layouts |
 | [StackOverflow](https://stackoverflow.com/a/2450976) | quiz page | Fisher-Yates/Knuth shuffle in JS |
-| [YouTube](https://www.youtube.com/watch?v=YL1F4dCUlLc) | leaderboard | using `localStorage()` in JS for high scores |
-| [YouTube](https://www.youtube.com/watch?v=u51Zjlnui4Y) | PP3 terminal | tutorial for adding color to the Python terminal |
 | [strftime](https://strftime.org) | CRUD functionality | helpful tool to format date/time from string |
 | [WhiteNoise](http://whitenoise.evans.io) | entire site | hosting static files on Heroku temporarily |
 
