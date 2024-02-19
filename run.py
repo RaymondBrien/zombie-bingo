@@ -287,7 +287,7 @@ def main():
     Runs all program functions.
     """
     print('\nRunning Zombie Bingo...\n')
-    print('----------------------------------------------------------------')
+    print('\n----------------------------------------------------------------\n')
     print('\nWelcome to the Zombie Bingo!\n')
     
     # commented output for testing purposes, using testing headlines instead 
@@ -308,19 +308,20 @@ def main():
     answer2 = get_user_input2() 
     # convert answer 1 to string list to concatenate with answer 2 as full answer
     user_full_answer = list(str(answer1)) + answer2
-    print(f'program full_answer: {user_full_answer}')
+    # print(f'program full_answer: {user_full_answer}')
     
     user_matches = calculate_user_buzzword_points(answer2, headline_matches)
     user_percentage_score = calculate_user_percentage_score(answer1, percentage) #TODO test numbers within 10% of program add a point correctly
     user_total_score = user_matches + user_percentage_score
-    print(f'user_total_score: {user_total_score}')
+    # print(f'user_total_score: {user_total_score}')
     
     print('\n----------------------------------------------------------------\n') #TODO tabulate these data points so looks nice in terminal. Or write as a function?
-    print(f'Today\'s apocalypse likelihood: {percentage}%')
-    print(f'Number of headline words which match doomsday wordbank: {len(headline_matches)}')
-    print(f'Keyword matches: {headline_matches}')
+    print(f'Your answers: {user_full_answer}\n')
+    print(f'Today\'s keywords in the news headlines were: {headline_matches}\n')
+    print(f'You won: {user_total_score} points\n')
+    print('\n----------------------------------------------------------------\n') 
+    print(f'Today there is a {percentage}% chance of apocalypse!\n')
     print('\n----------------------------------------------------------------\n')
-    print(f'\nYour score: {user_total_score}\n')
 
     # update worksheets
     update_worksheet_row('program_answers', program_full_answer)
@@ -329,6 +330,12 @@ def main():
     end_results = [percentage, user_total_score]
     print(f'End results: {end_results}\n')
     update_worksheet_cell('end_calculator', end_results)
+
+
+
+
+
+
 
 if __name__ == '__main__':    
     main()
