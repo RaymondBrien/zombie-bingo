@@ -80,7 +80,7 @@ def test_get_headlines():
     TODO remove when finished?
     FOR TESTING PURPOSES ONLY TO AVOID MAXING OUT API REQUESTS. 
     """
-    title_collection = 'Global Leaders Convene for Climate Summit; Pledge Action on Climate Change. Tech Giants Unveil New Innovations at Annual Conference, Economic Uncertainty Looms as Stock Markets Fluctuate, Health Experts Warn of Potential New Wave of Pandemic Cases. Renewable Energy Surges, Outpacing Fossil Fuel Investments, Political Turmoil Erupts in Region, Raising Concerns for Stability. Breakthrough in Medical Research Offers Hope for Rare Diseases, Education Sector Faces Challenges Amidst Shift to Online Learning. Space Exploration Reaches New Heights with Successful Satellite Launch, Environmentalists Rally for Conservation Efforts in Face of Biodiversity Loss.'
+    title_collection = 'Global Leaders Convene for Climate Summit; chaos destruction survival desolation catastrophePledge Action on Climate Change. Tech Giants Unveil New Innovations at Annual Conference, Economic Uncertainty Looms as Stock Markets Fluctuate, Health Experts Warn of Potential New Wave of Pandemic Cases. Renewable Energy Surges, Outpacing Fossil Fuel Investments, Political Turmoil Erupts in Region, Raising Concerns for Stability. Breakthrough in Medical Research Offers Hope for Rare Diseases, Education Sector Faces Challenges Amidst Shift to Online Learning. Space Exploration Reaches New Heights with Successful Satellite Launch, Environmentalists Rally for Conservation Efforts in Face of Biodiversity Loss.'
     return title_collection
     
 def process_data(data):
@@ -159,7 +159,7 @@ def get_wordbank_matches_list(data):
     matches = set(wordbank).intersection(data)
     return matches
     
-def update_worksheet(worksheet_name, values):
+def update_worksheet_row(worksheet_name, values):
     """
     Adds data to spreadsheet as a new row.
     """
@@ -169,9 +169,20 @@ def update_worksheet(worksheet_name, values):
         print(f'{worksheet_name} worksheet successfully updated...\n')
         
     except TypeError as e:
-        raise ValueError('data must be a list')
-        raise e.with_traceback() #TODO sort so doesn't finish program, goes back to asking Q again! OR does this already work?
-    
+        raise TypeError('data must be a list') and pprint(e.with_traceback()) #TODO sort so doesn't finish program, will ask to start again.
+
+def update_worksheet_cell(worksheet_name, data):
+    """
+    Adds data to spreadsheet as a new cell.
+    """
+    try:
+        print(f'Updating {worksheet_name} worksheet...\n')
+        SHEET.worksheet(worksheet_name).append_row(data) 
+        print(f'{worksheet_name} worksheet successfully updated...\n')
+        
+    except TypeError as e:
+        raise TypeError('data must not be a list') and pprint(e.with_traceback()) #TODO sort so doesn't finish program, will ask to start again.
+        
 def get_user_input1():
     """
     Returns user input 1.
@@ -266,19 +277,10 @@ def calculate_user_percentage_score(user_input1, percentage):
     return 1 point. Else return 0.
     """
     if user_input1 <= percentage + 10 and user_input1 >= percentage - 10:
+        #1 point awarded to user
         return 1
     else:
         return 0
-    
-# def calculate_user_total_score(score1, score2):
-#     """
-#     Returns total score of user input.
-#     """
-#     # score1 = calculate_user_buzzword_points()
-#     # score2 = calculate_user_percentage_score()
-    
-#     total = score1 + score2
-#     return total
 
 def main():
     """
@@ -296,32 +298,37 @@ def main():
     processed_headlines = process_data(headlines)
     keyword_list = remove_common_words(processed_headlines)
     percentage = percentage_of_wordbank_matches(keyword_list)
-    headline_matches = get_wordbank_matches_list(keyword_list)
+    headline_matches = get_wordbank_matches_list(keyword_list) # TODO make headline matches alphabetical so appear nicely in worksheet 
     
     # merge program data to add easily to worksheet as 'program full answer'
-    program_full_answer = list(str(percentage)) + list(headline_matches)
+    program_full_answer = list(str(percentage)) + list(headline_matches) 
+    print(f'program_full_answer: {program_full_answer}') 
     
     answer1 = get_user_input1()
     answer2 = get_user_input2() 
     # convert answer 1 to string list to concatenate with answer 2 as full answer
     user_full_answer = list(str(answer1)) + answer2
-    print(f'full_answer: {user_full_answer}')
+    print(f'program full_answer: {user_full_answer}')
     
     user_matches = calculate_user_buzzword_points(answer2, headline_matches)
-    user_percentage_score = calculate_user_percentage_score(answer1, percentage)
+    user_percentage_score = calculate_user_percentage_score(answer1, percentage) #TODO test numbers within 10% of program add a point correctly
     user_total_score = user_matches + user_percentage_score
+    print(f'user_total_score: {user_total_score}')
     
+    print('\n----------------------------------------------------------------\n') #TODO tabulate these data points so looks nice in terminal. Or write as a function?
     print(f'Today\'s apocalypse likelihood: {percentage}%')
     print(f'Number of headline words which match doomsday wordbank: {len(headline_matches)}')
     print(f'Keyword matches: {headline_matches}')
     print('\n----------------------------------------------------------------\n')
     print(f'\nYour score: {user_total_score}\n')
 
-
-    update_worksheet('end_calculator', program_full_answer)
-    # update_worksheet('user_input', user_full_answer)
-    # update_worksheet('keywords', headline_matches)
-    # update_worksheet('end_calculator', user_total_score)
+    # update worksheets
+    update_worksheet_row('program_answers', program_full_answer)
+    update_worksheet_row('user_answers', user_full_answer)
+    
+    end_results = [percentage, user_total_score]
+    print(f'End results: {end_results}\n')
+    update_worksheet_cell('end_calculator', end_results)
 
 if __name__ == '__main__':    
     main()
