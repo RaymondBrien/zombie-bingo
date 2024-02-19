@@ -219,7 +219,7 @@ def validate_user_input1(user_input1):
         print(f'You wrote: {e}.\n Please enter a number between 1 and 100.\n') 
         return False
 
-    return True
+    return True #TODO Debug logixc
 
 def get_user_input2():
     """
@@ -289,7 +289,7 @@ def play_again():
     """
     if input('Would you like to play again? (y/n): ').lower() == 'y':
         main()
-    elif input('Would you like to play again? (y/n): ').lower() == 'n':
+    elif input('Would you like to play again? (y/n): ').lower() == 'n': #TODO test as n needed sbubmitting twice- perhaps not elif? Use else? ALso style with border?
         print('Thank you for playing!')
         exit()
 
@@ -335,7 +335,7 @@ def main():
     update_worksheet_cell('end_calculator', end_results)
     
     print('\n----------------------------------------------------------------\n') #TODO tabulate these data points so looks nice in terminal. Or write as a function?
-    print(f'Your answers: {user_full_answer}\n')
+    print(f'Your answers: {user_full_answer}\n') #TODO picks up a two digit number as two numbers: e.g. 65, 66 = '6','6' - DEBUG
     print(f'Today\'s keywords in the news headlines were: {headline_matches}\n')
     print(f'You won: {user_total_score} points\n') #TODO add graphic depending on how many points out of max won. (Smiley face or cool terminal graphic)
     print('\n----------------------------------------------------------------\n') 
