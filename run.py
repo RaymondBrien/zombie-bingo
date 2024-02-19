@@ -2,15 +2,23 @@
 import gspread
 from google.oauth2.service_account import Credentials
 import json
-from pprint import pprint
+from pprint import pprint #TODO remove?
 import requests
 import nltk
-from nltk.tokenize import word_tokenize 
+from nltk.tokenize import word_tokenize  #TODO remove?
 from nltk.corpus import stopwords
-from collections import Counter
+from collections import Counter #TODO remove?
 import re
 import inflect
 import math 
+
+# TODO make single function for set find diff 
+# TODO add picle art?
+# TODO use google charts and spinning typer icon 
+# TODO more user feedback informing user what is happening including LOADING so don't press key too soon
+# TODO error handling with SPEICIFIC error types
+# TODO error for second user questsion - if not right type, look back to ask second Q again so doesn't just complete the program running
+# TODO 
 
 SCOPE = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -27,7 +35,7 @@ def get_wordbank_list():
     """
     Returns all words in the wordbank as a list.
     """
-    wordbank = SHEET.worksheet('wordbank').col_values(2)[1:]
+    wordbank = SHEET.worksheet('wordbank').col_values(2)[1:] # write as a function instead
     
     return wordbank
 
@@ -63,14 +71,14 @@ def get_headlines():
         title_collection = []
         for news_item in primary_text['news']:
             title_collection.append(news_item['title'])
-    except Exception as e:
-        print(e)
+    except Exception as e: #TODO handle with SPECIFIC exception
+        raise Exception
     return title_collection
 
 def test_get_headlines():
     """
-    TODO take it out
-    FOR TESTING PURPOSES ONLY TO AVOID MAXING OUT API REQUESTS.
+    TODO remove when finished?
+    FOR TESTING PURPOSES ONLY TO AVOID MAXING OUT API REQUESTS. 
     """
     title_collection = 'Global Leaders Convene for Climate Summit; Pledge Action on Climate Change. Tech Giants Unveil New Innovations at Annual Conference, Economic Uncertainty Looms as Stock Markets Fluctuate, Health Experts Warn of Potential New Wave of Pandemic Cases. Renewable Energy Surges, Outpacing Fossil Fuel Investments, Political Turmoil Erupts in Region, Raising Concerns for Stability. Breakthrough in Medical Research Offers Hope for Rare Diseases, Education Sector Faces Challenges Amidst Shift to Online Learning. Space Exploration Reaches New Heights with Successful Satellite Launch, Environmentalists Rally for Conservation Efforts in Face of Biodiversity Loss.'
     return title_collection
@@ -99,6 +107,7 @@ def remove_common_words(data):
     """
     Returns string list with common words removed.
     """
+    #TODO remove this.
     # tokens = word_tokenize(data)
 
     # stop_words = set(stopwords.words('english'))
@@ -132,7 +141,7 @@ def percentage_of_wordbank_matches(data):
     
     
     #find number of matches between data and wordbank 
-    matches = set(wordbank).intersection(data)
+    matches = set(wordbank).intersection(data) #TODO rewrite as function to avoid repeating
 
     #find percentage of wordbank matches
     print(f'percentage = {len(matches)} divided by {len(wordbank)} * 100')
@@ -144,26 +153,24 @@ def get_wordbank_matches_list(data):
     """
     Returns list of wordbank matches.
     """
-    wordbank = SHEET.worksheet('wordbank').col_values(2)[1:]
+    wordbank = SHEET.worksheet('wordbank').col_values(2)[1:] #TODO use function to avoid repeating
     
     #find number of matches between data and wordbank 
     matches = set(wordbank).intersection(data)
     return matches
     
-def add_to_worksheet(worksheet_name, data):
+def update_worksheet(worksheet_name, values):
     """
     Adds data to spreadsheet as a new row.
     """
-    
     try:
         print(f'Updating {worksheet_name} worksheet...\n')
-        #adds new row to worksheet
-        SHEET.worksheet(worksheet_name).append_row(data) 
-        
+        SHEET.worksheet(worksheet_name).append_row(values) 
         print(f'{worksheet_name} worksheet successfully updated...\n')
-    
-    except Exception as e:
-        raise e.with_traceback()
+        
+    except TypeError as e:
+        raise ValueError('data must be a list')
+        raise e.with_traceback() #TODO sort so doesn't finish program, goes back to asking Q again! OR does this already work?
     
 def get_user_input1():
     """
@@ -174,7 +181,7 @@ def get_user_input1():
         print('Welcome pessimist. How likely is doomsday today? (/100)\n')
         print('Your answer should be a number between 1 and 100.\n')
         print('Example: 65\n')
-        print('------------------------------------------------------------\n')
+        print('------------------------------------------------------------\n') # TODO add graphics? Or Color?
         user_answer = int(input('\nEnter a number: '))
 
         if validate_user_input1(user_answer):
@@ -191,7 +198,7 @@ def validate_user_input1(user_input1):
     Returns int.
     """
     try:
-        if type(user_input1) == int:
+        if type(user_input1) == int: #TODO fix. At moment if false, still returns true? Test and know how if else, except and better error handling work better
         # while int(user_input1) == True:
             if user_input1 < 0 or user_input1 > 100:
                 raise ValueError(f'Invalid input: {user_input1}. Your number must be between 0 and 100')
@@ -212,13 +219,14 @@ def get_user_input2():
         print('Nice one. \n')
         print('For some bonus points, enter 3 buzzwords you think are in the news today \n')
         print('Example: apocalypse, AI, mutation\n')
-        print('------------------------------------------------------------')
+        print('------------------------------------------------------------\n') #TODO add graphics? Or Color?
         input_data = input('Enter 3 buzzwords: ')
         user_answer = input_data.split(',')
 
         if validate_user_input2(user_answer):
             print('------------------------------------------------------------')
             print('Answer received, thank you!\n')
+            print('------------------------------------------------------------\n')
             break
             
     return user_answer
@@ -229,7 +237,7 @@ def validate_user_input2(user_input2):
     is not 3, raises ValueError exception.
     """
     try:
-        [str(value) for value in user_input2] #TODO: make this a for loop
+        [str(value) for value in user_input2] #TODO: make this a for loop - otherwise not assigned, bad code.
         if len(user_input2)!= 3:
             raise ValueError(
                 f'Please enter 3 buzzwords, separated by commas.\n You entered: {len(user_input2)}\n')
@@ -290,27 +298,30 @@ def main():
     percentage = percentage_of_wordbank_matches(keyword_list)
     headline_matches = get_wordbank_matches_list(keyword_list)
     
-
+    # merge program data to add easily to worksheet as 'program full answer'
+    program_full_answer = list(str(percentage)) + list(headline_matches)
+    
     answer1 = get_user_input1()
     answer2 = get_user_input2() 
     # convert answer 1 to string list to concatenate with answer 2 as full answer
-    full_answer = list(str(answer1)) + answer2
-    print(f'full_answer: {full_answer}')
+    user_full_answer = list(str(answer1)) + answer2
+    print(f'full_answer: {user_full_answer}')
     
     user_matches = calculate_user_buzzword_points(answer2, headline_matches)
     user_percentage_score = calculate_user_percentage_score(answer1, percentage)
     user_total_score = user_matches + user_percentage_score
     
-    # add_new_worksheet_row('user_input', answer2)
-       
     print(f'Today\'s apocalypse likelihood: {percentage}%')
     print(f'Number of headline words which match doomsday wordbank: {len(headline_matches)}')
     print(f'Keyword matches: {headline_matches}')
     print('\n----------------------------------------------------------------\n')
     print(f'\nYour score: {user_total_score}\n')
 
-    # add_new_worksheet_single_cell('end_calculator', percentage)
-    # add_new_worksheet_row('keywords', matches)
+
+    update_worksheet('end_calculator', program_full_answer)
+    # update_worksheet('user_input', user_full_answer)
+    # update_worksheet('keywords', headline_matches)
+    # update_worksheet('end_calculator', user_total_score)
 
 if __name__ == '__main__':    
     main()

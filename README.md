@@ -67,17 +67,9 @@ https://pandao.github.io/editor.md/en.html -->
 
 ## UX
 
-🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-In this section, you will briefly explain your design processes.
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
 ## Features
 
-🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-In this section, you should go over the different parts of your project,
+<!-- In this section, you should go over the different parts of your project,
 and describe each in a sentence or so.
 
 You will need to explain what value each of the features provides for the user,
@@ -86,9 +78,7 @@ and how your project is the best way to help them achieve these things.
 
 For some/all of your features, you may choose to reference the specific project files that implement them.
 
-IMPORTANT: Remember to always include a screenshot of each individual feature!
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+IMPORTANT: Remember to always include a screenshot of each individual feature! -->
 
 ### Existing Features
 
@@ -98,7 +88,7 @@ IMPORTANT: Remember to always include a screenshot of each individual feature!
 
 ![screenshot](documentation/feature01.png)
 
-- **News Headlines API **
+- **News Headlines API**
 
     - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
 
@@ -110,27 +100,50 @@ IMPORTANT: Remember to always include a screenshot of each individual feature!
 
 ![screenshot](documentation/feature03.png)
 
-- **Buzzwords Finder**
+- **Keywords Finder**
 
     - Removes most common words using tokenizing methods from the NLTK library.
 
 ![screenshot](documentation/feature03.png)
 
+- **Google Sheets API**
+
+    - Adds user answers, points, maintains wordbank and API information directly from the terminal. Tables of data to use for google charts for data visualization.
+
+![screenshot](documentation/featurex.png)
+
+- **User input via terminal **
+
+    - .
+
+![screenshot](documentation/featurex.png)
+
+- ** **
+
+    - .
+
+![screenshot](documentation/featurex.png)
+
+- ** **
+
+    - .
+
+![screenshot](documentation/featurex.png)
+
+- ** **
+
+    - .
+
+![screenshot](documentation/featurex.png)
+
 <!-- Add more features here  -->
-
-🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
 
 ### Future Features
 
-🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-Do you have additional ideas that you'd like to include on your project in the future?
+<!-- Do you have additional ideas that you'd like to include on your project in the future?
 Fantastic! List them here!
 It's always great to have plans for future improvements!
-Consider adding any helpful links or notes to help remind you in the future, if you revisit the project in a couple years.
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+Consider adding any helpful links or notes to help remind you in the future, if you revisit the project in a couple years. -->
 
 - Title for future feature #1
     - Any additional notes about this feature.
@@ -155,6 +168,11 @@ Feel free to delete any unused items below as necessary.
 - [Git](https://git-scm.com) used for version control. (`git add`, `git commit`, `git push`)
 - [GitHub](https://github.com) used for secure online code storage.
 - [Heroku](https://www.heroku.com) used for hosting the deployed back-end site.
+- [Gspread](https://www.google.com...) used for...
+- [Google Charts](https://www.google.com...), user for...
+
+Google sheets
+Google Cloud Platform
 
 
 ## Data Model
@@ -185,8 +203,8 @@ class Person:
 
 The primary functions used on this application are:
 
-- `get_sales_data()`
-    - Get sales figures input from the user.
+- `get_headlines()`
+    <!-- - Get sales figures input from the user. -->
 - `validate_data()`
     - Converts all string values into integers.
 - `update_worksheet()`
@@ -206,10 +224,15 @@ I've used the following Python packages and/or external imported packages.
 
 - `gspread`: used with the Google Sheets API
 - `google.oauth2.service_account`: used for the Google Sheets API credentials
-- `time`: used for adding time delays
+- `json' : used with the Google Sheets API
+- 'requests' : used with the NewsNow API
 - `os`: used for adding a `clear()` function
 - `colorama`: used for including color in the terminal
-- `random`: used to get a random choice from a list
+- `nltk`: used for stopwords to remove generic works from news headlines
+- 're'
+- 'inflect'
+- 'math': to create clear percentage calculations with math.floor
+
 
 ## Testing
 
@@ -221,6 +244,8 @@ Code Institute has provided a [template](https://github.com/Code-Institute-Org/p
 This is to improve the accessibility of the project to others.
 
 The live deployed application can be found deployed on [Heroku](https://zombie-bingo-a26c47d43c24.herokuapp.com).
+
+<!-- CHECK THIS LINK ABOVE WORKS -->
 
 ### Heroku Deployment
 
@@ -310,7 +335,7 @@ You can fork this repository by using the following steps:
 
 🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
 
-Use this space to discuss any differences between the local version you've developed, and the live deployment site on Heroku.
+<!-- Use this space to discuss any differences between the local version you've developed, and the live deployment site on Heroku. -->
 
 🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
 
@@ -318,22 +343,23 @@ Use this space to discuss any differences between the local version you've devel
 
 🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
 
-In this section you need to reference where you got your content, media, and extra help from.
+<!-- In this section you need to reference where you got your content, media, and extra help from.
 It is common practice to use code from other repositories and tutorials,
-however, it is important to be very specific about these sources to avoid plagiarism.
+however, it is important to be very specific about these sources to avoid plagiarism. -->
+
+- Stackoverflow (http://stackoverflow.com) (UPDATE URL): set find difference 
+
 
 🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
 
 ### Content
 
 🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
+<!-- 
 Use this space to provide attribution links to any borrowed code snippets, elements, or resources.
 A few examples have been provided below to give you some ideas.
 
-Ideally, you should provide an actual link to every resource used, not just a generic link to the main site!
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+Ideally, you should provide an actual link to every resource used, not just a generic link to the main site! -->
 
 | Source | Location | Notes |
 | --- | --- | --- |
@@ -352,7 +378,7 @@ Ideally, you should provide an actual link to every resource used, not just a ge
 
 ### Media
 
-🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+<!-- 🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
 
 Use this space to provide attribution links to any images, videos, or audio files borrowed from online.
 A few examples have been provided below to give you some ideas.
@@ -362,35 +388,22 @@ Let the assessors know that you have explicit rights to use the media files with
 
 Ideally, you should provide an actual link to every media file used, not just a generic link to the main site!
 The list below is by no means exhaustive. Within the Code Institute Slack community, you can find more "free media" links
-by sending yourself the following command: `!freemedia`.
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+by sending yourself the following command: `!freemedia`. -->
 
 | Source | Location | Type | Notes |
 | --- | --- | --- | --- |
 | [Pexels](https://www.pexels.com) | entire site | image | favicon on all pages |
-| [Lorem Picsum](https://picsum.photos) | home page | image | hero image background |
-| [Unsplash](https://unsplash.com) | product page | image | sample of fake products |
-| [Pixabay](https://pixabay.com) | gallery page | image | group of photos for gallery |
-| [Wallhere](https://wallhere.com) | footer | image | background wallpaper image in the footer |
-| [This Person Does Not Exist](https://thispersondoesnotexist.com) | testimonials | image | headshots of fake testimonial images |
 | [Audio Micro](https://www.audiomicro.com/free-sound-effects) | game page | audio | free audio files to generate the game sounds |
-| [Videvo](https://www.videvo.net/) | home page | video | background video on the hero section |
-| [TinyPNG](https://tinypng.com) | entire site | image | tool for image compression |
+
 
 ### Acknowledgements
 
-🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-Use this space to provide attribution to any supports that helped, encouraged, or supported you throughout the development stages of this project.
-A few examples have been provided below to give you some ideas.
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+<!-- Use this space to provide attribution to any supports that helped, encouraged, or supported you throughout the development stages of this project.
+A few examples have been provided below to give you some ideas. -->
 
 - I would like to thank my Code Institute mentor, [Tim Nelson](https://github.com/TravelTimN) for their support throughout the development of this project.
 - I would like to thank the [Code Institute](https://codeinstitute.net) tutor team for their assistance with troubleshooting and debugging some project issues.
 - I would like to thank the [Code Institute Slack community](https://code-institute-room.slack.com) for the moral support; it kept me going during periods of self doubt and imposter syndrome.
 - I would like to thank my partner (John/Jane), for believing in me, and allowing me to make this transition into software development.
-- I would like to thank my employer, for supporting me in my career development change towards becoming a software developer.
 
 
