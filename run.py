@@ -144,7 +144,7 @@ def find_list_intersections(list1, list2):
     """
     Returns list of all intersections between list1 and list2.
     """
-    intersections = [set(list1).intersection(list2)]
+    intersections = set(list1).intersection(list2)
     return intersections
 
 def remove_common_words(data):
@@ -356,13 +356,13 @@ def main():
     print(f'End results: {end_results}\n')
     update_worksheet_cell('end_calculator', end_results)
     
-    print('\n----------------------------------------------------------------\n') #TODO tabulate these data points so looks nice in terminal. Or write as a function?
+    print('----------------------------------------------------------------\n') #TODO tabulate these data points so looks nice in terminal. Or write as a function?
     print(f'{Fore.GREEN}Your answers: {user_full_answer}\n') #TODO picks up a two digit number as two numbers: e.g. 65, 66 = '6','6' - DEBUG
-    print(f'{Fore.RED}Today\'s keywords in the news headlines were: {headline_matches}\n')
-    print(f'You won: {user_total_score} points\n') #TODO add graphic depending on how many points out of max won. (Smiley face or cool terminal graphic). Will need new function.
-    print('\n----------------------------------------------------------------\n') 
-    print(f'{Fore.RED}{Back.LIGHTBLACK_EX}{Style.BRIGHT}Today there is a {percentage}% chance of apocalypse!\n')
-    print('\n----------------------------------------------------------------\n')
+    print(f'{Fore.RED}Today\'s keywords in the news headlines were:\n{Fore.LIGHTYELLOW_EX}{headline_matches}\n')
+    print(f'You won: {user_total_score} point(s)\n') #TODO add graphic depending on how many points out of max won. (Smiley face or cool terminal graphic). Will need new function.
+    print('----------------------------------------------------------------\n') 
+    print(f'****{Fore.RED}{Style.BRIGHT}Today there is a {percentage}% chance of apocalypse!****')
+    print('----------------------------------------------------------------\n')
 
     play_again()
 
