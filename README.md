@@ -225,6 +225,7 @@ I've used the following Python packages and/or external imported packages.
 - `nltk`: used for stopwords to remove generic works from news headlines
 <!-- - 're' -->
 <!-- - 'inflect' -->
+<!-- check list -->
 - 'math': to create clear percentage calculations with math.floor
 
 
@@ -358,7 +359,7 @@ Ideally, you should provide an actual link to every resource used, not just a ge
 | [Medium](https://medium.com/@joloiuy/creating-captivating-terminal-animations-in-python-a-fun-and-interactive-guide-2eeb2a6b25ec) | Loading animations | blog post on animations in the terminal |
 | [StackOverflow](https://stackoverflow.com/questions/3462143/get-difference-between-two-lists-with-unique-entries) | Finding differences function | forum on effective difference checker methods between lists |
 | [StackOverflow](https://stackoverflow.com/questions/9953619/technique-to-remove-common-wordsand-their-plural-versions-from-a-string) | text processing functions | forum on usage of stopwords to process text to remove common words with nltk |
-| [Markdown Builder](https://tim.2bn.dev/markdown-builder) | README and TESTING | tool to help generate the Markdown files |
+| [Medium](https://medium.com/analytics-vidhya/deploying-nlp-model-on-heroku-using-flask-nltk-and-git-lfs-eed7d1b22b11) | nltk functions | debugging nltk stopword package errors when deploying to heroku |
 <!-- | [strftime](https://strftime.org) | CRUD functionality | helpful tool to format date/time from string | -->
 <!-- | [WhiteNoise](http://whitenoise.evans.io) | entire site | hosting static files on Heroku temporarily | -->
 
