@@ -15,22 +15,25 @@ import sys
 import os
 if os.path.exists('env.py'):
     import env
+from art import *
 
 colorama.init(autoreset=True) #auto-reset color for each new line
 
 # REFACTORING TODOs:
-# TODO use google charts  
-# TODO use spinning icon to indicate progress or stop user typing and indicate loading.
-# TODO error handling with SPEICIFIC error types
-# TODO error for second user questsion - if not right type, look back to ask second Q again so doesn't just complete the program running
-# TODO validate against marking criteria 
 # TODO add an average point score updating the user each time the game finishes. Easy to do. Mean average of sum of all user final scores in col.
+# TODO error for second user questsion - if not right type, look back to ask second Q again so doesn't just complete the program running
+# TODO error handling with SPEICIFIC error types
+# TODO validate against marking criteria 
+# TODO Add whole init sequence instead as a function.
+
+# TODO use google charts?  
 # TODO use this link to add zombie art at beggining and end: https://www.tutorialspoint.com/display-images-on-terminal-using-python#:~:text=There%20are%20several%20Python%20libraries,%2C%20OpenCV%2C%20and%20ASCII%20Art.
 # TODO https://pypi.org/project/tabulate/
 # TODO https://pypi.org/project/auto-graph-visualizer/
 # TODO really cool!!!! https://github.com/sepandhaghighi/art
 # TODO check deployed version on heroku so far. Note differences for readme
 # TODO remove any unused imports. 
+# TODO use spinning icon to indicate progress or stop user typing and indicate loading.
 
 SCOPE = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -44,17 +47,16 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('zombie_bingo')
 
 def animation_loop():
-    
     animation = "|/-\\"
     start_time = time.time()
     while True:
         for i in range(4):
-            time.sleep(0.6)  # Feel free to experiment with the speed here
+            time.sleep(0.1)  # Feel free to experiment with the speed here
             sys.stdout.write("\r" + animation[i % len(animation)])
             sys.stdout.flush()
-        if time.time() - start_time > 10:  # The animation will last for 10 seconds
+        if time.time() - start_time > 3:  # The animation will last for 10 seconds
             break
-    sys.stdout.write("\rDone!")
+    sys.stdout
 def get_wordbank_list():
     """
     Returns all words in the wordbank as a list.
@@ -307,12 +309,12 @@ def main():
     """
     
     #INIT - TODO: initialize properly with init class
-    print(f'****{Fore.BLACK}{Back.LIGHTYELLOW_EX}LOADING ZOMBIE BINGO****')
+    print(f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}****LOADING ZOMBIE BINGO****')
     animation_loop()
     
-    print('----------------------------------------------------------------\n')
-    print(f'{Fore.GREEN}Welcome to the Zombie Bingo!\n') #TODO use graphic instead now. Add whole init sequence instead as a function.
-    
+    print('\n------------------------------------------------------------')
+    print(text2art('Zombie Bingo!', font="small"))
+
     # commented output for testing purposes, using testing headlines instead 
     # to avoid maxing API requests
     # headlines = get_headlines()
