@@ -322,50 +322,47 @@ def main():
     """
     Runs all program functions.
     """
-    
     #INIT - TODO: initialize properly with init class
     print(f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}****LOADING ZOMBIE BINGO****')
     animation_loop()
-    
     print('\n------------------------------------------------------------')
     print(text2art('Zombie Bingo!', font="small"))
 
-    # commented output for testing purposes, using testing headlines instead 
-    # to avoid maxing API requests
-    # headlines = get_headlines()
+    # headlines = get_headlines() # commented output for testing purposes, using testing headlines instead to avoid maxing API requests*****
     
+    # main functions
     headlines = test_get_headlines()
     processed_headlines = process_data(headlines)
     keyword_list = remove_common_words(processed_headlines)
     percentage = percentage_of_wordbank_matches(keyword_list)
     headline_matches = get_wordbank_matches_list(keyword_list) # TODO make headline matches alphabetical so appear nicely in worksheet 
     
-    # merge program data to add easily to worksheet as 'program full answer'
+    # concatenate program answers for easy worksheet parsing
     program_full_answer = list(str(percentage)) + list(headline_matches) 
-    print(f'program_full_answer: {program_full_answer}') 
-    
+    print(f'program_full_answer: {program_full_answer}') # for debugging purposes only
+
+    # get user answers
     answer1 = get_user_input1()
     answer2 = get_user_input2() 
-    # convert answer 1 to string list to concatenate with answer 2 as full answer
-    user_full_answer = list(str(answer1)) + answer2
-    # print(f'program full_answer: {user_full_answer}')
     
+    # concatenate user answers for easy worksheet parsing
+    user_full_answer = list(str(answer1)) + answer2
+    # print(f'program full_answer: {user_full_answer}') # for debuggging purposes only
+    
+    # calculate scores
     user_matches = calculate_user_buzzword_points(answer2, headline_matches)
     user_percentage_score = calculate_user_percentage_score(answer1, percentage) #TODO test numbers within 10% of program add a point correctly
     user_total_score = user_matches + user_percentage_score
-    # print(f'user_total_score: {user_total_score}')
-    
+    scores_history = get_user_scores_list()
+    average_score = get_user_average_score(scores_history)
+    end_results = [percentage, user_total_score]
+    # print(f'End results: {end_results}\n') # for debug purposes only
+
     # update worksheets
     update_worksheet_row('program_answers', program_full_answer)
     update_worksheet_row('user_answers', user_full_answer)
-    
-    end_results = [percentage, user_total_score]
-    print(f'End results: {end_results}\n')
     update_worksheet_cell('end_calculator', end_results)
-    
-    scores = get_user_scores_list()
-    average_score = get_user_average_score(scores)
-    
+
     print('----------------------------------------------------------------\n') #TODO tabulate these data points so looks nice in terminal. Or write as a function?
     print(f'{Fore.GREEN}Your answers: {user_full_answer}\n') #TODO picks up a two digit number as two numbers: e.g. 65, 66 = '6','6' - DEBUG
     print(f'{Fore.RED}Today\'s keywords in the news headlines were:\n{Fore.LIGHTYELLOW_EX}{headline_matches}\n')
@@ -375,8 +372,9 @@ def main():
     print(f'****{Fore.RED}{Style.BRIGHT}Today there is a {percentage}% chance of apocalypse!****')
     print('----------------------------------------------------------------\n')
 
+    # play again
     play_again()
 
-# if __name__ == '__main__':    
-#     main()
+if __name__ == '__main__':    
+    main()
 
