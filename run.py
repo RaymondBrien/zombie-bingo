@@ -59,7 +59,7 @@ def start_game():
         print((f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info: please wait a moment...'))
         animation_loop()
         print('\n' + SEPARATE)
-        print('Let\'s play bingo: how close is the zombie apocalypse according to the news? Get the right buzzwords and you win a point!') #TODO center and with border 
+        print('Let\'s play bingo: how close is the zombie apocalypse according to the news? Guess the right key words and you win a point!') #TODO center and with border 
         print('\n' + SEPARATE)
     except KeyboardInterrupt as e:
         print(SEPARATE)
@@ -69,7 +69,7 @@ def start_game():
             key_interrupt = input(f'\Do you want to continue launching the game?\n{Fore.LIGHTYELLOW_EX}Type y or n:\n')
             if key_interrupt.lower() == 'y':
                 print('\nCool, I\'ll start the game')
-                os.system('cls') # add 'clear' parameter for Linux and MacOS? 
+                os.system('clear') # add 'clear' or leave as 'cls' parameter? CLear for Linux and MacOS? 
                 start_game()
                 break
             elif key_interrupt.lower() == 'n':
@@ -252,7 +252,7 @@ def get_user_input1():
             
     return user_answer
  
-def validate_user_input1(user_input1):
+def validate_user_input1(user_input1): # TODO fix logic and loop
     """
     Converts user input to integer.
     If user input is not an integer, or if number 
@@ -270,7 +270,7 @@ def validate_user_input1(user_input1):
         print(f'You wrote: {e}.\n Please enter a number between 1 and 100.\n') 
         return False
 
-    return True #TODO Debug logixc
+    return True #TODO Debug logic
 
 def get_user_input2():
     """
@@ -279,7 +279,7 @@ def get_user_input2():
     while True:
         print(SEPARATE)
         print('For some bonus points, enter 3 key words you think are in the news today\n')
-        print('Here\'s an example: apocalypse, AI, mutation\n')
+        print(f'{Style.DIM}Here\'s an example: apocalypse, AI, mutation\n')
         print(SEPARATE)
         input_data = input('Enter 3 key words: ')
         user_answer = input_data.split(',')
@@ -291,7 +291,7 @@ def get_user_input2():
             
         return user_answer
     
-def validate_user_input2(user_input2): # TODO add error handling with specific exception
+def validate_user_input2(user_input2): # TODO debug error handling with specific exception
     """
     If user input is not a string, or if total number of provided key words
     is not 3, raises ValueError exception.
@@ -299,13 +299,11 @@ def validate_user_input2(user_input2): # TODO add error handling with specific e
     while True:
         try:        
             if len(user_input2)!= 3:
-                raise ValueError ( 
-                    f'Please enter 3 key words, separated by commas.\n You entered: {len(user_input2)}\n')
+                raise ValueError (f'Please enter 3 key words, separated by commas.\n You entered: {len(user_input2)}\n')
         except ValueError as e:
             print(f'Invalid Type: {e.args}. Please enter 3 key words. Numbers are not allowed.\n')
-            return False
     
-        return True
+
 def calculate_user_buzzword_points(keyword_list, user_list):
     """
     Find any matches between API headlines and user buzzwords.
@@ -352,7 +350,7 @@ def play_again():
     if input(f'Would you like to play again? {Fore.LIGHTBLACK_EX}({Fore.GREEN}y{Fore.LIGHTBLACK_EX}/{Fore.RED}n{Fore.LIGHTBLACK_EX}): ').lower() == 'y':
         main()
     else:
-        print('Thank you for playing!')
+        print(f'{Fore.RESET}Thank you for playing!')
         exit()
 
 def main():
@@ -403,7 +401,7 @@ def main():
     print(f'You won: {user_total_score} point(s)\n') #TODO add graphic depending on how many points out of max won. (Smiley face or cool terminal graphic). Will need new function.
     print(f'Your average score is: {average_score} point(s)')
     print(SEPARATE + '\n') 
-    print(f'{Fore.RED}****{Style.BRIGHT}Today there is a {percentage}% chance of apocalypse!****')
+    print(f'{Fore.RED}{Style.BRIGHT}****Today there is a {percentage}% chance of apocalypse!****').center(80)
     print(SEPARATE + '\n') 
 
     # play again y/n
