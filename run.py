@@ -189,7 +189,7 @@ def percentage_of_wordbank_matches(data):
     matches = find_list_intersections(wordbank, data)
     
     #find percentage of wordbank matches
-    print(f'percentage = {len(matches)} divided by {len(wordbank)} * 100')
+    # print(f'percentage = {len(matches)} divided by {len(wordbank)} * 100') #TODO remove before submit
     percentage = len(matches) / (len(wordbank)) * 100
     percentage = math.floor(percentage)
     return percentage
@@ -234,10 +234,11 @@ def get_user_input1():
     """
     while True:
         print(SEPARATE)
-        print('Welcome pessimist. How likely is doomsday today? (/100)\n')
-        print('Your answer should be a number between 1 and 100.\n')
-        print('Example: 65\n')
-        print(SEPARATE) # TODO add graphics? Or Color?
+        print(f'{Fore.LIGHTRED_EX}Welcome pessimist.\n')
+        print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}How likely is doomsday today?\n')
+        print('\nYour answer should be a number between 1 and 100.\n')
+        print('Here\s an example: 65\n')
+        print(SEPARATE)
         user_answer = int(input('\nEnter a number: '))
 
         if validate_user_input1(user_answer):
@@ -395,7 +396,7 @@ def main():
     print(f'You won: {user_total_score} point(s)\n') #TODO add graphic depending on how many points out of max won. (Smiley face or cool terminal graphic). Will need new function.
     print(f'Your average score is: {average_score} point(s)')
     print(SEPARATE + '\n') 
-    print(f'****{Fore.RED}{Style.BRIGHT}Today there is a {percentage}% chance of apocalypse!****')
+    print(f'{Fore.RED}****{Style.BRIGHT}Today there is a {percentage}% chance of apocalypse!****')
     print(SEPARATE + '\n') 
 
     # play again y/n
