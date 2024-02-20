@@ -15,18 +15,20 @@ import sys
 import os
 if os.path.exists('env.py'):
     import env
+# import art # - needed?
 from art import *
 
 colorama.init(autoreset=True) #auto-reset color for each new line
 
-# REFACTORING TODOs:
-# TODO add an average point score updating the user each time the game finishes. Easy to do. Mean average of sum of all user final scores in col.
-# TODO error for second user questsion - if not right type, look back to ask second Q again so doesn't just complete the program running
-# TODO error handling with SPEICIFIC error types
-# TODO validate against marking criteria 
-# TODO Add whole init sequence instead as a function.
+# global variable to avoid repeating
+SEPARATE = '----------------------------------------------------------------\n'
 
-# TODO use google charts?  
+
+# REFACTORING TODOs:
+# TODO error handling with SPEICIFIC error types
+# TODO error for second user questsion - if not right type, look back to ask second Q again so doesn't just complete the program running
+# TODO validate against marking criteria 
+
 # TODO use this link to add zombie art at beggining and end: https://www.tutorialspoint.com/display-images-on-terminal-using-python#:~:text=There%20are%20several%20Python%20libraries,%2C%20OpenCV%2C%20and%20ASCII%20Art.
 # TODO https://pypi.org/project/tabulate/
 # TODO remove any unused imports. 
@@ -44,6 +46,13 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('zombie_bingo')
 
+def start_game():
+    """Start the game"""
+    #INIT - TODO: initialize properly with init class
+    print(f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}****LOADING ZOMBIE BINGO****')
+    animation_loop()
+    print(SEPARATE)
+    print(text2art('Zombie Bingo!', font="small"))
 def animation_loop():
     animation = "|/-\\"
     start_time = time.time()
@@ -191,18 +200,18 @@ def update_worksheet_cell(worksheet_name, data):
         print(f'{worksheet_name} worksheet successfully updated...\n')
         
     except TypeError as e:
-        raise TypeError('data must not be a list') and pprint(e.with_traceback()) #TODO sort so doesn't finish program, will ask to start again.
+        raise TypeError('data must not be a list') and print(e.with_traceback()) #TODO sort so doesn't finish program, will ask to start again.
         
 def get_user_input1():
     """
     Returns user input 1.
     """
     while True:
-        print('------------------------------------------------------------')
+        print(SEPARATE)
         print('Welcome pessimist. How likely is doomsday today? (/100)\n')
         print('Your answer should be a number between 1 and 100.\n')
         print('Example: 65\n')
-        print('------------------------------------------------------------\n') # TODO add graphics? Or Color?
+        print(SEPARATE) # TODO add graphics? Or Color?
         user_answer = int(input('\nEnter a number: '))
 
         if validate_user_input1(user_answer):
@@ -236,18 +245,18 @@ def get_user_input2():
     Returns user input 2 as list of strings.
     """
     while True:
-        print('------------------------------------------------------------')
+        print(SEPARATE)
         print('Nice one. \n')
         print('For some bonus points, enter 3 buzzwords you think are in the news today \n')
         print('Example: apocalypse, AI, mutation\n')
-        print('------------------------------------------------------------\n') #TODO add graphics? Or Color?
+        print(SEPARATE) #TODO add graphics? Or Color?
         input_data = input('Enter 3 buzzwords: ')
         user_answer = input_data.split(',')
 
         if validate_user_input2(user_answer):
-            print('------------------------------------------------------------')
+            print(SEPARATE + '\n')
             print(f'{Fore.LIGHTGREEN_EX}Answer received, thank you!\n')
-            print('------------------------------------------------------------\n')
+            print(SEPARATE + '\n')
             break
             
     return user_answer
@@ -322,11 +331,7 @@ def main():
     """
     Runs all program functions.
     """
-    #INIT - TODO: initialize properly with init class
-    print(f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}****LOADING ZOMBIE BINGO****')
-    animation_loop()
-    print('\n------------------------------------------------------------')
-    print(text2art('Zombie Bingo!', font="small"))
+    start_game()
 
     # headlines = get_headlines() # commented output for testing purposes, using testing headlines instead to avoid maxing API requests*****
     
@@ -339,7 +344,7 @@ def main():
     
     # concatenate program answers for easy worksheet parsing
     program_full_answer = list(str(percentage)) + list(headline_matches) 
-    print(f'program_full_answer: {program_full_answer}') # for debugging purposes only
+    # print(f'program_full_answer: {program_full_answer}') # for debugging purposes only
 
     # get user answers
     answer1 = get_user_input1()
@@ -351,7 +356,7 @@ def main():
     
     # calculate scores
     user_matches = calculate_user_buzzword_points(answer2, headline_matches)
-    user_percentage_score = calculate_user_percentage_score(answer1, percentage) #TODO test numbers within 10% of program add a point correctly
+    user_percentage_score = calculate_user_percentage_score(answer1, percentage) #TODO test functions correctly
     user_total_score = user_matches + user_percentage_score
     scores_history = get_user_scores_list()
     average_score = get_user_average_score(scores_history)
@@ -363,16 +368,17 @@ def main():
     update_worksheet_row('user_answers', user_full_answer)
     update_worksheet_cell('end_calculator', end_results)
 
-    print('----------------------------------------------------------------\n') #TODO tabulate these data points so looks nice in terminal. Or write as a function?
+    # report info to terminal for user
+    print(SEPARATE + '\n') #TODO tabulate these data points so looks nice in terminal. Or write as a function?
     print(f'{Fore.GREEN}Your answers: {user_full_answer}\n') #TODO picks up a two digit number as two numbers: e.g. 65, 66 = '6','6' - DEBUG
     print(f'{Fore.RED}Today\'s keywords in the news headlines were:\n{Fore.LIGHTYELLOW_EX}{headline_matches}\n')
     print(f'You won: {user_total_score} point(s)\n') #TODO add graphic depending on how many points out of max won. (Smiley face or cool terminal graphic). Will need new function.
     print(f'Your average score is: {average_score} point(s)')
-    print('----------------------------------------------------------------\n') 
+    print(SEPARATE + '\n') 
     print(f'****{Fore.RED}{Style.BRIGHT}Today there is a {percentage}% chance of apocalypse!****')
-    print('----------------------------------------------------------------\n')
+    print(SEPARATE + '\n') 
 
-    # play again
+    # play again y/n
     play_again()
 
 if __name__ == '__main__':    
