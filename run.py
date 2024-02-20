@@ -246,7 +246,7 @@ def get_user_input1():
     while True:
         user_answer = input('\nEnter a number: ')
         if validate_user_input1(user_answer):
-            print(f'{Fore.LIGHTGREEN_EX}Answer received, thank you!\n')
+            print(f'{Fore.LIGHTGREEN_EX}Awesome, thanks.\n')
             break
     return user_answer
  
@@ -259,43 +259,47 @@ def validate_user_input1(user_input1): # TODO fix logic and loop
     try:
         user_input1 = int(user_input1) #TODO fix. At moment if false, still returns true? Test and know how if else, except and better error handling work better    
         if user_input1 < 0 or user_input1 > 100:
-            raise ValueError(f'I need a number!. You provided {type(user_input1)}')
-    except (ValueError) as e:
-            print(f'Invalid data: {e.args}. Type a number between 0 and 100.')
+            print('Woah woah, I said I number between 0 and 100. Check your math...')
+    except ValueError:
+            print(f'I need a number, silly!. You provided {type(user_input1)}')
             return False
     return True
+    
 def get_user_input2():
     """
     Returns user input 2 as list of strings.
     """
+    print(SEPARATE)
+    print('For some bonus points, enter 3 key words you think are in the news today\n')
+    print(f'{Style.DIM}Here\'s an example: apocalypse, AI, mutation\n')
+    print(SEPARATE)
+    
     while True:
-        print(SEPARATE)
-        print('For some bonus points, enter 3 key words you think are in the news today\n')
-        print(f'{Style.DIM}Here\'s an example: apocalypse, AI, mutation\n')
-        print(SEPARATE)
         input_data = input('Enter 3 key words: ')
         user_answer = input_data.split(',')
-
+        
+        # validate answer 
         if validate_user_input2(user_answer):
-            print(SEPARATE + '\n')
-            print(f'{Fore.LIGHTGREEN_EX}Gotcha! Let me have a think now.\n')
-            print(SEPARATE + '\n')
-            
-        return user_answer
+            break
+    print(SEPARATE)
+    print(f'{Fore.LIGHTGREEN_EX}Gotcha! Let me log your answers to my worksheets.\n')
+    print(SEPARATE)
+    return user_answer        
     
 def validate_user_input2(user_input2): # TODO debug error handling with specific exception
     """
-    If user input is not a string, or if total number of provided key words
-    is not 3, raises ValueError exception.
+    Raises error if user input is not a string, 
+    or if total number of provided key words
+    is not 3.
     """
-    while True:
-        try:        
-            if len(user_input2)!= 3:
-                raise ValueError (f'Please enter 3 key words, separated by commas.\n You entered: {len(user_input2)}\n')
-        except ValueError as e:
-            print(f'Invalid Type: {e.args}. Please enter 3 key words. Numbers are not allowed.\n')
-    
-
+    try:        
+        if len(user_input2)!= 3:
+            print(f'Please enter 3 key words, separated by commas.\n You entered: {len(user_input2)}\n')
+            return False
+    except ValueError as e:
+        print(f'Invalid Type: {e.args}. Please enter 3 key words. Numbers are not allowed.\n')
+        return False
+    return True
 def calculate_user_buzzword_points(keyword_list, user_list):
     """
     Find any matches between API headlines and user buzzwords.
@@ -374,7 +378,7 @@ def main():
     
     # calculate scores
     user_matches = calculate_user_buzzword_points(answer2, headline_matches)
-    user_percentage_score = calculate_user_percentage_score(answer1, percentage) #TODO test functions correctly
+    user_percentage_score = calculate_user_percentage_score(int(answer1), percentage) #TODO test functions correctly
     user_total_score = user_matches + user_percentage_score
     scores_history = get_user_scores_list()
     average_score = get_user_average_score(scores_history)
@@ -393,7 +397,7 @@ def main():
     print(f'You won: {user_total_score} point(s)\n') #TODO add graphic depending on how many points out of max won. (Smiley face or cool terminal graphic). Will need new function.
     print(f'Your average score is: {average_score} point(s)')
     print(SEPARATE + '\n') 
-    print(f'{Fore.RED}{Style.BRIGHT}****Today there is a {percentage}% chance of apocalypse!****').center(80)
+    print(f'{Fore.RED}{Style.BRIGHT}****Today there is a {percentage}% chance of apocalypse!****')
     print(SEPARATE + '\n') 
 
     # play again y/n
