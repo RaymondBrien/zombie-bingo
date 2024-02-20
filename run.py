@@ -66,10 +66,10 @@ def start_game():
         print(f'\n{Fore.RED}Ouch! Don\'t poke me when I\'m booting up the program!')
         while True:
             print(SEPARATE)
-            key_interrupt = input(f'\Do you want to continue launching the game?\n{Fore.LIGHTYELLOW_EX}Type y or n:\n')
+            key_interrupt = input(f'Do you want to continue launching the game?\n{Fore.LIGHTYELLOW_EX}Type y or n:\n')
             if key_interrupt.lower() == 'y':
                 print('\nCool, I\'ll start the game')
-                os.system('clear') # add 'clear' or leave as 'cls' parameter? CLear for Linux and MacOS? 
+                os.system('clear') # add 'cls' parameter? CLear for Linux and MacOS? 
                 start_game()
                 break
             elif key_interrupt.lower() == 'n':
@@ -237,41 +237,33 @@ def get_user_input1():
     """
     Returns user input 1.
     """
+    print(SEPARATE)
+    print(f'{Fore.LIGHTRED_EX}Welcome pessimist.\n')
+    print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}How likely is doomsday today?')
+    print('\nYour answer should be a number between 1 and 100.\n')
+    print(f'{Style.DIM}Here\'s an example: 65\n')
+    print(SEPARATE)
     while True:
-        print(SEPARATE)
-        print(f'{Fore.LIGHTRED_EX}Welcome pessimist.\n')
-        print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}How likely is doomsday today?')
-        print('\nYour answer should be a number between 1 and 100.\n')
-        print(f'{Style.DIM}Here\'s an example: 65\n')
-        print(SEPARATE)
-        user_answer = int(input('\nEnter a number: '))
-
+        user_answer = input('\nEnter a number: ')
         if validate_user_input1(user_answer):
             print(f'{Fore.LIGHTGREEN_EX}Answer received, thank you!\n')
             break
-            
     return user_answer
  
 def validate_user_input1(user_input1): # TODO fix logic and loop
     """
-    Converts user input to integer.
     If user input is not an integer, or if number 
-    is not between 0 and 100, raises ValueError exception.
-    Returns int.
+    is not between 0 and 100, raises exception.
+    Returns boolean.
     """
     try:
-        if type(user_input1) == int: #TODO fix. At moment if false, still returns true? Test and know how if else, except and better error handling work better
-        # while int(user_input1) == True:
-            if user_input1 < 0 or user_input1 > 100:
-                raise ValueError(f'Invalid input: {user_input1}. Your number must be between 0 and 100')
-        else:
-            raise ValueError(f'Invalid input, expected an integer, got {type(user_input1)}')
-    except ValueError as e:
-        print(f'You wrote: {e}.\n Please enter a number between 1 and 100.\n') 
-        return False
-
-    return True #TODO Debug logic
-
+        user_input1 = int(user_input1) #TODO fix. At moment if false, still returns true? Test and know how if else, except and better error handling work better    
+        if user_input1 < 0 or user_input1 > 100:
+            raise ValueError(f'I need a number!. You provided {type(user_input1)}')
+    except (ValueError) as e:
+            print(f'Invalid data: {e.args}. Type a number between 0 and 100.')
+            return False
+    return True
 def get_user_input2():
     """
     Returns user input 2 as list of strings.
