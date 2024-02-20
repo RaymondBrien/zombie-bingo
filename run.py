@@ -17,9 +17,9 @@ colorama.init(autoreset=True) #auto-reset color for each new line
 
 
 # REFACTORING TODOs:
-# TODO make single function for set find diff 
-# TODO add picle art?
-# TODO use google charts and spinning typer icon 
+# TODO add pixle art?
+# TODO use google charts  
+# TODO spinning typer icon ?
 # TODO more user feedback informing user what is happening including LOADING so don't press key too soon
 # TODO error handling with SPEICIFIC error types
 # TODO error for second user questsion - if not right type, look back to ask second Q again so doesn't just complete the program running
