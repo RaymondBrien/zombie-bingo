@@ -46,13 +46,38 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('zombie_bingo')
 
-def start_game():
-    """Start the game"""
-    #INIT - TODO: initialize properly with init class
-    print(f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}****LOADING ZOMBIE BINGO****')
-    animation_loop()
-    print(SEPARATE)
-    print(text2art('Zombie Bingo!', font="small"))
+def start_game(): # TODO error handling
+    """Starts the game with small loading screen"""
+    try:
+        print(f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}****LOADING ZOMBIE BINGO****')
+        animation_loop()
+        print(SEPARATE)
+        print(text2art('Zombie Bingo!', font="small"))
+    except KeyboardInterrupt as e:
+        print(SEPARATE)
+        print(f'\n{Fore.RED}Ouch! Don\'t poke me when I\'m booting up the program!')
+        while True:
+            print(SEPARATE)
+            key_interrupt = input(f'\Do you want to continue launching the game?\n{Fore.LIGHTYELLOW_EX}Type y or n:\n')
+            if key_interrupt.lower() == 'y':
+                print('\nCool, I\'ll start the game')
+                os.system('cls') # add 'clear' parameter for Linux and MacOS? 
+                start_game()
+                break
+            elif key_interrupt.lower() == 'n':
+                print('\nOk, I\'ll close the game! See you soon!\n')
+                False
+                sys.exit(0)
+            elif key_interrupt.lower() != 'y' and key_interrupt.lower() != 'n':
+                print(f'Please enter either y or n. {Fore.LIGHTYELLOW_EX}You wrote: {key_interrupt}')
+    except ImportError as e:
+        print(f'Import Error: {e.args}')
+    except RuntimeError as e:
+        print(f'Runtime Error: {e.args}')
+    finally:
+        False # to prevent any uncaught while loop issues from KeyboardInterrupt.
+
+
 def animation_loop():
     animation = "|/-\\"
     start_time = time.time()
@@ -71,7 +96,6 @@ def get_wordbank_list():
     wordbank = SHEET.worksheet('wordbank').col_values(2)[1:] # write as a function instead
     
     return wordbank
-
 def get_headlines():
     """
     Returns a list of headlines titles as strings, from top newsnow API. 
@@ -370,7 +394,7 @@ def main():
 
     # report info to terminal for user
     print(SEPARATE + '\n') #TODO tabulate these data points so looks nice in terminal. Or write as a function?
-    print(f'{Fore.GREEN}Your answers: {user_full_answer}\n') #TODO picks up a two digit number as two numbers: e.g. 65, 66 = '6','6' - DEBUG
+    print(f'{Fore.GREEN}Your answers: {user_full_answer}\n') #TODO DEBUG picks up a two digit number as two numbers: e.g. 65, 66 = '6','6'
     print(f'{Fore.RED}Today\'s keywords in the news headlines were:\n{Fore.LIGHTYELLOW_EX}{headline_matches}\n')
     print(f'You won: {user_total_score} point(s)\n') #TODO add graphic depending on how many points out of max won. (Smiley face or cool terminal graphic). Will need new function.
     print(f'Your average score is: {average_score} point(s)')
