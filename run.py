@@ -29,10 +29,8 @@ colorama.init(autoreset=True) #auto-reset color for each new line
 # TODO use google charts?  
 # TODO use this link to add zombie art at beggining and end: https://www.tutorialspoint.com/display-images-on-terminal-using-python#:~:text=There%20are%20several%20Python%20libraries,%2C%20OpenCV%2C%20and%20ASCII%20Art.
 # TODO https://pypi.org/project/tabulate/
-# TODO https://pypi.org/project/auto-graph-visualizer/
-# TODO really cool!!!! https://github.com/sepandhaghighi/art
-# TODO check deployed version on heroku so far. Note differences for readme
 # TODO remove any unused imports. 
+# TODO check deployed version on heroku so far. Note differences for readme
 # TODO use spinning icon to indicate progress or stop user typing and indicate loading.
 
 SCOPE = [
@@ -291,7 +289,24 @@ def calculate_user_percentage_score(user_input1, percentage):
         return 1
     else:
         return 0
-    
+
+def get_user_scores_list():
+    """
+    Gets column data from user scores logged from each time 
+    user completes game.
+    """
+    sheet_values = SHEET.worksheet('end_calculator').col_values(2)[1:] # avoid repetition with function instead
+    user_scores = []
+    for value in sheet_values:
+        value = int(value)
+        user_scores.append(value)
+    return user_scores
+def get_user_average_score(user_scores):
+    """
+    Returns average score for user.
+    """
+    score = sum(user_scores) / len(user_scores)    
+    return math.floor(score)
 def play_again():
     """ 
     Starts program again if y.
@@ -358,6 +373,10 @@ def main():
 
     play_again()
 
-if __name__ == '__main__':    
-    main()
+# if __name__ == '__main__':    
+#     main()
 
+scores = get_user_scores_list()
+print(f'scores: {scores}')
+average_score = get_user_average_score(scores)
+print(f'average score: {average_score} points')
