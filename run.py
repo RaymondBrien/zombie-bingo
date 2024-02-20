@@ -363,10 +363,14 @@ def main():
     print(f'End results: {end_results}\n')
     update_worksheet_cell('end_calculator', end_results)
     
+    scores = get_user_scores_list()
+    average_score = get_user_average_score(scores)
+    
     print('----------------------------------------------------------------\n') #TODO tabulate these data points so looks nice in terminal. Or write as a function?
     print(f'{Fore.GREEN}Your answers: {user_full_answer}\n') #TODO picks up a two digit number as two numbers: e.g. 65, 66 = '6','6' - DEBUG
     print(f'{Fore.RED}Today\'s keywords in the news headlines were:\n{Fore.LIGHTYELLOW_EX}{headline_matches}\n')
     print(f'You won: {user_total_score} point(s)\n') #TODO add graphic depending on how many points out of max won. (Smiley face or cool terminal graphic). Will need new function.
+    print(f'Your average score is: {average_score} point(s)')
     print('----------------------------------------------------------------\n') 
     print(f'****{Fore.RED}{Style.BRIGHT}Today there is a {percentage}% chance of apocalypse!****')
     print('----------------------------------------------------------------\n')
@@ -376,7 +380,3 @@ def main():
 # if __name__ == '__main__':    
 #     main()
 
-scores = get_user_scores_list()
-print(f'scores: {scores}')
-average_score = get_user_average_score(scores)
-print(f'average score: {average_score} points')
