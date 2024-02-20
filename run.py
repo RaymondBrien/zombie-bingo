@@ -3,7 +3,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 import json
 import requests
-import nltk #TODO remove?
+import nltk 
 from nltk.corpus import stopwords
 import re
 import inflect
@@ -12,15 +12,15 @@ import colorama
 from colorama import Fore, Back, Style
 import time
 import sys
+import os
+if os.path.exists('env.py'):
+    import env
 
 colorama.init(autoreset=True) #auto-reset color for each new line
 
-
 # REFACTORING TODOs:
-# TODO add pixle art?
 # TODO use google charts  
-# TODO spinning typer icon ?
-# TODO more user feedback informing user what is happening including LOADING so don't press key too soon
+# TODO use spinning icon to indicate progress or stop user typing and indicate loading.
 # TODO error handling with SPEICIFIC error types
 # TODO error for second user questsion - if not right type, look back to ask second Q again so doesn't just complete the program running
 # TODO validate against marking criteria 
@@ -30,22 +30,7 @@ colorama.init(autoreset=True) #auto-reset color for each new line
 # TODO https://pypi.org/project/auto-graph-visualizer/
 # TODO really cool!!!! https://github.com/sepandhaghighi/art
 # TODO check deployed version on heroku so far. Note differences for readme
-
-
-
-
-def animation_loop():
-    animation = "|/-\\"
-    start_time = time.time()
-    while True:
-        for i in range(4):
-            time.sleep(0.6)  # Feel free to experiment with the speed here
-            sys.stdout.write("\r" + animation[i % len(animation)])
-            sys.stdout.flush()
-        if time.time() - start_time > 10:  # The animation will last for 10 seconds
-            break
-    sys.stdout.write("\rDone!")
-
+# TODO remove any unused imports. 
 
 SCOPE = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -58,6 +43,18 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('zombie_bingo')
 
+def animation_loop():
+    
+    animation = "|/-\\"
+    start_time = time.time()
+    while True:
+        for i in range(4):
+            time.sleep(0.6)  # Feel free to experiment with the speed here
+            sys.stdout.write("\r" + animation[i % len(animation)])
+            sys.stdout.flush()
+        if time.time() - start_time > 10:  # The animation will last for 10 seconds
+            break
+    sys.stdout.write("\rDone!")
 def get_wordbank_list():
     """
     Returns all words in the wordbank as a list.
@@ -71,9 +68,7 @@ def get_headlines():
     Returns a list of headlines titles as strings, from top newsnow API. 
     """
     url = "https://newsnow.p.rapidapi.com/newsv2"
-    with open('newsnowCreds.json', 'r') as f:  
-        creds = json.load(f)
-    
+
     payload = {
         "query": "AI",
         "time_bounded": True,
@@ -87,7 +82,7 @@ def get_headlines():
     
     headers = {
         "content-type": "application/json",
-        "X-RapidAPI-Key": creds["X-RapidAPI-Key"],
+        "X-RapidAPI-Key": os.environ.get('RAPID_API_KEY'),
         "X-RapidAPI-Host": "newsnow.p.rapidapi.com"
     }
     
