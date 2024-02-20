@@ -360,14 +360,13 @@ Ideally, you should provide an actual link to every resource used, not just a ge
 | [StackOverflow](https://stackoverflow.com/questions/3462143/get-difference-between-two-lists-with-unique-entries) | Finding differences function | forum on effective difference checker methods between lists |
 | [StackOverflow](https://stackoverflow.com/questions/9953619/technique-to-remove-common-wordsand-their-plural-versions-from-a-string) | text processing functions | forum on usage of stopwords to process text to remove common words with nltk |
 | [Medium](https://medium.com/analytics-vidhya/deploying-nlp-model-on-heroku-using-flask-nltk-and-git-lfs-eed7d1b22b11) | nltk functions | debugging nltk stopword package errors when deploying to heroku |
+| [ASCII](https://www.ascii-art.site/) | heading art | program name art used throughout program|
 <!-- | [strftime](https://strftime.org) | CRUD functionality | helpful tool to format date/time from string | -->
 <!-- | [WhiteNoise](http://whitenoise.evans.io) | entire site | hosting static files on Heroku temporarily | -->
 
 ### Media
 
-<!-- 🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-Use this space to provide attribution links to any images, videos, or audio files borrowed from online.
+<!-- Use this space to provide attribution links to any images, videos, or audio files borrowed from online.
 A few examples have been provided below to give you some ideas.
 
 If you're the owner (or a close acquaintance) of all media files, then make sure to specify this.
@@ -375,18 +374,15 @@ Let the assessors know that you have explicit rights to use the media files with
 
 Ideally, you should provide an actual link to every media file used, not just a generic link to the main site!
 The list below is by no means exhaustive. Within the Code Institute Slack community, you can find more "free media" links
-by sending yourself the following command: `!freemedia`. -->
-
+by sending yourself the following command: `!freemedia`.  -->
+<!-- 
 | Source | Location | Type | Notes |
 | --- | --- | --- | --- |
 | [Pexels](https://www.pexels.com) | entire site | image | favicon on all pages |
-| [Audio Micro](https://www.audiomicro.com/free-sound-effects) | game page | audio | free audio files to generate the game sounds |
+| [Audio Micro](https://www.audiomicro.com/free-sound-effects) | game page | audio | free audio files to generate the game sounds | -->
 
 
 ### Acknowledgements
-
-<!-- Use this space to provide attribution to any supports that helped, encouraged, or supported you throughout the development stages of this project.
-A few examples have been provided below to give you some ideas. -->
 
 - I would like to thank my Code Institute mentor, [Tim Nelson](https://github.com/TravelTimN) for their support throughout the development of this project.
 - I would like to thank the [Code Institute](https://codeinstitute.net) tutor team for their assistance with troubleshooting and debugging some project issues.
