@@ -51,11 +51,12 @@ def start_game():
     Starts the game with small loading screen
     """
     try:
-        print(f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}****LOADING ZOMBIE BINGO****')
-        animation_loop()
+        print(text2art('Zombie Bingo!', font="small")) #TODO center this with whitespace!
         print(SEPARATE)
-        print(text2art('Zombie Bingo!', font="small"))
-        print('Gathering the hottest info: please wait a moment')
+        print(f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}****LOADING ZOMBIE BINGO****')
+        print('Gathering the hottest info: please wait a moment...')
+        animation_loop()
+        print('\n' + SEPARATE)
     except KeyboardInterrupt as e:
         print(SEPARATE)
         print(f'\n{Fore.RED}Ouch! Don\'t poke me when I\'m booting up the program!')
@@ -80,7 +81,7 @@ def start_game():
     finally:
         False # to prevent any uncaught while loop issues from KeyboardInterrupt.
 
-def animation_loop():
+def animation_loop(): #TODO add credits in comment as well as readme.
     animation = "|/-\\"
     start_time = time.time()
     while True:
@@ -88,7 +89,7 @@ def animation_loop():
             time.sleep(0.1)  # Feel free to experiment with the speed here
             sys.stdout.write("\r" + animation[i % len(animation)])
             sys.stdout.flush()
-        if time.time() - start_time > 3:  # The animation will last for 10 seconds
+        if time.time() - start_time > 3:  # The animation will last for 3 seconds
             break
     sys.stdout
 def get_wordbank_list():
@@ -235,9 +236,9 @@ def get_user_input1():
     while True:
         print(SEPARATE)
         print(f'{Fore.LIGHTRED_EX}Welcome pessimist.\n')
-        print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}How likely is doomsday today?\n')
+        print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}How likely is doomsday today?')
         print('\nYour answer should be a number between 1 and 100.\n')
-        print('Here\s an example: 65\n')
+        print(f'{Style.DIM}Here\s an example: 65\n')
         print(SEPARATE)
         user_answer = int(input('\nEnter a number: '))
 
