@@ -46,13 +46,16 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('zombie_bingo')
 
-def start_game(): # TODO error handling
-    """Starts the game with small loading screen"""
+def start_game():
+    """
+    Starts the game with small loading screen
+    """
     try:
         print(f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}****LOADING ZOMBIE BINGO****')
         animation_loop()
         print(SEPARATE)
         print(text2art('Zombie Bingo!', font="small"))
+        print('Gathering the hottest info: please wait a moment')
     except KeyboardInterrupt as e:
         print(SEPARATE)
         print(f'\n{Fore.RED}Ouch! Don\'t poke me when I\'m booting up the program!')
@@ -76,7 +79,6 @@ def start_game(): # TODO error handling
         print(f'Runtime Error: {e.args}')
     finally:
         False # to prevent any uncaught while loop issues from KeyboardInterrupt.
-
 
 def animation_loop():
     animation = "|/-\\"
@@ -268,39 +270,33 @@ def get_user_input2():
     """
     Returns user input 2 as list of strings.
     """
-    while True:
-        print(SEPARATE)
-        print('Nice one. \n')
-        print('For some bonus points, enter 3 buzzwords you think are in the news today \n')
-        print('Example: apocalypse, AI, mutation\n')
-        print(SEPARATE) #TODO add graphics? Or Color?
-        input_data = input('Enter 3 buzzwords: ')
-        user_answer = input_data.split(',')
+    print(SEPARATE)
+    print('For some bonus points, enter 3 key words you think are in the news today\n')
+    print('Here\'s an example: apocalypse, AI, mutation\n')
+    print(SEPARATE)
+    input_data = input('Enter 3 key words: ')
+    user_answer = input_data.split(',')
 
-        if validate_user_input2(user_answer):
-            print(SEPARATE + '\n')
-            print(f'{Fore.LIGHTGREEN_EX}Answer received, thank you!\n')
-            print(SEPARATE + '\n')
-            break
-            
+    if validate_user_input2(user_answer):
+        print(SEPARATE + '\n')
+        print(f'{Fore.LIGHTGREEN_EX}Gotcha! Let me have a think now.\n')
+        print(SEPARATE + '\n')
+        
     return user_answer
     
-def validate_user_input2(user_input2):
+def validate_user_input2(user_input2): # TODO add error handling with specific exception
     """
-    If user input is not a string, or if total number of provided buzzwords
+    If user input is not a string, or if total number of provided key words
     is not 3, raises ValueError exception.
     """
-    try:
-        [str(value) for value in user_input2] #TODO: make this a for loop - otherwise not assigned, bad code.
-        if len(user_input2)!= 3:
-            raise ValueError(
-                f'Please enter 3 buzzwords, separated by commas.\n You entered: {len(user_input2)}\n')
-    
-    except ValueError as e:
-        print(f'Invalid: {e}. Please enter 3 buzzwords. Numbers are not allowed.\n')
-        return False
-
-    return True
+    while True:
+        try:        
+            if len(user_input2)!= 3:
+                raise Exception ( 
+                    f'Please enter 3 key words, separated by commas.\n You entered: {len(user_input2)}\n')
+        except ValueError as e:
+            print(f'Invalid Type: {e.args}. Please enter 3 key words. Numbers are not allowed.\n')
+            return False
   
 def calculate_user_buzzword_points(keyword_list, user_list):
     """
