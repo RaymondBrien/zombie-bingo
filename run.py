@@ -271,19 +271,20 @@ def get_user_input2():
     """
     Returns user input 2 as list of strings.
     """
-    print(SEPARATE)
-    print('For some bonus points, enter 3 key words you think are in the news today\n')
-    print('Here\'s an example: apocalypse, AI, mutation\n')
-    print(SEPARATE)
-    input_data = input('Enter 3 key words: ')
-    user_answer = input_data.split(',')
+    while True:
+        print(SEPARATE)
+        print('For some bonus points, enter 3 key words you think are in the news today\n')
+        print('Here\'s an example: apocalypse, AI, mutation\n')
+        print(SEPARATE)
+        input_data = input('Enter 3 key words: ')
+        user_answer = input_data.split(',')
 
-    if validate_user_input2(user_answer):
-        print(SEPARATE + '\n')
-        print(f'{Fore.LIGHTGREEN_EX}Gotcha! Let me have a think now.\n')
-        print(SEPARATE + '\n')
-        
-    return user_answer
+        if validate_user_input2(user_answer):
+            print(SEPARATE + '\n')
+            print(f'{Fore.LIGHTGREEN_EX}Gotcha! Let me have a think now.\n')
+            print(SEPARATE + '\n')
+            
+        return user_answer
     
 def validate_user_input2(user_input2): # TODO add error handling with specific exception
     """
@@ -293,12 +294,13 @@ def validate_user_input2(user_input2): # TODO add error handling with specific e
     while True:
         try:        
             if len(user_input2)!= 3:
-                raise Exception ( 
+                raise ValueError ( 
                     f'Please enter 3 key words, separated by commas.\n You entered: {len(user_input2)}\n')
         except ValueError as e:
             print(f'Invalid Type: {e.args}. Please enter 3 key words. Numbers are not allowed.\n')
             return False
-  
+    
+        return True
 def calculate_user_buzzword_points(keyword_list, user_list):
     """
     Find any matches between API headlines and user buzzwords.
