@@ -28,13 +28,11 @@ SEPARATE = separate.center(80)
 # TODO error handling for all functions where appropriate including MAIN with SPEICIFIC error types
 # TODO error for second user questsion - if not right type, look back to ask second Q again so doesn't just complete the program running
 # TODO make all questions, input text prompts and elements consistent in their styling.
-
-
+# TODO get system type - if mac or linux, use os.system(clear). If windows use 'cls' instead. Try as class on init?
 # TODO use this link to add zombie art at beggining and end: https://www.tutorialspoint.com/display-images-on-terminal-using-python#:~:text=There%20are%20several%20Python%20libraries,%2C%20OpenCV%2C%20and%20ASCII%20Art.
 # TODO https://pypi.org/project/tabulate/
 # TODO remove any unused imports. 
-# TODO check deployed version on heroku so far. Note differences for readme
-# TODO use spinning icon to indicate progress or stop user typing and indicate loading.
+# TODO check deployed version on heroku. Note differences for readme
 
 SCOPE = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -57,10 +55,11 @@ def start_game():
         print(heading.center(80)) #why doesn't this work TODO fix center
         print(SEPARATE)
         print((f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info: please wait a moment...'))
-        animation_loop()
+        animation_loop(2)
         print('\n' + SEPARATE)
         print('Let\'s play bingo: how close is the zombie apocalypse according to the news? Guess the right key words and you win a point!') #TODO center and with border 
         print('\n' + SEPARATE)
+        animation_loop(1)
     except KeyboardInterrupt as e:
         print(SEPARATE)
         print(f'\n{Fore.RED}Ouch! Don\'t poke me when I\'m booting up the program!')
@@ -85,7 +84,7 @@ def start_game():
     finally:
         False # to prevent any uncaught while loop issues from KeyboardInterrupt.
 
-def animation_loop(): #TODO add credits in comment as well as readme.
+def animation_loop(i): #TODO add credits in comment as well as readme.
     animation = "|/-\\"
     start_time = time.time()
     while True:
@@ -93,7 +92,7 @@ def animation_loop(): #TODO add credits in comment as well as readme.
             time.sleep(0.1)  # Feel free to experiment with the speed here
             sys.stdout.write("\r" + animation[i % len(animation)])
             sys.stdout.flush()
-        if time.time() - start_time > 3:  # The animation will last for 3 seconds
+        if time.time() - start_time > i:  # The animation will last for {i} seconds
             break
     sys.stdout #TODO find credits and check if shows how to delete the static \ when it finishes animation
 def get_wordbank_list():
@@ -344,10 +343,11 @@ def play_again():
     Finishes program if n.
     """
     if input(f'Would you like to play again? {Fore.LIGHTBLACK_EX}({Fore.GREEN}y{Fore.LIGHTBLACK_EX}/{Fore.RED}n{Fore.LIGHTBLACK_EX}): ').lower() == 'y':
+        os.system('clear') # clear terminal
         main()
     else:
         print(f'{Fore.RESET}Thank you for playing!')
-        exit()
+        exit() # terminate program
 
 def main():
     """
@@ -397,7 +397,7 @@ def main():
     print(f'You won: {user_total_score} point(s)\n') #TODO add graphic depending on how many points out of max won. (Smiley face or cool terminal graphic). Will need new function.
     print(f'Your average score is: {average_score} point(s)')
     print(SEPARATE + '\n') 
-    print(f'{Fore.RED}{Style.BRIGHT}****Today there is a {percentage}% chance of apocalypse!****')
+    print(f'{Fore.RED}{Style.BRIGHT}****  We are forcasting a {percentage}% chance of apocalypse today!  ****') # TODO add border and center? Or emoji?
     print(SEPARATE + '\n') 
 
     # play again y/n
