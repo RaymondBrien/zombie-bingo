@@ -31,17 +31,8 @@ colorama.init(autoreset=True) #auto-reset color for each new line
 # TODO really cool!!!! https://github.com/sepandhaghighi/art
 # TODO check deployed version on heroku so far. Note differences for readme
 
-def center_text(text): #TODO: debug? remove?
-    """
-    Center text in terminal with star.
-    """
-    text_string = text.center(14, '*')
-    return text_string
 
-#INIT - TODO: initialize properly with init class
-welcome_message = f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}WELCOME TO ZOMBIE BINGO'
-message = welcome_message.center(14, '*')
-print(message)
+
 
 def animation_loop():
     animation = "|/-\\"
@@ -319,8 +310,13 @@ def main():
     """
     Runs all program functions.
     """
-    print('\n----------------------------------------------------------------\n')
-    print(f'{Fore.GREEN}Welcome to the Zombie Bingo!\n')
+    
+    #INIT - TODO: initialize properly with init class
+    print(f'****{Fore.BLACK}{Back.LIGHTYELLOW_EX}LOADING ZOMBIE BINGO****')
+    animation_loop()
+    
+    print('----------------------------------------------------------------\n')
+    print(f'{Fore.GREEN}Welcome to the Zombie Bingo!\n') #TODO use graphic instead now. Add whole init sequence instead as a function.
     
     # commented output for testing purposes, using testing headlines instead 
     # to avoid maxing API requests
