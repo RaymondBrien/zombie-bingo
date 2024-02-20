@@ -27,21 +27,28 @@ colorama.init(autoreset=True) #auto-reset color for each new line
 # TODO error for second user questsion - if not right type, look back to ask second Q again so doesn't just complete the program running
 # TODO validate against marking criteria 
 # TODO add an average point score updating the user each time the game finishes. Easy to do. Mean average of sum of all user final scores in col.
-# TODO 
-# TODO 
+# TODO use this link to add zombie art at beggining and end: https://www.tutorialspoint.com/display-images-on-terminal-using-python#:~:text=There%20are%20several%20Python%20libraries,%2C%20OpenCV%2C%20and%20ASCII%20Art.
+# TODO https://pypi.org/project/tabulate/
+# TODO https://pypi.org/project/auto-graph-visualizer/
+# TODO really cool!!!! https://github.com/sepandhaghighi/art
+# TODO add this to README https://rapidapi.com/rphrp1985/api/newsnow/pricing
+# TODO check deployed version on heroku so far. Note differences for readme
+
 
 
 import time
 import sys
 
-def center_text(text):
+
+
+def center_text(text): #TODO: debug? remove?
     """
     Center text in terminal with star.
     """
     text_string = text.center(14, '*')
     return text_string
 
-#INIT
+#INIT - TODO: initialize properly with init class
 welcome_message = f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}WELCOME TO ZOMBIE BINGO'
 message = welcome_message.center(14, '*')
 print(message)
