@@ -20,14 +20,15 @@ from art import *
 
 colorama.init(autoreset=True) #auto-reset color for each new line
 
-# global variable to avoid repeating
-SEPARATE = '----------------------------------------------------------------\n'
-
+# global variable to avoid repeating TODO is this the best way to do this?
+separate = '----------------------------------------------------------------\n'
+SEPARATE = separate.center(80)
 
 # REFACTORING TODOs:
-# TODO error handling with SPEICIFIC error types
+# TODO error handling for all functions where appropriate including MAIN with SPEICIFIC error types
 # TODO error for second user questsion - if not right type, look back to ask second Q again so doesn't just complete the program running
-# TODO validate against marking criteria 
+# TODO make all questions, input text prompts and elements consistent in their styling.
+
 
 # TODO use this link to add zombie art at beggining and end: https://www.tutorialspoint.com/display-images-on-terminal-using-python#:~:text=There%20are%20several%20Python%20libraries,%2C%20OpenCV%2C%20and%20ASCII%20Art.
 # TODO https://pypi.org/project/tabulate/
@@ -51,11 +52,14 @@ def start_game():
     Starts the game with small loading screen
     """
     try:
-        print(text2art('Zombie Bingo!', font="small")) #TODO center this with whitespace!
+        # Loading and introduction text to user
+        heading = text2art('Zombie Bingo!', font="small")
+        print(heading.center(80)) #why doesn't this work TODO fix center
         print(SEPARATE)
-        print(f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}****LOADING ZOMBIE BINGO****')
-        print('Gathering the hottest info: please wait a moment...')
+        print((f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info: please wait a moment...'))
         animation_loop()
+        print('\n' + SEPARATE)
+        print('Let\'s play bingo: how close is the zombie apocalypse according to the news? Get the right buzzwords and you win a point!') #TODO center and with border 
         print('\n' + SEPARATE)
     except KeyboardInterrupt as e:
         print(SEPARATE)
@@ -91,7 +95,7 @@ def animation_loop(): #TODO add credits in comment as well as readme.
             sys.stdout.flush()
         if time.time() - start_time > 3:  # The animation will last for 3 seconds
             break
-    sys.stdout
+    sys.stdout #TODO find credits and check if shows how to delete the static \ when it finishes animation
 def get_wordbank_list():
     """
     Returns all words in the wordbank as a list.
@@ -238,7 +242,7 @@ def get_user_input1():
         print(f'{Fore.LIGHTRED_EX}Welcome pessimist.\n')
         print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}How likely is doomsday today?')
         print('\nYour answer should be a number between 1 and 100.\n')
-        print(f'{Style.DIM}Here\s an example: 65\n')
+        print(f'{Style.DIM}Here\'s an example: 65\n')
         print(SEPARATE)
         user_answer = int(input('\nEnter a number: '))
 
