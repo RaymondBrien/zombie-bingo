@@ -29,7 +29,6 @@ colorama.init(autoreset=True) #auto-reset color for each new line
 # TODO https://pypi.org/project/tabulate/
 # TODO https://pypi.org/project/auto-graph-visualizer/
 # TODO really cool!!!! https://github.com/sepandhaghighi/art
-# TODO add this to README https://rapidapi.com/rphrp1985/api/newsnow/pricing
 # TODO check deployed version on heroku so far. Note differences for readme
 
 def center_text(text): #TODO: debug? remove?
