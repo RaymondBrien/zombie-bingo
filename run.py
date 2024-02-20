@@ -2,18 +2,16 @@
 import gspread
 from google.oauth2.service_account import Credentials
 import json
-from pprint import pprint #TODO remove?
 import requests
 import nltk #TODO remove?
-from nltk.tokenize import word_tokenize  #TODO remove?
 from nltk.corpus import stopwords
-from collections import Counter #TODO remove?
 import re
 import inflect
 import math 
 import colorama
 from colorama import Fore, Back, Style
-
+import time
+import sys
 
 colorama.init(autoreset=True) #auto-reset color for each new line
 
@@ -33,13 +31,6 @@ colorama.init(autoreset=True) #auto-reset color for each new line
 # TODO really cool!!!! https://github.com/sepandhaghighi/art
 # TODO add this to README https://rapidapi.com/rphrp1985/api/newsnow/pricing
 # TODO check deployed version on heroku so far. Note differences for readme
-
-
-
-import time
-import sys
-
-
 
 def center_text(text): #TODO: debug? remove?
     """
@@ -149,31 +140,23 @@ def process_data(data):
         
     return data
 
+def find_list_intersections(list1, list2):
+    """
+    Returns list of all intersections between list1 and list2.
+    """
+    intersections = [set(list1).intersection(list2)]
+    return intersections
+
 def remove_common_words(data):
     """
     Returns string list with common words removed.
     """
-    #TODO remove this.
-    # tokens = word_tokenize(data)
-
-    # stop_words = set(stopwords.words('english'))
-    # filtered_words = [w for w in tokens if w not in stop_words]
-    # word_counts = Counter(filtered_words)
-    
-    # num_keywords = 10
-    # buzzwords = word_counts.most_common(num_keywords)
-    # for buzzword, frequency in buzzwords:
-    #     pprint(buzzword, frequency)
-    # buzzwords_count = f'buzzwords: {buzzwords}'
-    # return buzzwords_count
-
     common_words = SHEET.worksheet('wordbank').col_values(3)[1:] #TODO make a function to avoid repeating this
     try:
         #find all words in data that are not in common_words
-        words_to_remove = [set(common_words).intersection(data)]
-        # buzzwords = [word for word in buzzwords if word not in stopwords.words('english')]
+        words_to_remove = find_list_intersections(common_words, data)
         data = [word for word in data if word not in stopwords.words('english') and word not in words_to_remove]
-    except Exception as e:
+    except Exception as e: #TODO add specific exception
         raise e.with_traceback()
     return data
     
@@ -182,13 +165,9 @@ def percentage_of_wordbank_matches(data):
     Returns percentage of matches between data and wordbank.
     This defines the percentage likelihood of apocalypse.
     """
-    #TODO add as a function to avoid repeating this
-    wordbank = SHEET.worksheet('wordbank').col_values(2)[1:]
+    wordbank = SHEET.worksheet('wordbank').col_values(2)[1:] #TODO add as a function to avoid repeating this
+    matches = find_list_intersections(wordbank, data)
     
-    
-    #find number of matches between data and wordbank 
-    matches = set(wordbank).intersection(data) #TODO rewrite as function to avoid repeating
-
     #find percentage of wordbank matches
     print(f'percentage = {len(matches)} divided by {len(wordbank)} * 100')
     percentage = len(matches) / (len(wordbank)) * 100
@@ -202,7 +181,7 @@ def get_wordbank_matches_list(data):
     wordbank = SHEET.worksheet('wordbank').col_values(2)[1:] #TODO use function to avoid repeating
     
     #find number of matches between data and wordbank 
-    matches = set(wordbank).intersection(data)
+    matches = find_list_intersections(wordbank, data)
     return matches
     
 def update_worksheet_row(worksheet_name, values):
@@ -215,7 +194,7 @@ def update_worksheet_row(worksheet_name, values):
         print(f'{Fore.LIGHTGREEN_EX}{worksheet_name} worksheet successfully updated...\n')
         
     except TypeError as e:
-        raise TypeError('data must be a list') and pprint(e.with_traceback()) #TODO sort so doesn't finish program, will ask to start again.
+        raise TypeError('data must be a list') and print(e.with_traceback()) #TODO sort so doesn't finish program, will ask to start again.
 
 def update_worksheet_cell(worksheet_name, data):
     """
@@ -282,7 +261,7 @@ def get_user_input2():
 
         if validate_user_input2(user_answer):
             print('------------------------------------------------------------')
-            print('f{Fore.LIGHTGREEN_EX}Answer received, thank you!\n')
+            print(f'{Fore.LIGHTGREEN_EX}Answer received, thank you!\n')
             print('------------------------------------------------------------\n')
             break
             
@@ -311,10 +290,8 @@ def calculate_user_buzzword_points(keyword_list, user_list):
     Generate score - one point per matched buzzword.
     Maximum of three points per turn.
     """
-    
-    matches_list = set(user_list).intersection(keyword_list) #TODO use a function
+    matches_list = find_list_intersections(user_list, keyword_list)
     points = len(matches_list)
-    
     return points
 
 def calculate_user_percentage_score(user_input1, percentage):
