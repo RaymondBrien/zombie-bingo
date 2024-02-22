@@ -426,8 +426,15 @@ def calculate_user_buzzword_points(keyword_list, user_list): #TODO: Handle type,
     Generate score - one point per matched buzzword.
     Maximum of three points per turn.
     """
-    matches_list = find_list_intersections(user_list, keyword_list)
-    points = len(matches_list)
+    try:
+        matches_list = find_list_intersections(user_list, keyword_list)
+        points = len(matches_list)
+    except ValueError as e:
+        raise ValueError(f'Invalid Value: {e.args}. Please enter 3 key words. Numbers are not allowed.\n')
+    except TypeError as e:
+        raise TypeError(f'Invalid Type: {e.args}. Please enter 3 key words. Numbers are not allowed.\n')
+    except Exception as e:
+        raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return points
 
 def calculate_user_percentage_score(user_input1, percentage):#TODO: Handle type, value and generic Excepion errors
