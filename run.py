@@ -10,6 +10,7 @@ import re
 import inflect
 import math 
 import colorama
+from playsound import playsound
 from colorama import Fore, Back, Style
 import time
 import sys
@@ -29,16 +30,17 @@ separate = '----------------------------------------------------------------\n'
 SEPARATE = separate.center(80)
 
 # REFACTORING TODOs:
-# TODO Handle errors including MAIN.
-# TODO test errors and document
-# TODO look up how to handle empty input errors (perhaps with counter or len) 
-# TODO error for second user questsion - if not right type, look back to ask second Q again so doesn't just complete the program running
+# TODO Handle errors in MAIN if none handled in individual functions.
+# TODO look up how to handle empty input errors (perhaps with counter or len). ValueError used here? 
+# TODO error for second user questsion - if not right type, loop back to ask second Q again so doesn't just complete the program and finish
 # TODO make all questions, input text prompts and elements consistent in their styling.
 # TODO get system type - if mac or linux, use os.system(clear). If windows use 'cls' instead. Try as class on init?
 # TODO use this link to add zombie art at beggining and end: https://www.tutorialspoint.com/display-images-on-terminal-using-python#:~:text=There%20are%20several%20Python%20libraries,%2C%20OpenCV%2C%20and%20ASCII%20Art.
 # TODO https://pypi.org/project/tabulate/
 # TODO remove any unused imports. 
+# TODO reupdate requirements.txt before submitting!
 # TODO check deployed version on heroku. Note differences for readme
+# TODO test errors and document in testing.
 
 SCOPE = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -513,7 +515,7 @@ def main(): #TODO: Handle any leftover errors not handled in individual function
     """
     start_game()
 
-    # headlines = get_headlines() # commented output for testing purposes, using testing headlines instead to avoid maxing API requests*****
+    # headlines = get_headlines() # TODO put back in before submitting: commented output for testing purposes, using testing headlines instead to avoid maxing API requests*****
     
     # main functions
     HEADLINES = test_get_headlines()
@@ -524,7 +526,7 @@ def main(): #TODO: Handle any leftover errors not handled in individual function
     
     # concatenate program answers for easy worksheet parsing
     program_full_answer = list(str(percentage)) + list(headline_matches) 
-    # print(f'program_full_answer: {program_full_answer}') # for debugging purposes only
+    # print(f'program_full_answer: {program_full_answer}') # TODO remove before submitting: for debuggging purposes only
 
     # get user answers
     answer1 = get_user_input1()
@@ -532,7 +534,7 @@ def main(): #TODO: Handle any leftover errors not handled in individual function
     
     # concatenate user answers for easy worksheet parsing
     user_full_answer = list(str(answer1)) + answer2
-    # print(f'program full_answer: {user_full_answer}') # for debuggging purposes only
+    # print(f'program full_answer: {user_full_answer}') # TODO remove before submitting: for debuggging purposes only
     
     # calculate scores
     user_matches = calculate_user_buzzword_points(answer2, headline_matches)
@@ -541,7 +543,7 @@ def main(): #TODO: Handle any leftover errors not handled in individual function
     scores_history = get_user_scores_list()
     average_score = get_user_average_score(scores_history)
     end_results = [percentage, user_total_score]
-    # print(f'End results: {end_results}\n') # for debug purposes only
+    # print(f'End results: {end_results}\n') # TODO remove before submitting: for debug purposes only
 
     # update worksheets
     update_worksheet_row('program_answers', program_full_answer)
@@ -555,7 +557,7 @@ def main(): #TODO: Handle any leftover errors not handled in individual function
     print(f'You won: {user_total_score} point(s)\n') #TODO add graphic depending on how many points out of max won. (Smiley face or cool terminal graphic). Will need new function.
     print(f'Your average score is: {average_score} point(s)')
     print(SEPARATE + '\n') 
-    print(f'{Fore.RED}{Style.BRIGHT}****  We are forcasting a {percentage}% chance of apocalypse today!  ****') # TODO add border and center? Or emoji?
+    print(f'{Fore.RED}{Style.BRIGHT}****  We are forcasting a {percentage}% chance of apocalypse today!  ****') and playsound('/zombie-bingo/sound-effect.mp3') # TODO add border and center? Or emoji? TODO add sound effect from workspace at same time
     print(SEPARATE + '\n') 
 
     # play again y/n
