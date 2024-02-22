@@ -212,8 +212,10 @@ def process_data(data):
             data = list(data)
     except  TypeError as e:
         pprint(f'String needed to process data. Data is currenctly {type(data)}.')
+        raise e.with_traceback()
     except Exception as e:
         pprint(f'An error occurred while processing data. Please try again.')
+        raise Exception
     return data
 
 def find_list_intersections(list1, list2):  
@@ -224,11 +226,12 @@ def find_list_intersections(list1, list2):
         intersections = set(list1).intersection(list2)
     except TypeError as e:
         pprint(f'List parameters must be list types: find_list_intersections function received: {type(list1)} and {type(list2)}.\nPlease try again.')
+        raise e.with_traceback()
     except Exception:
-        print(f'An error occurred while finding list intersections. Please try again.')
+        raise Exception(f'An error occurred while finding list intersections. Please try again.')
     return intersections
 
-def remove_common_words(data):  #TODO handle ValueError and Exception exception 
+def remove_common_words(data): 
     """
     Returns string list with common words removed.
     """
