@@ -17,6 +17,7 @@ if os.path.exists('env.py'):
     import env
 # import art # - needed?
 from art import *
+from google.api_core.exceptions import AlreadyExists # https://googleapis.dev/python/google-api-core/latest/exceptions.html #https://stackoverflow.com/questions/23945784/how-to-manage-google-api-errors-in-python
 
 colorama.init(autoreset=True) #auto-reset color for each new line
 
@@ -25,7 +26,8 @@ separate = '----------------------------------------------------------------\n'
 SEPARATE = separate.center(80)
 
 # REFACTORING TODOs:
-# TODO error handling for all functions where appropriate including MAIN with SPEICIFIC error types
+# TODO Handle errors including MAIN.
+# TODO look up how to handle empty input errors (perhaps with counter or len) 
 # TODO error for second user questsion - if not right type, look back to ask second Q again so doesn't just complete the program running
 # TODO make all questions, input text prompts and elements consistent in their styling.
 # TODO get system type - if mac or linux, use os.system(clear). If windows use 'cls' instead. Try as class on init?
@@ -81,25 +83,46 @@ def start_game():
         print(f'Import Error: {e.args}')
     except RuntimeError as e:
         print(f'Runtime Error: {e.args}')
+    except Exception as e:
+        print(f'Error: {e.__traceback__}')
     finally:
         False # to prevent any uncaught while loop issues from KeyboardInterrupt.
 
-def animation_loop(i): #TODO add credits in comment as well as readme.
+def animation_loop(i): #TODO handle attribute error and value error - assign I as 3 seconds, exception 
+    """
+    Loading animation loop of rotating slashes.
+
+    Credit: https://medium.com/@joloiuy/creating-captivating-terminal-animations-in-python-a-fun-and-interactive-guide-2eeb2a6b25ec
+    """
     animation = "|/-\\"
     start_time = time.time()
-    while True:
-        for i in range(4):
-            time.sleep(0.1)  # Feel free to experiment with the speed here
-            sys.stdout.write("\r" + animation[i % len(animation)])
-            sys.stdout.flush()
-        if time.time() - start_time > i:  # The animation will last for {i} seconds
-            break
-    sys.stdout #TODO find credits and check if shows how to delete the static \ when it finishes animation
-def get_wordbank_list():
+    
+    try:
+        while True:
+            for i in range(4):
+                time.sleep(0.1)  # Feel free to experiment with the speed here
+                sys.stdout.write("\r" + animation[i % len(animation)])
+                sys.stdout.flush()
+            if time.time() - start_time > i:  # The animation will last for {i} seconds
+                break
+        os.system('clear')
+        sys.stdout
+    except (AttributeError, ValueError):
+        i = 3 # Defaults to 3 seconds if needed     
+def get_wordbank_list():  #TODO handle exception see last google import with links above
     """
     Returns all words in the wordbank as a list.
     """
-    wordbank = SHEET.worksheet('wordbank').col_values(2)[1:] # write as a function instead
+
+    try:
+        wordbank = SHEET.worksheet('wordbank').col_values(2)[1:] # write as a function instead
+
+    except HttpError as err:
+    # If the error is a rate limit or connection error,
+    # wait and try again.
+    if err.resp.status in [403, 500, 503]:
+        time.sleep(5)
+    else: raise
     
     return wordbank
 def get_headlines():
@@ -124,7 +147,7 @@ def get_headlines():
         "X-RapidAPI-Key": os.environ.get('RAPID_API_KEY'),
         "X-RapidAPI-Host": "newsnow.p.rapidapi.com"
     }
-    
+
     try:
         response = requests.post(url, json=payload, headers=headers)
 
@@ -132,8 +155,30 @@ def get_headlines():
         title_collection = []
         for news_item in primary_text['news']:
             title_collection.append(news_item['title'])
-    except Exception as e: #TODO handle with SPECIFIC exception
-        raise Exception #TODO as above
+            
+    #credit: https://www.secopshub.com/t/handling-api-errors-using-python-requests/589
+    except requests.exceptions.HTTPError as errh: #TODO add snippet credit to Readme.
+        return "An Http Error occurred:" + repr(errh)
+    except requests.exceptions.ConnectionError as errc:
+        return "An Error Connecting to the API occurred:" + repr(errc)
+    except requests.exceptions.Timeout as errt:
+        return "A Timeout Error occurred:" + repr(errt)
+    except requests.exceptions.RequestException as err:
+        return "An Unknown Error occurred" + repr(err)
+    except Exception:
+        print("An Unknown Error occurred")
+        while True:
+            user_response = input('Press 1 to try again, or 9 to use the preloaded headlines I cooked up yesterday')
+            if user_response == 1:
+                print('Trying again! Please hold...')
+                get_headlines()
+                break
+            elif user_response == 9:
+                print('OK! I\'ll use a precooked batch of headlines I have saved...\n')
+                print('Please hold...')
+                animation_loop()
+                HEADLINES = test_get_headlines() #TODO does this work? Try when internet off
+                break
     return title_collection
 
 def test_get_headlines():
@@ -144,7 +189,7 @@ def test_get_headlines():
     title_collection = 'Global Leaders Convene for Climate Summit; chaos destruction survival desolation catastrophePledge Action on Climate Change. Tech Giants Unveil New Innovations at Annual Conference, Economic Uncertainty Looms as Stock Markets Fluctuate, Health Experts Warn of Potential New Wave of Pandemic Cases. Renewable Energy Surges, Outpacing Fossil Fuel Investments, Political Turmoil Erupts in Region, Raising Concerns for Stability. Breakthrough in Medical Research Offers Hope for Rare Diseases, Education Sector Faces Challenges Amidst Shift to Online Learning. Space Exploration Reaches New Heights with Successful Satellite Launch, Environmentalists Rally for Conservation Efforts in Face of Biodiversity Loss.'
     return title_collection
     
-def process_data(data):
+def process_data(data):  #TODO handle ValueError, TypeError, Generic Exception exception 
     """
     Returns string list all lowercase, with punctuation removed.
     Turns any ints into version (e.g. 1 -> 'one').
@@ -164,14 +209,14 @@ def process_data(data):
         
     return data
 
-def find_list_intersections(list1, list2):
+def find_list_intersections(list1, list2):  #TODO handle TypeError and generic exception 
     """
     Returns list of all intersections between list1 and list2.
     """
     intersections = set(list1).intersection(list2)
     return intersections
 
-def remove_common_words(data):
+def remove_common_words(data):  #TODO handle ValueError and Exception exception 
     """
     Returns string list with common words removed.
     """
@@ -184,7 +229,7 @@ def remove_common_words(data):
         raise e.with_traceback()
     return data
     
-def percentage_of_wordbank_matches(data):
+def percentage_of_wordbank_matches(data):  #TODO handle ValueError, TypeError, Exception exception 
     """
     Returns percentage of matches between data and wordbank.
     This defines the percentage likelihood of apocalypse.
@@ -198,7 +243,7 @@ def percentage_of_wordbank_matches(data):
     percentage = math.floor(percentage)
     return percentage
 
-def get_wordbank_matches_list(data):
+def get_wordbank_matches_list(data): #TODO handle exception, TypeError 
     """
     Returns list of wordbank matches.
     """
@@ -208,7 +253,7 @@ def get_wordbank_matches_list(data):
     matches = find_list_intersections(wordbank, data)
     return matches
     
-def update_worksheet_row(worksheet_name, values):
+def update_worksheet_row(worksheet_name, values): #TODO handle exception generic 
     """
     Adds data to spreadsheet as a new row.
     """
@@ -220,7 +265,7 @@ def update_worksheet_row(worksheet_name, values):
     except TypeError as e:
         raise TypeError('data must be a list') and print(e.with_traceback()) #TODO sort so doesn't finish program, will ask to start again.
 
-def update_worksheet_cell(worksheet_name, data):
+def update_worksheet_cell(worksheet_name, data): #TODO handle exception, API (RUntime?) error  
     """
     Adds data to spreadsheet as a new cell.
     """
@@ -232,7 +277,7 @@ def update_worksheet_cell(worksheet_name, data):
     except TypeError as e:
         raise TypeError('data must not be a list') and print(e.with_traceback()) #TODO sort so doesn't finish program, will ask to start again.
         
-def get_user_input1():
+def get_user_input1(): #TODO handle EOFError and ValueError here
     """
     Returns user input 1.
     """
@@ -249,7 +294,7 @@ def get_user_input1():
             break
     return user_answer
  
-def validate_user_input1(user_input1): # TODO fix logic and loop
+def validate_user_input1(user_input1): # TODO fix logic and loop. Handle generic Excepion errors
     """
     If user input is not an integer, or if number 
     is not between 0 and 100, raises exception.
@@ -259,12 +304,12 @@ def validate_user_input1(user_input1): # TODO fix logic and loop
         user_input1 = int(user_input1) #TODO fix. At moment if false, still returns true? Test and know how if else, except and better error handling work better    
         if user_input1 < 0 or user_input1 > 100:
             print('Woah woah, I said I number between 0 and 100. Check your math...')
-    except ValueError:
+    except (ValueError, TypeError):
             print(f'I need a number, silly!. You provided {type(user_input1)}')
             return False
     return True
     
-def get_user_input2():
+def get_user_input2():#TODO Handle, Type, Value and generic Excepion errors
     """
     Returns user input 2 as list of strings.
     """
@@ -285,7 +330,7 @@ def get_user_input2():
     print(SEPARATE)
     return user_answer        
     
-def validate_user_input2(user_input2): # TODO debug error handling with specific exception
+def validate_user_input2(user_input2): # TODO debug; handle type, value, exception errors
     """
     Raises error if user input is not a string, 
     or if total number of provided key words
@@ -299,7 +344,7 @@ def validate_user_input2(user_input2): # TODO debug error handling with specific
         print(f'Invalid Type: {e.args}. Please enter 3 key words. Numbers are not allowed.\n')
         return False
     return True
-def calculate_user_buzzword_points(keyword_list, user_list):
+def calculate_user_buzzword_points(keyword_list, user_list): #TODO: Handle type, value and generic Excepion errors
     """
     Find any matches between API headlines and user buzzwords.
     Generate score - one point per matched buzzword.
@@ -309,7 +354,7 @@ def calculate_user_buzzword_points(keyword_list, user_list):
     points = len(matches_list)
     return points
 
-def calculate_user_percentage_score(user_input1, percentage):
+def calculate_user_percentage_score(user_input1, percentage):#TODO: Handle type, value and generic Excepion errors
     """
     If user is within 10% range of actual percentage, 
     return 1 point. Else return 0.
@@ -320,7 +365,7 @@ def calculate_user_percentage_score(user_input1, percentage):
     else:
         return 0
 
-def get_user_scores_list():
+def get_user_scores_list(): #TODO: Handle type, API, timeout, value and generic Excepion error
     """
     Gets column data from user scores logged from each time 
     user completes game.
@@ -331,7 +376,7 @@ def get_user_scores_list():
         value = int(value)
         user_scores.append(value)
     return user_scores
-def get_user_average_score(user_scores):
+def get_user_average_score(user_scores): #TODO: Handle type, value, ZeroDivisionError and generic Excepion error
     """
     Returns average score for user.
     """
@@ -349,7 +394,7 @@ def play_again():
         print(f'{Fore.RESET}Thank you for playing!')
         exit() # terminate program
 
-def main():
+def main(): #TODO: Handle any leftover errors not handled in individual functions. 
     """
     Runs all program functions.
     """
@@ -358,8 +403,8 @@ def main():
     # headlines = get_headlines() # commented output for testing purposes, using testing headlines instead to avoid maxing API requests*****
     
     # main functions
-    headlines = test_get_headlines()
-    processed_headlines = process_data(headlines)
+    HEADLINES = test_get_headlines()
+    processed_headlines = process_data(HEADLINES)
     keyword_list = remove_common_words(processed_headlines)
     percentage = percentage_of_wordbank_matches(keyword_list)
     headline_matches = get_wordbank_matches_list(keyword_list) # TODO make headline matches alphabetical so appear nicely in worksheet 
