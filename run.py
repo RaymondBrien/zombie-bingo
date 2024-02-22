@@ -4,6 +4,7 @@ from google.oauth2.service_account import Credentials
 import json
 import requests
 import nltk 
+import pprint
 from nltk.corpus import stopwords
 import re
 import inflect
@@ -27,6 +28,7 @@ SEPARATE = separate.center(80)
 
 # REFACTORING TODOs:
 # TODO Handle errors including MAIN.
+# TODO test errors and document
 # TODO look up how to handle empty input errors (perhaps with counter or len) 
 # TODO error for second user questsion - if not right type, look back to ask second Q again so doesn't just complete the program running
 # TODO make all questions, input text prompts and elements consistent in their styling.
@@ -108,16 +110,17 @@ def animation_loop(i): #TODO handle attribute error and value error - assign I a
         os.system('clear')
         sys.stdout
     except (AttributeError, ValueError):
-        i = 3 # Defaults to 3 seconds if needed     
+        i = 3 # Defaults to 3 seconds if needed  
+    except Exception as e:  
+        print(f'General error occurred: {e.__traceback__}')   
 def get_wordbank_list():  #TODO handle exception see last google import with links above
     """
     Returns all words in the wordbank as a list.
     """
-
     try:
         wordbank = SHEET.worksheet('wordbank').col_values(2)[1:] # write as a function instead
 
-    except HttpError as err:
+    except HttpError as err: #TODO handle exception
     # If the error is a rate limit or connection error,
     # wait and try again.
     if err.resp.status in [403, 500, 503]:
@@ -189,31 +192,38 @@ def test_get_headlines():
     title_collection = 'Global Leaders Convene for Climate Summit; chaos destruction survival desolation catastrophePledge Action on Climate Change. Tech Giants Unveil New Innovations at Annual Conference, Economic Uncertainty Looms as Stock Markets Fluctuate, Health Experts Warn of Potential New Wave of Pandemic Cases. Renewable Energy Surges, Outpacing Fossil Fuel Investments, Political Turmoil Erupts in Region, Raising Concerns for Stability. Breakthrough in Medical Research Offers Hope for Rare Diseases, Education Sector Faces Challenges Amidst Shift to Online Learning. Space Exploration Reaches New Heights with Successful Satellite Launch, Environmentalists Rally for Conservation Efforts in Face of Biodiversity Loss.'
     return title_collection
     
-def process_data(data):  #TODO handle ValueError, TypeError, Generic Exception exception 
+def process_data(data):
     """
     Returns string list all lowercase, with punctuation removed.
     Turns any ints into version (e.g. 1 -> 'one').
     """
     data = str(data)
-    # remove punctuation
-    data = re.sub(r'[^\w\s]','', data)
-    data = data.lower()
-    data = data.split()
-    
-    # turn any int within text into words
-    for word in data:
-        if word is int:
-            word = inflect.engine().number_to_words(word)
-            data = ' '.join(data)
-        data = list(data)
+    try:
+        # remove punctuation
+        data = re.sub(r'[^\w\s]','', data)
+        data = data.lower()
+        data = data.split()
         
+        # turn any int within text into words
+        for word in data:
+            if word is int:
+                word = inflect.engine().number_to_words(word)
+                data = ' '.join(data)
+            data = list(data)
+    except  TypeError as e:
+        print(f'String needed to process data. Data is currenctly {type(data)}')
+    except Exception as e:
+        print(f'An error occurred while processing data. Please try again.')
     return data
 
 def find_list_intersections(list1, list2):  #TODO handle TypeError and generic exception 
     """
     Returns list of all intersections between list1 and list2.
     """
-    intersections = set(list1).intersection(list2)
+    try:
+        intersections = set(list1).intersection(list2)
+    except TypeError as e:
+        print(f'List parameters must be list types: find_list_intersections function received: {type(list1)} and {type(list2)}.\nPlease try again.')
     return intersections
 
 def remove_common_words(data):  #TODO handle ValueError and Exception exception 
