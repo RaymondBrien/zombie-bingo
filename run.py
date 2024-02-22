@@ -312,7 +312,7 @@ def update_worksheet_row(worksheet_name, values): # TODO add google API error ha
         print('An error occured. Check your internet connection and error details below:\n')
         raise e.with_traceback()
 
-def update_worksheet_cell(worksheet_name, data): #TODO handle exception, API (RUntime?) error  
+def update_worksheet_cell(worksheet_name, data): # TODO add google API error handling once correctly imported see import list above  
     """
     Adds data to spreadsheet as a new cell.
     """
@@ -320,10 +320,23 @@ def update_worksheet_cell(worksheet_name, data): #TODO handle exception, API (RU
         print(f'Updating {worksheet_name} worksheet...\n')
         SHEET.worksheet(worksheet_name).append_row(data) 
         print(f'{worksheet_name} worksheet successfully updated...\n')
-        
     except TypeError as e:
-        raise TypeError('data must not be a list') and print(e.with_traceback()) #TODO sort so doesn't finish program, will ask to start again.
-        
+        raise TypeError(f'Data must be a list. When updating worksheet cell it was: {type(data)}') #TODO sort so doesn't finish program, will ask to start again.
+    except Exception as e:
+        print(f'An error occured. Check your internet connection and error details below:\n{e.with_traceback}')
+        while True:
+            user_response = input('Would you like to try updating worksheet again? y/n\n')
+            if user_response == 'y'.lower():
+                print('Trying again! Please hold...')
+                animation_loop()
+                update_worksheet_cell(worksheet_name, data)
+                break
+            elif user_response == 'n'.lower():
+                print('Ok. Clearing...')
+                animation_loop()
+                sys.stdout.flush()
+                os.system('clear')
+                break
 def get_user_input1(): #TODO handle EOFError and ValueError here
     """
     Returns user input 1.
