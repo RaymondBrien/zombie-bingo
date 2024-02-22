@@ -17,11 +17,10 @@ import sys
 import os
 if os.path.exists('env.py'):
     import env
-# import art # - needed?
-from art import *
+import art # TODO - needed?
 # https://googleapis.dev/python/google-api-core/latest/exceptions.html 
 # https://stackoverflow.com/questions/23945784/how-to-manage-google-api-errors-in-python
-from google.api_core import AlreadyExists  #TODO sort why this isn't working - tried to install. Unclear. See two links above. Needed for google API errors.
+# from google.api_core import AlreadyExists  #TODO sort why this isn't working - tried to install. Unclear. See two links above. Needed for google API errors.
 
 colorama.init(autoreset=True) #auto-reset color for each new line
 
@@ -40,7 +39,9 @@ SEPARATE = separate.center(80)
 # TODO remove any unused imports. 
 # TODO reupdate requirements.txt before submitting!
 # TODO check deployed version on heroku. Note differences for readme
-# TODO test errors and document in testing.
+# TODO test errors and document in testing with screenshots
+# TODO remove commented out sections from readme
+# TODO readme opening paragraphs restyle
 
 SCOPE = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -129,10 +130,10 @@ def get_wordbank_list():  #TODO handle exception see last google import with lin
     except HttpError as err: #TODO handle exception
     # If the error is a rate limit or connection error,
     # wait and try again.
-    if err.resp.status in [403, 500, 503]:
-        time.sleep(5)
-    else: raise
-    
+        if err.resp.status in [403, 500, 503]:
+            time.sleep(5)
+        else: raise
+        
     return wordbank
 def get_headlines():
     """
