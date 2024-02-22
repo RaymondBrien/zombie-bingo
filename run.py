@@ -18,6 +18,7 @@ import os
 if os.path.exists('env.py'):
     import env
 import art # TODO - needed?
+from art import text2art
 # https://googleapis.dev/python/google-api-core/latest/exceptions.html 
 # https://stackoverflow.com/questions/23945784/how-to-manage-google-api-errors-in-python
 # from google.api_core import AlreadyExists  #TODO sort why this isn't working - tried to install. Unclear. See two links above. Needed for google API errors.
@@ -93,7 +94,7 @@ def start_game():
     except RuntimeError as e:
         print(f'Runtime Error: {e.args}')
     except Exception as e:
-        print(f'Error: {e.__traceback__}')
+        print(f'Error: {e.with_traceback}')
     finally:
         False # to prevent any uncaught while loop issues from KeyboardInterrupt.
 
