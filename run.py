@@ -253,11 +253,19 @@ def percentage_of_wordbank_matches(data):  #TODO handle ValueError, TypeError, E
     """
     wordbank = SHEET.worksheet('wordbank').col_values(2)[1:] #TODO add as a function to avoid repeating this
     matches = find_list_intersections(wordbank, data)
-    
-    #find percentage of wordbank matches
-    # print(f'percentage = {len(matches)} divided by {len(wordbank)} * 100') #TODO remove before submit
-    percentage = len(matches) / (len(wordbank)) * 100
-    percentage = math.floor(percentage)
+    try:    
+        #find percentage of wordbank matches
+        # print(f'percentage = {len(matches)} divided by {len(wordbank)} * 100') #TODO remove this print statement before submit - only for testing
+        percentage = len(matches) / (len(wordbank)) * 100
+        percentage = math.floor(percentage)
+    except ValueError as e:
+        raise ValueError('Could not find wordbank matches. Check worksheet connectivity.')
+    except ZeroDivisionError as e:
+        raise ValueError('Zero division error')
+        print(f'percentage = {len(matches)} divided by {len(wordbank)} * 100') # TODO confirm if works
+    except Exception as e:
+        print('An error occurred')
+        raise e.with_traceback()
     return percentage
 
 def get_wordbank_matches_list(data): #TODO handle exception, TypeError 
