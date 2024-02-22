@@ -376,7 +376,7 @@ def validate_user_input1(user_input1): # TODO fix logic and loop. Handle generic
             print('Woah woah, I said I number between 0 and 100. Check your math...')
     except (ValueError, TypeError):
             print(f'I need a number, silly!. You provided {type(user_input1)}')
-            return False
+            return False # for correct functionality within get_user_input1() 
     return True
     
 def get_user_input2():#TODO Handle, Type, Value and generic Excepion errors
@@ -387,17 +387,21 @@ def get_user_input2():#TODO Handle, Type, Value and generic Excepion errors
     print('For some bonus points, enter 3 key words you think are in the news today\n')
     print(f'{Style.DIM}Here\'s an example: apocalypse, AI, mutation\n')
     print(SEPARATE)
-    
-    while True:
-        input_data = input('Enter 3 key words: ')
-        user_answer = input_data.split(',')
-        
-        # validate answer 
-        if validate_user_input2(user_answer):
-            break
-    print(SEPARATE)
-    print(f'{Fore.LIGHTGREEN_EX}Gotcha! Let me log your answers to my worksheets.\n')
-    print(SEPARATE)
+    try:
+        while True:
+            input_data = input('Enter 3 key words: ')
+            user_answer = input_data.split(',')
+            
+            # validate answer 
+            if validate_user_input2(user_answer):
+                break
+        print(SEPARATE)
+        print(f'{Fore.LIGHTGREEN_EX}Gotcha! Let me log your answers to my worksheets.\n')
+        print(SEPARATE)
+    except TypeError as e:
+        print(f'Invalid Type: {e.with_traceback}.\nYou wrote: {input_data} which is type {type(input_data)}.\nPlease enter 3 key words. Numbers are not allowed.\n')
+    except Exception as e:
+        raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return user_answer        
     
 def validate_user_input2(user_input2): # TODO debug; handle type, value, exception errors
