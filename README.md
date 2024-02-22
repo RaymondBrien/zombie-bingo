@@ -225,8 +225,8 @@ I've used the following Python packages and/or external imported packages.
 - `nltk`: used for stopwords to remove generic works from news headlines
 <!-- - 're' -->
 <!-- - 'inflect' -->
-<!-- check list -->
 - 'math': to create clear percentage calculations with math.floor
+<!-- TODO add updated list here -->
 
 
 ## Testing
@@ -338,11 +338,6 @@ You can fork this repository by using the following steps:
 It is common practice to use code from other repositories and tutorials,
 however, it is important to be very specific about these sources to avoid plagiarism. -->
 
-<!-- - Stackoverflow (http://stackoverflow.com) (UPDATE URL): set find difference  -->
-
-
-
-
 ### Content
 
 <!-- 
@@ -360,8 +355,8 @@ Ideally, you should provide an actual link to every resource used, not just a ge
 | [StackOverflow](https://stackoverflow.com/questions/9953619/technique-to-remove-common-wordsand-their-plural-versions-from-a-string) | text processing functions | forum on usage of stopwords to process text to remove common words with nltk |
 | [Medium](https://medium.com/analytics-vidhya/deploying-nlp-model-on-heroku-using-flask-nltk-and-git-lfs-eed7d1b22b11) | nltk functions | debugging nltk stopword package errors when deploying to heroku |
 | [ASCII](https://www.ascii-art.site/) | heading art | program name art used throughout program |
-<!-- | [strftime](https://strftime.org) | CRUD functionality | helpful tool to format date/time from string | -->
-<!-- | [WhiteNoise](http://whitenoise.evans.io) | entire site | hosting static files on Heroku temporarily | -->
+| [StackOverflow](https://stackoverflow.com/questions/423379/how-to-use-a-global-variable-in-a-function) | global variable usage throughout program | how to reassign global variables to ensure the backup pre-loaded headlines work if headlines API call fails due to internet connection issues or maxing out API requests |
+
 
 ### Media
 
