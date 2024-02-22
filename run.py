@@ -211,9 +211,9 @@ def process_data(data):
                 data = ' '.join(data)
             data = list(data)
     except  TypeError as e:
-        print(f'String needed to process data. Data is currenctly {type(data)}')
+        pprint(f'String needed to process data. Data is currenctly {type(data)}.')
     except Exception as e:
-        print(f'An error occurred while processing data. Please try again.')
+        pprint(f'An error occurred while processing data. Please try again.')
     return data
 
 def find_list_intersections(list1, list2):  #TODO handle TypeError and generic exception 
