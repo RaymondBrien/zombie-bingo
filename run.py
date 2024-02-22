@@ -356,12 +356,12 @@ def get_user_input1(): #TODO handle EOFError and ValueError here
                 print(f'{Fore.LIGHTGREEN_EX}Awesome, thanks.\n')
                 break
     except ValueError as e:
-        raise ValueError(f'I needed a number!\nYou gave me: {type(user_answer)}.\nPlease try again...')
+        raise ValueError(f'I needed a number that makes sense!\nYou gave me: {user_answer}.\nPlease try again...')
     except EOFError as e:
-        print(f'End of File Error occurred: {e.with_traceback}. I\'ll have to restart!') 
+        print(f'EOF Error occurred: {e.with_traceback}. I\'ll have to restart to make some space...') 
         main() # restarts game
-    except Exception:
-        raise Exception('Unknown error occurred - try again!')
+    except Exception as e:
+        raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return user_answer
  
 def validate_user_input1(user_input1): # TODO fix logic and loop. Handle generic Excepion errors
