@@ -56,6 +56,8 @@ def start_game():
     Starts the game with small loading screen
     """
     try:
+        # Clear terminal if user has already played before:
+        os.system('clear') # TODO add 'cls' parameter? CLear for Linux and MacOS?
         # Loading and introduction text to user
         heading = text2art('Zombie Bingo!', font="small")
         print(heading.center(80)) #why doesn't this work TODO fix center
@@ -347,11 +349,19 @@ def get_user_input1(): #TODO handle EOFError and ValueError here
     print('\nYour answer should be a number between 1 and 100.\n')
     print(f'{Style.DIM}Here\'s an example: 65\n')
     print(SEPARATE)
-    while True:
-        user_answer = input('\nEnter a number: ')
-        if validate_user_input1(user_answer):
-            print(f'{Fore.LIGHTGREEN_EX}Awesome, thanks.\n')
-            break
+    try:
+        while True:
+            user_answer = input('\nEnter a number: ')
+            if validate_user_input1(user_answer):
+                print(f'{Fore.LIGHTGREEN_EX}Awesome, thanks.\n')
+                break
+    except ValueError as e:
+        raise ValueError(f'I needed a number!\nYou gave me: {type(user_answer)}.\nPlease try again...')
+    except EOFError as e:
+        print(f'End of File Error occurred: {e.with_traceback}. I\'ll have to restart!') 
+        main() # restarts game
+    except Exception:
+        raise Exception('Unknown error occurred - try again!')
     return user_answer
  
 def validate_user_input1(user_input1): # TODO fix logic and loop. Handle generic Excepion errors
