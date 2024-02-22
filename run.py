@@ -417,6 +417,8 @@ def validate_user_input2(user_input2): # TODO debug; handle type, value, excepti
     except ValueError as e:
         print(f'Invalid Type: {e.args}. Please enter 3 key words. Numbers are not allowed.\n')
         return False
+    except Exception as e:
+        raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return True
 def calculate_user_buzzword_points(keyword_list, user_list): #TODO: Handle type, value and generic Excepion errors
     """
