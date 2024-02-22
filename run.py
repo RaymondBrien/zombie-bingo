@@ -459,16 +459,26 @@ def calculate_user_percentage_score(user_input1, percentage):#TODO: Handle type 
     except Exception as e:
         raise Exception(f'Unknown error occurred: {e.with_traceback}')
 
-def get_user_scores_list(): #TODO: Handle type, API, timeout, value and generic Excepion error
+def get_user_scores_list(): #TODO: Handle API error
     """
     Gets column data from user scores logged from each time 
     user completes game.
     """
-    sheet_values = SHEET.worksheet('end_calculator').col_values(2)[1:] # avoid repetition with function instead
-    user_scores = []
-    for value in sheet_values:
-        value = int(value)
-        user_scores.append(value)
+    try:
+        sheet_values = SHEET.worksheet('end_calculator').col_values(2)[1:] # TODO avoid repetition with function instead
+        user_scores = []
+        for value in sheet_values:
+            value = int(value)
+            user_scores.append(value)
+    except TypeError as e:
+        print(f'Error getting user scores. This is what I got: {sheet_values}')
+        raise TypeError(f'Invalid Type: {e.args}\n.Check sheet values from end_calculator worksheet as well as internet connection') # TODO are e.args useful here? Or e.with_traceback or something else more helpful?
+    except TimeoutError as e:
+        pprint(f'Timeout Error: {e}.\n.Check your internet connection. I\'ll try again if I have a connection now...') # TODO test timeout
+        animation_loop()    
+        get_user_scores_list() # TODO will this stop the program even if successful? Is there a method to retry that part of main?
+    except Exception as e:
+        raise Exception(f'Unknown error occurred: {e.with_traceback}')  
     return user_scores
 def get_user_average_score(user_scores): #TODO: Handle type, value, ZeroDivisionError and generic Excepion error
     """
