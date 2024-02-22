@@ -250,7 +250,7 @@ def remove_common_words(data):
         raise e.with_traceback()
     return data
     
-def percentage_of_wordbank_matches(data):  #TODO handle ValueError, TypeError, Exception exception 
+def percentage_of_wordbank_matches(data): 
     """
     Returns percentage of matches between data and wordbank.
     This defines the percentage likelihood of apocalypse.
@@ -272,7 +272,7 @@ def percentage_of_wordbank_matches(data):  #TODO handle ValueError, TypeError, E
         raise e.with_traceback()
     return percentage
 
-def get_wordbank_matches_list(data): #TODO handle exception, TypeError 
+def get_wordbank_matches_list(data):
     """
     Returns list of wordbank matches.
     """
@@ -339,7 +339,7 @@ def update_worksheet_cell(worksheet_name, data): # TODO add google API error han
                 sys.stdout.flush()
                 os.system('clear')
                 break
-def get_user_input1(): #TODO handle EOFError and ValueError here
+def get_user_input1(): 
     """
     Returns user input 1.
     """
@@ -364,7 +364,7 @@ def get_user_input1(): #TODO handle EOFError and ValueError here
         raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return user_answer
  
-def validate_user_input1(user_input1): # TODO fix logic and loop. Handle generic Excepion errors
+def validate_user_input1(user_input1): # TODO fix logic and loop.
     """
     If user input is not an integer, or if number 
     is not between 0 and 100, raises exception.
@@ -379,7 +379,7 @@ def validate_user_input1(user_input1): # TODO fix logic and loop. Handle generic
             return False # for correct functionality within get_user_input1() 
     return True
     
-def get_user_input2():#TODO Handle, Type, Value and generic Excepion errors
+def get_user_input2():
     """
     Returns user input 2 as list of strings.
     """
@@ -404,7 +404,7 @@ def get_user_input2():#TODO Handle, Type, Value and generic Excepion errors
         raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return user_answer        
     
-def validate_user_input2(user_input2): # TODO debug; handle type, value, exception errors
+def validate_user_input2(user_input2): 
     """
     Raises error if user input is not a string, 
     or if total number of provided key words
@@ -420,7 +420,7 @@ def validate_user_input2(user_input2): # TODO debug; handle type, value, excepti
     except Exception as e:
         raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return True
-def calculate_user_buzzword_points(keyword_list, user_list): #TODO: Handle type, value and generic Excepion errors
+def calculate_user_buzzword_points(keyword_list, user_list): 
     """
     Find any matches between API headlines and user buzzwords.
     Generate score - one point per matched buzzword.
@@ -437,7 +437,7 @@ def calculate_user_buzzword_points(keyword_list, user_list): #TODO: Handle type,
         raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return points
 
-def calculate_user_percentage_score(user_input1, percentage):#TODO: Handle type and generic Excepion errors
+def calculate_user_percentage_score(user_input1, percentage):
     """
     Ensures both user_input1 and percentage are integers.
     If user is within 10% range of actual percentage, 
@@ -480,11 +480,20 @@ def get_user_scores_list(): #TODO: Handle API error
     except Exception as e:
         raise Exception(f'Unknown error occurred: {e.with_traceback}')  
     return user_scores
-def get_user_average_score(user_scores): #TODO: Handle type, value, ZeroDivisionError and generic Excepion error
+def get_user_average_score(user_scores):
     """
-    Returns average score for user.
+    Returns average score for user from all games played.
     """
-    score = sum(user_scores) / len(user_scores)    
+    try:
+        score = sum(user_scores) / len(user_scores)    
+    except ZeroDivisionError:
+        score = 0
+        print(f'{Fore.LIGHTRED_EX}There was an issue calculating your average score. Your score has not been counted.\n')
+        print(f'User scores came back as: {user_scores}. Check your worksheet and internet connection if this doesn\'t look right...')
+    except TypeError as e:
+        raise TypeError(f'Invalid Type: {e.args}. User scores came back as {type(user_scores)}\n')
+    except Exception as e:
+        raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return math.floor(score)
 def play_again():
     """ 
