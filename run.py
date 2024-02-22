@@ -273,9 +273,14 @@ def get_wordbank_matches_list(data): #TODO handle exception, TypeError
     Returns list of wordbank matches.
     """
     wordbank = SHEET.worksheet('wordbank').col_values(2)[1:] #TODO use function to avoid repeating
-    
-    #find number of matches between data and wordbank 
-    matches = find_list_intersections(wordbank, data)
+    try:
+        #find number of matches between data and wordbank 
+        matches = find_list_intersections(wordbank, data)
+    except TypeError as e:
+        raise TypeError('Could not parse wordbank matches')
+        print(f'{wordbank}, {data}') #TODO test - reachable?
+    except Exception as e:
+        raise e.with_traceback()   
     return matches
     
 def update_worksheet_row(worksheet_name, values): #TODO handle exception generic 
