@@ -216,14 +216,16 @@ def process_data(data):
         pprint(f'An error occurred while processing data. Please try again.')
     return data
 
-def find_list_intersections(list1, list2):  #TODO handle TypeError and generic exception 
+def find_list_intersections(list1, list2):  
     """
     Returns list of all intersections between list1 and list2.
     """
     try:
         intersections = set(list1).intersection(list2)
     except TypeError as e:
-        print(f'List parameters must be list types: find_list_intersections function received: {type(list1)} and {type(list2)}.\nPlease try again.')
+        pprint(f'List parameters must be list types: find_list_intersections function received: {type(list1)} and {type(list2)}.\nPlease try again.')
+    except Exception:
+        print(f'An error occurred while finding list intersections. Please try again.')
     return intersections
 
 def remove_common_words(data):  #TODO handle ValueError and Exception exception 
@@ -235,7 +237,9 @@ def remove_common_words(data):  #TODO handle ValueError and Exception exception
         #find all words in data that are not in common_words
         words_to_remove = find_list_intersections(common_words, data)
         data = [word for word in data if word not in stopwords.words('english') and word not in words_to_remove]
-    except Exception as e: #TODO add specific exception
+    except ValueError as e: 
+        raise ValueError('Could not find words to remove. Check stopwords and worksheet connectivity.')
+    except Exception as e:
         raise e.with_traceback()
     return data
     
