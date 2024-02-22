@@ -437,16 +437,27 @@ def calculate_user_buzzword_points(keyword_list, user_list): #TODO: Handle type,
         raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return points
 
-def calculate_user_percentage_score(user_input1, percentage):#TODO: Handle type, value and generic Excepion errors
+def calculate_user_percentage_score(user_input1, percentage):#TODO: Handle type and generic Excepion errors
     """
+    Ensures both user_input1 and percentage are integers.
     If user is within 10% range of actual percentage, 
-    return 1 point. Else return 0.
+    return 1 point. Else return 0 points.
+    Points will be added to total score count.
     """
-    if user_input1 <= percentage + 10 and user_input1 >= percentage - 10:
-        #1 point awarded to user
-        return 1
-    else:
-        return 0
+    try:
+        user_input1 = int(user_input1)
+        percentage = int(percentage)
+        if user_input1 <= percentage + 10 and user_input1 >= percentage - 10:
+            #1 point awarded to user
+            return 1
+        else:
+            return 0
+    except ValueError as e:
+        raise ValueError(f'Invalid Value: {e.args}. Please enter 3 key words. Numbers are not allowed.\n')
+    except TypeError as e:
+        raise TypeError(f'Invalid Type: {e.args}. Please enter 3 key words. Numbers are not allowed.\n')
+    except Exception as e:
+        raise Exception(f'Unknown error occurred: {e.with_traceback}')
 
 def get_user_scores_list(): #TODO: Handle type, API, timeout, value and generic Excepion error
     """
