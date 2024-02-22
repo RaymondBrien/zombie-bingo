@@ -188,7 +188,8 @@ def get_headlines():
                 print('OK! I\'ll use a precooked batch of headlines I have saved...\n')
                 print('Please hold...')
                 animation_loop()
-                HEADLINES = test_get_headlines() #TODO does this work? Try when internet off
+                global headlines 
+                headlines = test_get_headlines() #TODO does this work? Try when internet off
                 break
     return title_collection
 
@@ -518,15 +519,17 @@ def main(): #TODO: Handle any leftover errors not handled in individual function
     """
     start_game()
 
-    # headlines = get_headlines() # TODO put back in before submitting: commented output for testing purposes, using testing headlines instead to avoid maxing API requests*****
+    # global headlines = get_headlines() # TODO put back in before submitting: commented output for testing purposes, using testing headlines instead to avoid maxing API requests*****
     
-    # main functions
-    HEADLINES = test_get_headlines()
-    processed_headlines = process_data(HEADLINES)
+    global headlines 
+    headlines = test_get_headlines()
+    processed_headlines = process_data(headlines)
     keyword_list = remove_common_words(processed_headlines)
     percentage = percentage_of_wordbank_matches(keyword_list)
     headline_matches = get_wordbank_matches_list(keyword_list) # TODO make headline matches alphabetical so appear nicely in worksheet 
-    
+
+    animation_loop(2) 
+       
     # concatenate program answers for easy worksheet parsing
     program_full_answer = list(str(percentage)) + list(headline_matches) 
     # print(f'program_full_answer: {program_full_answer}') # TODO remove before submitting: for debuggging purposes only
