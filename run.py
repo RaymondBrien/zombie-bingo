@@ -18,7 +18,9 @@ if os.path.exists('env.py'):
     import env
 # import art # - needed?
 from art import *
-from google.api_core.exceptions import AlreadyExists # https://googleapis.dev/python/google-api-core/latest/exceptions.html #https://stackoverflow.com/questions/23945784/how-to-manage-google-api-errors-in-python
+# https://googleapis.dev/python/google-api-core/latest/exceptions.html 
+# https://stackoverflow.com/questions/23945784/how-to-manage-google-api-errors-in-python
+from google.api_core import AlreadyExists  #TODO sort why this isn't working - tried to install. Unclear. See two links above. Needed for google API errors.
 
 colorama.init(autoreset=True) #auto-reset color for each new line
 
@@ -283,17 +285,32 @@ def get_wordbank_matches_list(data): #TODO handle exception, TypeError
         raise e.with_traceback()   
     return matches
     
-def update_worksheet_row(worksheet_name, values): #TODO handle exception generic 
+def update_worksheet_row(worksheet_name, values): # TODO add google API error handling once correctly imported see import list above
     """
     Adds data to spreadsheet as a new row.
     """
     try:
         print(f'Updating {worksheet_name} worksheet...\n')
         SHEET.worksheet(worksheet_name).append_row(values) 
-        print(f'{Fore.LIGHTGREEN_EX}{worksheet_name} worksheet successfully updated...\n')
-        
+        print(f'{Fore.LIGHTGREEN_EX}{worksheet_name} worksheet successfully updated...\n')   
     except TypeError as e:
-        raise TypeError('data must be a list') and print(e.with_traceback()) #TODO sort so doesn't finish program, will ask to start again.
+        print('Data must be a list: please check')
+        while True:
+            user_response = input('Would you like to try again? y/n\n')
+            if user_response == 'y'.lower():
+                print('Trying again! Please hold...')
+                animation_loop()
+                update_worksheet_row(worksheet_name, values)
+                break
+            elif user_response == 'n'.lower():
+                print('Ok. Clearing...')
+                animation_loop()
+                sys.stdout.flush()
+                os.system('clear')
+                break
+    except Exception as e:
+        print('An error occured. Check your internet connection and error details below:\n')
+        raise e.with_traceback()
 
 def update_worksheet_cell(worksheet_name, data): #TODO handle exception, API (RUntime?) error  
     """
