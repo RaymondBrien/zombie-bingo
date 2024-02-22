@@ -346,9 +346,9 @@ def get_user_input1():
     Returns user input 1.
     """
     print(SEPARATE)
-    print(f'{Fore.LIGHTRED_EX}Welcome pessimist.\n')
-    print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}How likely is doomsday today?')
-    print('\nYour answer should be a number between 1 and 100.\n')
+    print(f'{Fore.LIGHTRED_EX}Welcome pessimist. I have two questions for you.\n') # TODO center this
+    print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 1: {Style.BRIGHT}How likely is doomsday today?\n')
+    print(f'{Style.NORMAL}Your answer should be a number between 0 and 100.\nEnter 0 if you think the world is in perfect harmony.\nEnter 100 if Earth is burning\n')
     print(f'{Style.DIM}Here\'s an example: 65\n')
     print(SEPARATE)
     try:
@@ -386,7 +386,8 @@ def get_user_input2():
     Returns user input 2 as list of strings.
     """
     print(SEPARATE)
-    print('For some bonus points, enter 3 key words you think are in the news today\n')
+    print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 2: {Style.BRIGHT}Enter 3 key words you think are in the news today\n')
+    print(f'{Style.NORMAL}I\'ll check your answers against the top headlines from today.\nEach word you get right will get you a juicy point so choose wisely.\n')
     print(f'{Style.DIM}Here\'s an example: apocalypse, AI, mutation\n')
     print(SEPARATE)
     try:
