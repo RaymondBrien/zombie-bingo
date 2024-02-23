@@ -1,23 +1,6 @@
 ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
 
-## Reminders
-
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
-
-## Creating the Heroku app
-
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
+<!-- - Your dependencies must be placed in the `requirements.txt` file -->
 
 ## Constraints
 
@@ -27,28 +10,24 @@ The deployment terminal is set to 80 columns by 24 rows. That means that each li
 
 # [ZOMBIE BINGO](https://zombie-bingo-a26c47d43c24.herokuapp.com)
 
-🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-
-
 ### Zombie Bingo 🧟‍♂️: A Thrilling Apocalypse Anticipation Game!
-"Welcome to Zombie Bingo 🧟‍♂️, where the undead meet your news feed! Picture this: a thrilling blend of current events and apocalyptic anticipation. Our app scours the latest headlines for buzzwords, and your mission, should you choose to accept it, is to guess them right. Each correct guess earns you a point, but here's the twist: the more buzzwords you nail, the closer you get to determining the likelihood of the apocalypse—on a scale of 1 to 5. It's a race against time, wits, and the impending undead. Are you ready to bingo your way through the apocalypse?"
+"Welcome to Zombie Bingo 🧟‍♂️, where doomsday joins your news feed! Picture this: a thrilling blend of current events and apocalyptic anticipation in a scintilating yet simple game package in your terminal. The app scours the latest headlines for key words, and your mission, should you choose to accept it, is to guess them right, alongside guessing how likely doomsday is today. Each correct guess earns you a point, but here's the twist: the more buzzwords you nail, the closer you get to determining the likelihood of the apocalypse—on a scale of 0 to 100. It's a race against time, wits, and the impending doom ahead. Are you ready to bingo your way through the apocalypse?"
 
 The target audience for Zombie Bingo includes:
 
-1. **Game Enthusiasts**: Individuals who enjoy engaging and unique gaming experiences, especially those with a twist or unconventional theme.
+1. **Game Enthusiasts**: Individuals with terminal access who enjoy engaging and unique gaming experiences, especially those with a twist or unconventional theme.
 
-2. **Pop Culture Fans**: People interested in zombies, apocalyptic scenarios, and pop culture references.
+2. **Culture Fans**: People interested in the news, apocalyptic scenarios, and contemporary headline references.
 
 3. **News Junkies**: Those who stay updated with current events and enjoy incorporating them into their entertainment.
 
-4. **Trivia and Word Game Players**: Fans of trivia and word games who enjoy challenges and testing their knowledge.
+4. **Trivia and Word Game Enthusiasts**: Fans of trivia and word games who enjoy challenges and testing their knowledge.
 
-5. **Tech-Savvy Users**: Individuals comfortable with using apps and digital platforms for entertainment purposes.
+5. **Tech-Savvy Users**: Individuals comfortable with using the terminal on their respective devices, even if just for silly entertainment purposes.
 
-6. **Age Range**: While Zombie Bingo can appeal to a broad age range, it may particularly attract younger adults and those with a penchant for humor and creativity.
+6. **Age Range**: While Zombie Bingo can appeal to a broad age range, it may particularly attract younger adults and those with a penchant for humor, coding and creativity.
 
-Zombie Bingo 🧟‍♂️ offers a refreshingly unique gaming experience by blending current events with apocalyptic anticipation. By guessing buzzwords sourced from news headlines, players earn points and gauge the likelihood of an impending apocalypse—adding an exciting twist to traditional bingo gameplay. This app is perfect for game enthusiasts seeking something offbeat, pop culture fans intrigued by zombies and apocalyptic scenarios, news junkies looking to merge current events with entertainment, trivia and word game players eager for challenges, and tech-savvy users seeking engaging digital experiences. Whether you're craving a dose of fun, a challenge for your brain, or simply a break from the mundane, Zombie Bingo promises to deliver an entertaining and memorable gaming experience for all.
+Zombie Bingo 🧟‍♂️ offers a humorous, succinct gaming experience by blending current events with apocalyptic anticipation. By guessing key words sourced from news headlines, players earn points and gauge the likelihood of an impending apocalypse, adding an exciting twist of actually being based on real life headlines gathered freshly each time the game is run. This game is perfect for pessimists, game enthusiasts seeking something offbeat, contemporary culture fans intrigued by apocalyptic scenarios, news junkies looking to merge current events with entertainment, trivia and word game players eager for challenges, and tech-savvy users seeking something silly and fun as a digital experience. Whether you're craving a dose of fun, a challenge for your brain, or simply a quick break from the mundane, Zombie Bingo promises to deliver an entertaining and memorable, brief experience for all.
 
 <!-- https://ui.dev/amiresponsive?url=https://zombie-bingo-a26c47d43c24.herokuapp.com
 
@@ -356,7 +335,7 @@ Ideally, you should provide an actual link to every resource used, not just a ge
 | [Medium](https://medium.com/analytics-vidhya/deploying-nlp-model-on-heroku-using-flask-nltk-and-git-lfs-eed7d1b22b11) | nltk functions | debugging nltk stopword package errors when deploying to heroku |
 | [ASCII](https://www.ascii-art.site/) | heading art | program name art used throughout program |
 | [StackOverflow](https://stackoverflow.com/questions/423379/how-to-use-a-global-variable-in-a-function) | global variable usage throughout program | how to reassign global variables to ensure the backup pre-loaded headlines work if headlines API call fails due to internet connection issues or maxing out API requests |
-
+<!-- https://stackoverflow.com/questions/22029562/python-how-to-make-simple-animated-loading-while-process-is-running -->
 
 ### Media
 
