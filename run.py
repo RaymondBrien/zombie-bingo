@@ -419,7 +419,7 @@ def validate_user_input2(user_input2):
         return False
     else: 
         try: # check if all items in user_input2 list are words
-            def not_valid(user_input2): # TODO credit for help: https://cs.stanford.edu/people/nick/py/python-map-lambda.html
+            def not_valid(user_input2): 
                 """Prints any answers in the user_input2 list that are not words"""
                 result = list(filter(lambda word: not word[1], map(lambda word: (word, word.isalpha()), user_input2)))
                 print('\nThe following answer(s) are not valid:\n')
