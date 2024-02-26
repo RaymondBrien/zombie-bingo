@@ -132,7 +132,7 @@ def animation_loop(sec):
         print(f'General error occurred: {e.__traceback__}')
 
 
-def get_wordbank_list():  # TODO handle exception see last google import with links above
+def get_wordbank_list():
     """
     Returns all words in the wordbank as a list.
     """
@@ -178,9 +178,8 @@ def get_headlines():
         title_collection = []
         for news_item in primary_text['news']:
             title_collection.append(news_item['title'])
-    # credit:
-    # https://www.secopshub.com/t/handling-api-errors-using-\python-requests/589
-    except requests.exceptions.HTTPError as errh: #TODO add snippet credit to Readme.
+    # credit requests exceptions: secopshub.com. See readme.md for details
+    except requests.exceptions.HTTPError as errh:
         return "An Http Error occurred:" + repr(errh)
     except requests.exceptions.ConnectionError as errc:
         return "An Error Connecting to the API occurred:" + repr(errc)
@@ -193,15 +192,15 @@ def get_headlines():
         while True:
             user_response = input('Press 1 to try again, or 9 to use the \
                 preloaded headlines I cooked up yesterday')
-            if user_response == 1:
-                print('Trying again! Please hold...')
+            if user_response == 1: # TODO debug incompatible types
+                print('Trying again!')
                 get_headlines()
                 break
             elif user_response == 9:
                 print('OK! I\'ll use a precooked batch of headlines I have \
                     saved...\n')
                 print('Please hold...')
-                animation_loop()
+                animation_loop(2)
                 global _headlines
                 _headlines = test_get_headlines() # TODO does this work? Try when internet off
                 break
@@ -210,8 +209,8 @@ def get_headlines():
 
 def test_get_headlines():
     """
-    TODO remove when finished?
     FOR TESTING PURPOSES ONLY TO AVOID MAXING OUT API REQUESTS.
+    Used as backup if headlines API fails / no internet connection.
     """
     title_collection = 'Global Leaders Convene for Climate Summit; chaos \
         destruction survival desolation catastrophePledge Action on \
