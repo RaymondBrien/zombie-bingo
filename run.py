@@ -29,7 +29,6 @@ separate = '----------------------------------------------------------------\n'
 SEPARATE = separate.center(80)
 
 # REFACTORING TODOs:
-# TODO look up how to handle empty input errors (perhaps with counter or len). ValueError used here? 
 # TODO error for second user questsion - if not right type, loop back to ask second Q again so doesn't just complete the program and finish
 # TODO make all questions, input text prompts and elements consistent in their styling.
 # TODO get system type - if mac or linux, use os.system(clear). If windows use 'cls' instead. Try as class on init?
@@ -413,19 +412,28 @@ def validate_user_input2(user_input2):
     Raises error if user input is not a string, 
     or if total number of provided key words
     is not 3.
-    """
-    try:        
-        if len(user_input2)!= 3:
-            print(SEPARATE)
-            print(f'Please enter 3 key words, separated by commas.\n You entered: {len(user_input2)}\n')
-            return False
-    except TypeError as e:
-        print(f'Invalid Type: {e.with_traceback}.\nYou wrote: {user_input2} which is type {type(user_input2)}.\nPlease enter 3 key words. Numbers are not allowed.\n')
-    except ValueError as e:
-        print(f'Invalid Type: {e.args}. Please enter 3 key words. Numbers are not allowed.\n')
+    """       
+    if len(user_input2)!= 3:
+        print(SEPARATE)
+        print(f'Please enter 3 key words, separated by commas.\n You entered: {len(user_input2)}\n')
         return False
-    except Exception as e:
-        raise Exception(f'Unknown error occurred: {e.with_traceback}')
+    else: 
+        try: # check if all items in user_input2 list are words
+            def not_valid(user_input2): # TODO credit for help: https://cs.stanford.edu/people/nick/py/python-map-lambda.html
+                """Prints any answers in the user_input2 list that are not words"""
+                result = list(filter(lambda word: not word[1], map(lambda word: (word, word.isalpha()), user_input2)))
+                print('\nThe following answer(s) are not valid:\n')
+                for word_tuple in result:
+                    print(f'{Fore.RED}{word_tuple[0]}: {Fore.LIGHTMAGENTA_EX}this is not a word{Fore.RESET}')
+                print('\nPlease try again...\n')
+            return True if all(word.isalpha() for word in user_input2) else not_valid(user_input2)
+        except TypeError as e:
+            print(f'Please only use words.\nYou wrote: {user_input2} which is type {type(user_input2)}.\nPlease enter 3 key words. Numbers are not allowed.\n')
+        except ValueError as e:
+            print(f'Invalid Type: {e.args}. Please enter 3 key words. Numbers are not allowed.\n')
+            return False
+        except Exception as e:
+            raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return True
 def calculate_user_buzzword_points(keyword_list, user_list): 
     """
