@@ -1,33 +1,22 @@
 # Testing
 
 Return back to the [README.md](README.md) file.
-
-🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
+<!-- 
 In this section, you need to convince the assessors that you have conducted enough testing to legitimately believe that the site works well.
 Essentially, in this part, you should go over all of your project's features, and ensure that they all work as intended,
-with the project providing an easy and straightforward way for the users to achieve their goals.
+with the project providing an easy and straightforward way for the users to achieve their goals. -->
 
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
 
 ## Code Validation
 
-🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-Use the space to discuss code validation for any of your own code files (where applicable).
-You are not required to validate external libraries/frameworks, such as imported Bootstrap, Materialize, Font Awesome, etc.
-
+<!-- Use the space to discuss code validation for any of your own code files (where applicable).
 **IMPORTANT**: You must provide a screenshot for each file you validate.
 
-**PRO TIP**: Always validate the live site pages, not your local code. There could be subtle/hidden differences.
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+**PRO TIP**: Always validate the live site pages, not your local code. There could be subtle/hidden differences. -->
 
 ### Python
 
-🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-The CI Python Linter can be used two different ways.
+<!-- The CI Python Linter can be used two different ways.
 - Copy/Paste your Python code directly into the linter.
 - As an API, using the "raw" URL appended to the linter URL.
     - To find the "raw" URL, navigate to your file directly on the GitHub repo.
@@ -66,28 +55,21 @@ without having to "guess" yourself and attempt to tab to the correct indentation
 
 Sample Python code validation documentation below (tables are extremely helpful!).
 
-**Note**: This gives examples of PP3 (Python-only), and Flask/Django files, so eliminate the ones not applicable to your own project.
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+**Note**: This gives examples of PP3 (Python-only), and Flask/Django files, so eliminate the ones not applicable to your own project. -->
 
 I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com) to validate all of my Python files.
 
 | File | CI URL | Screenshot | Notes |
 | --- | --- | --- | --- |
 | run.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/RaymondBrien/zombie-bingo/main/run.py) | ![screenshot](documentation/py-validation-run.png) | W291 trailing whitespace |
-| settings.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/RaymondBrien/zombie-bingo/main/boutique-ado/settings.py) | ![screenshot](documentation/py-validation-settings.png) | E501 line too long |
-| Blog views.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/RaymondBrien/zombie-bingo/main/blog/views.py) | ![screenshot](documentation/py-validation-blog-views.png) | Pass: No Errors |
-| Checkout urls.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/RaymondBrien/zombie-bingo/main/checkout/urls.py) | ![screenshot](documentation/py-validation-checkout-urls.png) | W292 no newline at end of file |
-| Profiles models.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/RaymondBrien/zombie-bingo/main/profiles/models.py) | ![screenshot](documentation/py-validation-profiles-models.png) | Pass: No Errors |
+
 | x | x | x | repeat for all remaining Python files |
 
 ## Browser Compatibility
 
-🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+<!-- Use this space to discuss testing the live/deployed site on various browsers.
 
-Use this space to discuss testing the live/deployed site on various browsers.
-
-Consider testing at least 3 different browsers, if available on your system.
+Consider testing at least 3 different browsers, if available on your system. -->
 
 Recommended browsers to consider:
 - [Chrome](https://www.google.com/chrome)
@@ -97,15 +79,11 @@ Recommended browsers to consider:
 - [Brave](https://brave.com/download)
 - [Opera](https://www.opera.com/download)
 
-**IMPORTANT**: You must provide screenshots of the tested browsers, to "prove" that you've actually tested them.
+<!-- **IMPORTANT**: You must provide screenshots of the tested browsers, to "prove" that you've actually tested them.
 
 Please note, there are services out there that can test multiple browser compatibilities at the same time.
 Some of these are paid services, but some are free.
-If you use these, you must provide a link to the source used for attribution, and multiple screenshots of the results.
-
-Sample browser testing documentation:
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+If you use these, you must provide a link to the source used for attribution, and multiple screenshots of the results. -->
 
 I've tested my deployed project on multiple browsers to check for compatibility issues.
 
@@ -121,9 +99,7 @@ I've tested my deployed project on multiple browsers to check for compatibility 
 
 ## Responsiveness
 
-🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-Use this space to discuss testing the live/deployed site on various device sizes.
+<!-- Use this space to discuss testing the live/deployed site on various device sizes.
 
 The minimum requirement is for the following 3 tests:
 - Mobile
@@ -136,11 +112,7 @@ Using the "amiresponsive" mockup image (or similar) does not suffice the require
 Consider using some of the built-in device sizes in the Developer Tools.
 
 If you have tested the project on your actual mobile phone or tablet, consider also including screenshots of these as well.
-It showcases a higher level of manual tests, and can be seen as a positive inclusion!
-
-Sample responsiveness testing documentation:
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+It showcases a higher level of manual tests, and can be seen as a positive inclusion! -->
 
 I've tested my deployed project on multiple devices to check for responsiveness issues.
 
@@ -157,8 +129,6 @@ I've tested my deployed project on multiple devices to check for responsiveness 
 
 ## Lighthouse Audit
 
-🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
 Use this space to discuss testing the live/deployed site's Lighthouse Audit reports.
 Avoid testing the local version (especially if developing in Gitpod), as this can have knock-on effects of performance.
 
@@ -172,8 +142,6 @@ Make sure to test the Lighthouse Audit results for all of your pages.
 
 Sample Lighthouse testing documentation:
 
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
 I've tested my deployed project using the Lighthouse Audit tool to check for any major issues.
 
 | Page | Mobile | Desktop | Notes |
@@ -184,28 +152,17 @@ I've tested my deployed project using the Lighthouse Audit tool to check for any
 | x | x | x | repeat for any other tested pages/sizes |
 
 ## Defensive Programming
-
-🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
+<!-- 
 Defensive programming (defensive design) is extremely important!
 
 When building projects that accept user inputs or forms, you should always test the level of security for each.
 Examples of this could include (not limited to):
 
-Forms:
-- Users cannot submit an empty form
-- Users must enter valid email addresses
-
 PP3 (Python-only):
 - Users must enter a valid letter/word/string when prompted
-- Users must choose from a specific list only
+- Users must choose from a specific list only -->
 
-MS3 (Flask) | MS4/PP4/PP5 (Django):
-- Users cannot brute-force a URL to navigate to a restricted page
-- Users cannot perform CRUD functionality while logged-out
-- User-A should not be able to manipulate data belonging to User-B, or vice versa
-- Non-Authenticated users should not be able to access pages that require authentication
-- Standard users should not be able to access pages intended for superusers
+
 
 You'll want to test all functionality on your application, whether it's a standard form,
 or uses CRUD functionality for data manipulation on a database.
