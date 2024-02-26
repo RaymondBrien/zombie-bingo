@@ -11,7 +11,7 @@ The deployment terminal is set to 80 columns by 24 rows. That means that each li
 # [ZOMBIE BINGO](https://zombie-bingo-a26c47d43c24.herokuapp.com)
 
 ### Zombie Bingo 🧟‍♂️: A Thrilling Apocalypse Anticipation Game!
-"Welcome to Zombie Bingo 🧟‍♂️, where doomsday joins your news feed! Picture this: a thrilling blend of current events and apocalyptic anticipation in a scintilating yet simple game package in your terminal. The app scours the latest headlines for key words, and your mission, should you choose to accept it, is to guess them right, alongside guessing how likely doomsday is today. Each correct guess earns you a point, but here's the twist: the more buzzwords you nail, the closer you get to determining the likelihood of the apocalypse—on a scale of 0 to 100. It's a race against time, wits, and the impending doom ahead. Are you ready to bingo your way through the apocalypse?"
+"Welcome to Zombie Bingo 🧟‍♂️, where doomsday joins your news feed! Picture this: a thrilling blend of current events and apocalyptic anticipation in a scintillating yet simple game package in your terminal. The app scours the latest headlines for key words, and your mission, should you choose to accept it, is to guess them right, alongside guessing how likely doomsday is today. Each correct guess earns you a point, but here's the twist: the more buzzwords you nail, the closer you get to determining the likelihood of the apocalypse—on a scale of 0 to 100. It's a race against time, wits, and the impending doom ahead. Are you ready to bingo your way through the apocalypse?"
 
 The target audience for Zombie Bingo includes:
 
@@ -75,7 +75,7 @@ IMPORTANT: Remember to always include a screenshot of each individual feature! -
 
 - **Google Sheets API**
 
-    - Adds user answers, points, maintains wordbank and API information directly from the terminal. Tables of data to check any time.
+    - Adds user answers, points, maintains word bank and API information directly from the terminal. Tables of data to check any time.
 <!-- ADD SCREENSHOT -->
 ![screenshot](documentation/featurex.png)
 
@@ -99,7 +99,7 @@ IMPORTANT: Remember to always include a screenshot of each individual feature! -
 
 - **Game Answers**
 
-    - After the user has answered both main questions, the game provides the game answers alongside the user's answers, with an aplocalypse probability based on the current headlines and their respective buzzwords.
+    - After the user has answered both main questions, the game provides the game answers alongside the user's answers, with an apocalypse probability based on the current headlines and their respective buzzwords.
 <!-- ADD SCREENSHOT -->
 ![screenshot](documentation/featurex.png)
 
@@ -113,8 +113,8 @@ IMPORTANT: Remember to always include a screenshot of each individual feature! -
 
 - Optional headline filtering via terminal
     - The user could add optional filters of criteria for the news API to use, including which country the program sources headlines from, or the number of results.
-- Add further wordbank entries
-    - Users could add additional key words they think are relevant over time to impending doom, to refine the game further, espeically if some words become more common over time due to media trends.
+- Add further word bank entries
+    - Users could add additional key words they think are relevant over time to impending doom, to refine the game further, especially if some words become more common over time due to media trends.
 - Analytics and interpretation
     - At the end of each week, users might receive insights on their average point scores over time, represented in fun and visual ways with google charts or graphics.
 - Add sound effects when results are printed
@@ -336,7 +336,7 @@ Ideally, you should provide an actual link to every resource used, not just a ge
 
 | Source | Location | Type | Notes |
 | --- | --- | --- | --- |
-| [Pixabay Sound Effect](https://pixabay.com/sound-effects/wrong-answer-126515/) | in main function | audio clip | free sound effect. Used when printing results at the end of the game to terminal. |
+| [Pixabay Sound Effect](https://pixabay.com/sound-effects/wrong-answer-126515/) | main function for poor answers | audio clip | free sound effect. Used when printing results at the end of the game to terminal.This was |
 
 
 ### Acknowledgements
