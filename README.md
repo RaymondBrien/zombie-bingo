@@ -117,6 +117,8 @@ IMPORTANT: Remember to always include a screenshot of each individual feature! -
     - Users could add additional key words they think are relevant over time to impending doom, to refine the game further, espeically if some words become more common over time due to media trends.
 - Analytics and interpretation
     - At the end of each week, users might receive insights on their average point scores over time, represented in fun and visual ways with google charts or graphics.
+- Add sound effects when results are printed
+    - At the end of each game, a sound is played to add additional user feedback for improved UX. This was not possible at the current time of deployment due to issues with static file handling in Heroku.
 
 ## Tools & Technologies Used
 
