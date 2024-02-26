@@ -304,9 +304,10 @@ You can fork this repository by using the following steps:
 ### Local VS Deployment
 
 <!-- Use this space to discuss any differences between the local version you've developed, and the live deployment site on Heroku. -->
-...
-...
-...
+
+Minor differences:
+- Heroku displays strings with the center() function correctly at the center of the mock terminal, unlike how they often display within VS code.
+- The colors displayed in the terminal are slightly different to the local version but still distinct and remain functional throughout the app.
 
 ## Credits
 
