@@ -70,6 +70,7 @@ def start_game():
         print('\n' + SEPARATE)
         print('Let\'s play bingo: how close is the zombie apocalypse according to the news? Guess the right key words and you win a point!') #TODO center and with border 
         print('\n' + SEPARATE)
+        input('Press enter to continue...')
         animation_loop(1)
     except KeyboardInterrupt as e:
         print(SEPARATE)
@@ -355,7 +356,7 @@ def get_user_input1():
     print(SEPARATE)
     try:
         while True:
-            user_answer = input('\nEnter a number: ')
+            user_answer = int(input('\nEnter a number: '))
             if validate_user_input1(user_answer):
                 print(f'{Fore.LIGHTGREEN_EX}Awesome, thanks.\n')
                 break
@@ -529,19 +530,20 @@ def main(): #TODO: Handle any leftover errors not handled in individual function
 
     # TODO Add animation loop whilst functions above are running to keep user updated - see link below
     # https://stackoverflow.com/questions/22029562/python-how-to-make-simple-animated-loading-while-process-is-running
-    animation_loop(2) 
+    animation_loop(1) 
        
     # concatenate program answers for easy worksheet parsing
     program_full_answer = list(str(percentage)) + list(headline_matches) 
-    # print(f'program_full_answer: {program_full_answer}') # TODO remove before submitting: for debuggging purposes only
-
+    
     # get user answers
     answer1 = get_user_input1()
-    answer2 = get_user_input2() 
+    answer2 = get_user_input2()
     
     # concatenate user answers for easy worksheet parsing
-    user_full_answer = list(str(answer1)) + answer2
-    # print(f'program full_answer: {user_full_answer}') # TODO remove before submitting: for debuggging purposes only
+    print(answer1)
+    user_full_answer = [answer1] + answer2
+    print(f'user full answer: {user_full_answer}')
+    
     
     # calculate scores
     user_matches = calculate_user_buzzword_points(answer2, headline_matches)
