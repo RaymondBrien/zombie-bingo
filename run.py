@@ -173,12 +173,11 @@ def get_headlines():
 
     try:
         response = requests.post(url, json=payload, headers=headers)
-
         primary_text = response.json()
         title_collection = []
         for news_item in primary_text['news']:
-            title_collection.append(news_item['title'])
-    # credit requests exceptions: secopshub.com. See readme.md for details
+            title_collection.append(news_item['title'])  # ensures only title text returned
+    # credit secopshub.com for requests exceptions below. See readme.md for details
     except requests.exceptions.HTTPError as errh:
         return "An Http Error occurred:" + repr(errh)
     except requests.exceptions.ConnectionError as errc:
@@ -190,20 +189,23 @@ def get_headlines():
     except Exception:
         print("An Unknown Error occurred")
         while True:
-            user_response = input('Press 1 to try again, or 9 to use the \
-                preloaded headlines I cooked up yesterday')
-            if user_response == 1: # TODO debug incompatible types
-                print('Trying again!')
-                get_headlines()
-                break
-            elif user_response == 9:
-                print('OK! I\'ll use a precooked batch of headlines I have \
-                    saved...\n')
-                print('Please hold...')
-                animation_loop(2)
-                global _headlines
-                _headlines = test_get_headlines() # TODO does this work? Try when internet off
-                break
+            try:
+                user_response = int(input('Press 1 to try again, or 9 to use the \
+                    preloaded headlines I cooked up yesterday'))
+                if user_response == 1:
+                    print('Trying again!')
+                    get_headlines()
+                    break
+                elif user_response == 9:
+                    print('OK! I\'ll use a precooked batch of headlines I have \
+                        saved...\n')
+                    print('Please hold...')
+                    animation_loop(2)
+                    global _headlines
+                    _headlines = test_get_headlines() # TODO does this work? Try when internet off
+                    break
+            except ValueError:
+                print('Please enter a number between 1 and 9')
     return title_collection
 
 
@@ -250,8 +252,8 @@ def process_data(data):
             {type(data)}.')
         raise e.with_traceback()
     except Exception as e:
-        pprint(f'An error occurred while processing data. Please try again.')
-        raise Exception
+        raise Exception(
+            'An error occurred while processing data. Please try again.')
     return data
 
 
@@ -267,7 +269,7 @@ def find_list_intersections(list1, list2):
                 and {type(list2)}.\nPlease try again.')
         raise e.with_traceback()
     except Exception:
-        raise Exception(f'An error occurred while finding list \
+        raise Exception('An error occurred while finding list \
             intersections. Please try again.')
     return intersections
 
@@ -424,7 +426,7 @@ def validate_user_input1(user_input1):
         try: # try converting to integer
             user_input1 = int(user_input1)
             if user_input1 < 0 or user_input1 > 100:
-                print('Woah woah, I said I number between 0 and 100. \
+                print('Woah, I said I number between 0 and 100. \
                     Check your math...')
         except ValueError:
             print(f'I need a number, silly! You provided \
