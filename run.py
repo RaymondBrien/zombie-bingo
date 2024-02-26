@@ -19,7 +19,6 @@ if os.path.exists('env.py'):
 from art import text2art
 # https://googleapis.dev/python/google-api-core/latest/exceptions.html
 # https://stackoverflow.com/questions/23945784/how-to-manage-google-api-errors-in-python
-# from google.api_core import AlreadyExists  #TODO sort why this isn't working - tried to install. Unclear. See two links above. Needed for google API errors.
 
 colorama.init(autoreset=True)  # auto-reset color for each new line
 
@@ -61,40 +60,41 @@ def start_game():
     """
     try:
         # Clear terminal if user has already played before:
-        os.system('clear')  # TODO add 'cls' parameter? CLear for Linux and MacOS?
+        os.system('clear')
         # Loading and introduction text to user
-        heading = text2art('Zombie Bingo!')  # TODO ascii isn't doing anything. FIX.
+        heading = text2art('Zombie Bingo!', font="small")
         print(heading.center(80))  
+        print(('o==[]::::::::::::::>').center(80))
         print(SEPARATE)
-        print((f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info: \
-            please wait a moment...'))
-        animation_loop(2)
+        print(f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}WELCOME TO ZOMBIE BINGO{Style.RESET_ALL}')
         print('\n' + SEPARATE)
-        print('Let\'s play bingo: how close is the zombie apocalypse according\
-            to the news? Guess the right key words and you win a point!')  #  TODO center and with border
+        print(
+            'Let\'s play bingo: how close is the zombie apocalypse according to the news?')
+        print('Guess the right key words and you win a point!')  
         print('\n' + SEPARATE)
         input('Press enter to continue...')
-        animation_loop(1)
+        print(
+            (f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info: please wait a moment...'))
+        animation_loop(2)
     except KeyboardInterrupt as e:
         print(SEPARATE)
-        print(f'\n{Fore.RED}Ouch! Don\'t poke me when I\'m booting up the \
-            program!')
+        print(f'\n{Fore.RED}Ouch! Don\'t poke me when I\'m booting up the program!')
         while True:
             print(SEPARATE)
-            key_interrupt = input(f'Do you want to continue launching the \
-                game?\n{Fore.LIGHTYELLOW_EX}Type y or n:\n')
+            key_interrupt = input(
+                f'Do you want to continue launching the game?\n{Fore.LIGHTYELLOW_EX}Type y or n:\n')  # noqa
             if key_interrupt.lower() == 'y':
                 print('\nCool, I\'ll start the game')
-                os.system('clear') # add 'cls' parameter? CLear for Linux and MacOS?
+                os.system('clear')
                 start_game()
                 break
             elif key_interrupt.lower() == 'n':
                 print('\nOk, I\'ll close the game! See you soon!\n')
                 False
                 sys.exit(0)
-            elif key_interrupt.lower() != 'y' and key_interrupt.lower() != 'n':
-                print(f'Please enter either y or n. {Fore.LIGHTYELLOW_EX}You \
-                    wrote: {key_interrupt}')
+            elif key_interrupt.lower() != 'y' and key_interrupt.lower() != 'n':  
+                print(
+                    f'Please enter either y or n. {Fore.LIGHTYELLOW_EX}You wrote: {key_interrupt}')  # noqa
     except ImportError as e:
         print(f'Import Error: {e.args}')
     except RuntimeError as e:
@@ -102,10 +102,10 @@ def start_game():
     except Exception as e:
         print(f'Error: {e.with_traceback}')
     finally:
-        False  # prevent uncaught while loop issues from KeyboardInterrupt.
+        False  # prevent uncaught while loop errors from KeyboardInterrupt.
 
 
-def animation_loop(i):  #TODO handle attribute error and value error - assign I as 3 seconds, exception
+def animation_loop(sec):
     """
     Loading animation loop of rotating slashes.
 
@@ -122,12 +122,12 @@ def animation_loop(i):  #TODO handle attribute error and value error - assign I 
                 time.sleep(0.1)  # speed of animation
                 sys.stdout.write("\r" + animation[i % len(animation)])
                 sys.stdout.flush()
-            if time.time() - start_time > i:  # duration of {i} seconds
+            if time.time() - start_time > sec:  # duration of {i} seconds
                 break
         os.system('clear')
         sys.stdout
     except (AttributeError, ValueError):
-        i = 3  # Defaults to 3 seconds if needed
+        sec = 3  # Defaults to 3 seconds if needed
     except Exception as e:
         print(f'General error occurred: {e.__traceback__}')
 
@@ -137,14 +137,14 @@ def get_wordbank_list():  # TODO handle exception see last google import with li
     Returns all words in the wordbank as a list.
     """
     try:
-        wordbank = SHEET.worksheet('wordbank').col_values(2)[1:]  # write as a function instead
+        wordbank = SHEET.worksheet('wordbank').col_values(2)[1:]
 
-    except HttpError as err:  # TODO handle exception
-        # If the error is a rate limit or connection error,
-        # wait and try again.
-        if err.resp.status in [403, 500, 503]:
+    except Exception as e:
+        # If the error is a connection error, wait and try again.
+        if e.message in [403, 500, 503]:
             time.sleep(5)
-        else: raise RuntimeError
+        else: raise RuntimeError(
+            f'Error: {e.with_traceback}: please restart the game.\n')
     return wordbank
 
 
