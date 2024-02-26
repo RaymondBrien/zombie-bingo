@@ -1,13 +1,5 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
-
-<!-- - Your dependencies must be placed in the `requirements.txt` file -->
-
-## Constraints
-
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
 
 ---
-
 # [ZOMBIE BINGO](https://zombie-bingo-a26c47d43c24.herokuapp.com)
 
 ### Zombie Bingo 🧟‍♂️: A Thrilling Apocalypse Anticipation Game!
@@ -64,49 +56,49 @@ IMPORTANT: Remember to always include a screenshot of each individual feature! -
 - **News Headlines API**
 
     - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
-<!-- ADD SCREENSHOT -->
+<!-- TODO ADD SCREENSHOT -->
 ![screenshot](documentation/feature02.png)
 
 - **Keywords Finder**
 
     - Removes most common words using stopwords from the NLTK library and common words defined in the wordbank.
-<!-- ADD SCREENSHOT -->
+<!-- TODO ADD SCREENSHOT -->
 ![screenshot](documentation/feature03.png)
 
 - **Google Sheets API**
 
     - Adds user answers, points, maintains word bank and API information directly from the terminal. Tables of data to check any time.
-<!-- ADD SCREENSHOT -->
+<!-- TODO ADD SCREENSHOT -->
 ![screenshot](documentation/featurex.png)
 
-- **User input via terminal**
+- **User Input via Terminal**
 
     - The user answers questions directly typing into the terminal.
-<!-- ADD SCREENSHOT -->
+<!-- TODO ADD SCREENSHOT -->
 ![screenshot](documentation/featurex.png)
 
-- **User feedback**
+- **User Feedback**
 
     - The user is prompted, kept informed of current processes running and when processes have successfully finished or raised an error.
-<!-- ADD SCREENSHOT -->
+<!-- TODO ADD SCREENSHOT -->
 ![screenshot](documentation/featurex.png)
 
-- **Game restart**
+- **Game Restart**
 
     - At the end of the game, the user is prompted to restart the game or finished the game.
-<!-- ADD SCREENSHOT -->
+<!-- TODO ADD SCREENSHOT -->
 ![screenshot](documentation/featurex.png)
 
 - **Game Answers**
 
     - After the user has answered both main questions, the game provides the game answers alongside the user's answers, with an apocalypse probability based on the current headlines and their respective buzzwords.
-<!-- ADD SCREENSHOT -->
+<!-- TODO ADD SCREENSHOT -->
 ![screenshot](documentation/featurex.png)
 
 - **Average Score**
 
     - ...
-<!-- ADD SCREENSHOT -->
+<!-- TODO ADD SCREENSHOT -->
 ![screenshot](documentation/featurex.png)
 
 ### Future Features
@@ -122,7 +114,7 @@ IMPORTANT: Remember to always include a screenshot of each individual feature! -
 
 ## Tools & Technologies Used
 
-<!-- UPDATE LINKS -->
+<!-- TODO UPDATE LINKS -->
 - [Python](https://www.python.org) used as the back-end programming language.
 - [Git](https://git-scm.com) used for version control. (`git add`, `git commit`, `git push`)
 - [GitHub](https://github.com) used for secure online code storage.
@@ -313,12 +305,6 @@ Minor differences:
 
 ### Content
 
-<!-- 
-Use this space to provide attribution links to any borrowed code snippets, elements, or resources.
-A few examples have been provided below to give you some ideas.
-
-Ideally, you should provide an actual link to every resource used, not just a generic link to the main site! -->
-
 | Source | Location | Notes |
 | --- | --- | --- |
 | [Markdown Builder](https://tim.2bn.dev/markdown-builder) | README and TESTING | tool to help generate the Markdown files |
@@ -329,8 +315,8 @@ Ideally, you should provide an actual link to every resource used, not just a ge
 | [Medium](https://medium.com/analytics-vidhya/deploying-nlp-model-on-heroku-using-flask-nltk-and-git-lfs-eed7d1b22b11) | nltk functions | debugging nltk stopword package errors when deploying to heroku |
 | [ASCII](https://www.ascii-art.site/) | heading art | program name art used throughout program |
 | [StackOverflow](https://stackoverflow.com/questions/423379/how-to-use-a-global-variable-in-a-function) | global variable usage throughout program | how to reassign global variables to ensure the backup pre-loaded headlines work if headlines API call fails due to internet connection issues or maxing out API requests |
-<!-- https://stackoverflow.com/questions/22029562/python-how-to-make-simple-animated-loading-while-process-is-running -->
 | [Stanford](https://cs.stanford.edu/people/nick/py/python-map-lambda.html) | input2 error handling | using lambda to more efficiently loop and find invalid values and only print the invalid ones to the terminal for an improved user experience.|
+<!-- https://stackoverflow.com/questions/22029562/python-how-to-make-simple-animated-loading-while-process-is-running -->
 
 
 ### Media
