@@ -362,7 +362,7 @@ def get_user_input1():
             break
     return user_answer
  
-def validate_user_input1(user_input1): # TODO fix logic and loop.
+def validate_user_input1(user_input1): 
     """
     If user input is not an integer, or if number 
     is not between 0 and 100, raises exception.
@@ -396,21 +396,16 @@ def get_user_input2():
     print(f'{Style.NORMAL}I\'ll check your answers against the top headlines from today.\nEach word you get right will get you a juicy point so choose wisely.\n')
     print(f'{Style.DIM}Here\'s an example: apocalypse, AI, mutation\n')
     print(SEPARATE)
-    try:
-        while True:
-            input_data = input('Enter 3 key words: ')
-            user_answer = input_data.split(',')
-            
-            # validate answer 
-            if validate_user_input2(user_answer):
-                break
-        print(SEPARATE)
-        print(f'{Fore.LIGHTGREEN_EX}Gotcha! Let me log your answers to my worksheets.\n')
-        print(SEPARATE)
-    except TypeError as e:
-        print(f'Invalid Type: {e.with_traceback}.\nYou wrote: {input_data} which is type {type(input_data)}.\nPlease enter 3 key words. Numbers are not allowed.\n')
-    except Exception as e:
-        raise Exception(f'Unknown error occurred: {e.with_traceback}')
+    while True:
+        input_data = input('Enter 3 key words: ')
+        user_answer = input_data.split(',')
+        
+        # validate answer 
+        if validate_user_input2(user_answer):
+            break
+    print(SEPARATE)
+    print(f'{Fore.LIGHTGREEN_EX}Gotcha! Logging your answers to my spreadsheets.\nHang on just a moment...\n')
+    print(SEPARATE)
     return user_answer        
     
 def validate_user_input2(user_input2): 
@@ -421,8 +416,11 @@ def validate_user_input2(user_input2):
     """
     try:        
         if len(user_input2)!= 3:
+            print(SEPARATE)
             print(f'Please enter 3 key words, separated by commas.\n You entered: {len(user_input2)}\n')
             return False
+    except TypeError as e:
+        print(f'Invalid Type: {e.with_traceback}.\nYou wrote: {user_input2} which is type {type(user_input2)}.\nPlease enter 3 key words. Numbers are not allowed.\n')
     except ValueError as e:
         print(f'Invalid Type: {e.args}. Please enter 3 key words. Numbers are not allowed.\n')
         return False
@@ -579,4 +577,4 @@ def main(): #TODO: Handle any leftover errors not handled in individual function
 #     main()
 # 
 
-get_user_input1()
+get_user_input2()
