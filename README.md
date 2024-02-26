@@ -329,6 +329,8 @@ Ideally, you should provide an actual link to every resource used, not just a ge
 | [ASCII](https://www.ascii-art.site/) | heading art | program name art used throughout program |
 | [StackOverflow](https://stackoverflow.com/questions/423379/how-to-use-a-global-variable-in-a-function) | global variable usage throughout program | how to reassign global variables to ensure the backup pre-loaded headlines work if headlines API call fails due to internet connection issues or maxing out API requests |
 <!-- https://stackoverflow.com/questions/22029562/python-how-to-make-simple-animated-loading-while-process-is-running -->
+| [Stanford](https://cs.stanford.edu/people/nick/py/python-map-lambda.html) | input2 error handling | using lambda to more efficiently loop and find invalid values and only print the invalid ones to the terminal for an improved user experience.|
+
 
 ### Media
 
