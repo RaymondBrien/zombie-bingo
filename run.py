@@ -3,12 +3,12 @@ import gspread
 from google.oauth2.service_account import Credentials
 import json
 import requests
-import nltk 
+import nltk
 import pprint
 from nltk.corpus import stopwords
 import re
 import inflect
-import math 
+import math
 import colorama
 from colorama import Fore, Back, Style
 import time
@@ -18,11 +18,11 @@ if os.path.exists('env.py'):
     import env
 # import art # TODO - needed?
 # from art import text2art
-# https://googleapis.dev/python/google-api-core/latest/exceptions.html 
+# https://googleapis.dev/python/google-api-core/latest/exceptions.html
 # https://stackoverflow.com/questions/23945784/how-to-manage-google-api-errors-in-python
 # from google.api_core import AlreadyExists  #TODO sort why this isn't working - tried to install. Unclear. See two links above. Needed for google API errors.
 
-colorama.init(autoreset=True) #auto-reset color for each new line
+colorama.init(autoreset=True)  # auto-reset color for each new line
 
 # global variable to avoid repeating TODO is this the best way to do this?
 separate = '----------------------------------------------------------------\n'
@@ -32,13 +32,14 @@ SEPARATE = separate.center(80)
 # TODO check deployed version on heroku. Note differences for readme
 # TODO test errors and document in testing with screenshots
 # TODO prefix any global variables with underscore if being passed to another function
-# TODO refactor by using function decorators directly above function def for printing running tests or uploading something (see screenshot) 
-# TODO TEST ctrl c on deployed - does it work? If not, get system type - if mac or linux, use os.system(clear). If windows use 'cls' instead. Try as class on init? 
+# TODO refactor by using function decorators directly above function def for printing running tests or uploading something (see screenshot)
+# TODO TEST ctrl c on deployed - does it work? If not, get system type - if mac or linux, use os.system(clear). If windows use 'cls' instead. Try as class on init?
 # TODO check formatting in heroku - add strings method so always full words on new line for any that spill over so not single letters
 # TODO ensure full deployment functionality - update requirements.txt if needed before submitting!
-# TODO remove any unused imports. 
+# TODO remove any unused imports.
 # TODO remove commented out sections from readme
 # TODO make all questions, input text prompts and elements consistent in their styling.
+# TODO tabulate final data points in main so looks nice in terminal. Or write as a function?
 
 # OTHER:
 # TODO NOT IMPORTANT https://pypi.org/project/tabulate/
@@ -55,33 +56,38 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('zombie_bingo')
 
+
 def start_game():
     """
     Starts the game with small loading screen
     """
     try:
         # Clear terminal if user has already played before:
-        os.system('clear') # TODO add 'cls' parameter? CLear for Linux and MacOS?
+        os.system('clear')  # TODO add 'cls' parameter? CLear for Linux and MacOS?
         # Loading and introduction text to user
-        heading = ascii('Zombie Bingo!') # font='small'
-        print(heading.center(80)) #why doesn't this work TODO fix center
+        heading = ascii('Zombie Bingo!')  # TODO ascii isn't doing anything. FIX.
+        print(heading.center(80))  
         print(SEPARATE)
-        print((f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info: please wait a moment...'))
+        print((f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info: \
+            please wait a moment...'))
         animation_loop(2)
         print('\n' + SEPARATE)
-        print('Let\'s play bingo: how close is the zombie apocalypse according to the news? Guess the right key words and you win a point!') #TODO center and with border 
+        print('Let\'s play bingo: how close is the zombie apocalypse according\
+            to the news? Guess the right key words and you win a point!')  #  TODO center and with border
         print('\n' + SEPARATE)
         input('Press enter to continue...')
         animation_loop(1)
     except KeyboardInterrupt as e:
         print(SEPARATE)
-        print(f'\n{Fore.RED}Ouch! Don\'t poke me when I\'m booting up the program!')
+        print(f'\n{Fore.RED}Ouch! Don\'t poke me when I\'m booting up the \
+            program!')
         while True:
             print(SEPARATE)
-            key_interrupt = input(f'Do you want to continue launching the game?\n{Fore.LIGHTYELLOW_EX}Type y or n:\n')
+            key_interrupt = input(f'Do you want to continue launching the \
+                game?\n{Fore.LIGHTYELLOW_EX}Type y or n:\n')
             if key_interrupt.lower() == 'y':
                 print('\nCool, I\'ll start the game')
-                os.system('clear') # add 'cls' parameter? CLear for Linux and MacOS? 
+                os.system('clear') # add 'cls' parameter? CLear for Linux and MacOS?
                 start_game()
                 break
             elif key_interrupt.lower() == 'n':
@@ -89,7 +95,8 @@ def start_game():
                 False
                 sys.exit(0)
             elif key_interrupt.lower() != 'y' and key_interrupt.lower() != 'n':
-                print(f'Please enter either y or n. {Fore.LIGHTYELLOW_EX}You wrote: {key_interrupt}')
+                print(f'Please enter either y or n. {Fore.LIGHTYELLOW_EX}You \
+                    wrote: {key_interrupt}')
     except ImportError as e:
         print(f'Import Error: {e.args}')
     except RuntimeError as e:
@@ -97,49 +104,55 @@ def start_game():
     except Exception as e:
         print(f'Error: {e.with_traceback}')
     finally:
-        False # to prevent any uncaught while loop issues from KeyboardInterrupt.
+        False  # prevent uncaught while loop issues from KeyboardInterrupt.
 
-def animation_loop(i): #TODO handle attribute error and value error - assign I as 3 seconds, exception 
+
+def animation_loop(i):  #TODO handle attribute error and value error - assign I as 3 seconds, exception
     """
     Loading animation loop of rotating slashes.
 
-    Credit: https://medium.com/@joloiuy/creating-captivating-terminal-animations-in-python-a-fun-and-interactive-guide-2eeb2a6b25ec
+    Credit: https://medium.com/@joloiuy/creating-captivating-\
+        terminal-animations-in-python-a-fun-and-interactive-guide-\
+            2eeb2a6b25ec
     """
     animation = "|/-\\"
     start_time = time.time()
-    
+
     try:
         while True:
             for i in range(4):
-                time.sleep(0.1)  # Feel free to experiment with the speed here
+                time.sleep(0.1)  # speed of animation
                 sys.stdout.write("\r" + animation[i % len(animation)])
                 sys.stdout.flush()
-            if time.time() - start_time > i:  # The animation will last for {i} seconds
+            if time.time() - start_time > i:  # duration of {i} seconds
                 break
         os.system('clear')
         sys.stdout
     except (AttributeError, ValueError):
-        i = 3 # Defaults to 3 seconds if needed  
-    except Exception as e:  
-        print(f'General error occurred: {e.__traceback__}')   
-def get_wordbank_list():  #TODO handle exception see last google import with links above
+        i = 3  # Defaults to 3 seconds if needed
+    except Exception as e:
+        print(f'General error occurred: {e.__traceback__}')
+
+
+def get_wordbank_list():  # TODO handle exception see last google import with links above
     """
     Returns all words in the wordbank as a list.
     """
     try:
-        wordbank = SHEET.worksheet('wordbank').col_values(2)[1:] # write as a function instead
+        wordbank = SHEET.worksheet('wordbank').col_values(2)[1:]  # write as a function instead
 
-    except HttpError as err: #TODO handle exception
-    # If the error is a rate limit or connection error,
-    # wait and try again.
+    except HttpError as err:  # TODO handle exception
+        # If the error is a rate limit or connection error,
+        # wait and try again.
         if err.resp.status in [403, 500, 503]:
             time.sleep(5)
-        else: raise
-        
+        else: raise RuntimeError
     return wordbank
+
+
 def get_headlines():
     """
-    Returns a list of headlines titles as strings, from top newsnow API. 
+    Returns a list of headlines titles as strings, from top newsnow API.
     """
     url = "https://newsnow.p.rapidapi.com/newsv2"
 
@@ -153,7 +166,7 @@ def get_headlines():
         "more_information": False,
         "max_result": 10
     }
-    
+
     headers = {
         "content-type": "application/json",
         "X-RapidAPI-Key": os.environ.get('RAPID_API_KEY'),
@@ -167,8 +180,8 @@ def get_headlines():
         title_collection = []
         for news_item in primary_text['news']:
             title_collection.append(news_item['title'])
-            
-    #credit: https://www.secopshub.com/t/handling-api-errors-using-python-requests/589
+    # credit:
+    # https://www.secopshub.com/t/handling-api-errors-using-\python-requests/589
     except requests.exceptions.HTTPError as errh: #TODO add snippet credit to Readme.
         return "An Http Error occurred:" + repr(errh)
     except requests.exceptions.ConnectionError as errc:
@@ -180,28 +193,43 @@ def get_headlines():
     except Exception:
         print("An Unknown Error occurred")
         while True:
-            user_response = input('Press 1 to try again, or 9 to use the preloaded headlines I cooked up yesterday')
+            user_response = input('Press 1 to try again, or 9 to use the \
+                preloaded headlines I cooked up yesterday')
             if user_response == 1:
                 print('Trying again! Please hold...')
                 get_headlines()
                 break
             elif user_response == 9:
-                print('OK! I\'ll use a precooked batch of headlines I have saved...\n')
+                print('OK! I\'ll use a precooked batch of headlines I have \
+                    saved...\n')
                 print('Please hold...')
                 animation_loop()
-                global headlines 
+                global headlines
                 headlines = test_get_headlines() #TODO does this work? Try when internet off
                 break
     return title_collection
 
+
 def test_get_headlines():
     """
     TODO remove when finished?
-    FOR TESTING PURPOSES ONLY TO AVOID MAXING OUT API REQUESTS. 
+    FOR TESTING PURPOSES ONLY TO AVOID MAXING OUT API REQUESTS.
     """
-    title_collection = 'Global Leaders Convene for Climate Summit; chaos destruction survival desolation catastrophePledge Action on Climate Change. Tech Giants Unveil New Innovations at Annual Conference, Economic Uncertainty Looms as Stock Markets Fluctuate, Health Experts Warn of Potential New Wave of Pandemic Cases. Renewable Energy Surges, Outpacing Fossil Fuel Investments, Political Turmoil Erupts in Region, Raising Concerns for Stability. Breakthrough in Medical Research Offers Hope for Rare Diseases, Education Sector Faces Challenges Amidst Shift to Online Learning. Space Exploration Reaches New Heights with Successful Satellite Launch, Environmentalists Rally for Conservation Efforts in Face of Biodiversity Loss.'
+    title_collection = 'Global Leaders Convene for Climate Summit; chaos \
+        destruction survival desolation catastrophePledge Action on \
+        Climate Change. Tech Giants Unveil New Innovations at Annual \
+        Conference, Economic Uncertainty Looms as Stock Markets \
+        Fluctuate, Health Experts Warn of Potential New Wave \
+        of Pandemic Cases. Renewable Energy Surges, Outpacing Fossil \
+        Fuel Investments, Political Turmoil Erupts in Region, Raising \
+        Concerns for Stability. Breakthrough in Medical Research Offers \
+        Hope for Rare Diseases, Education Sector Faces Challenges Amidst \
+        Shift to Online Learning. Space Exploration Reaches New Heights \
+        with Successful Satellite Launch, Environmentalists Rally for \
+        Conservation Efforts in Face of Biodiversity Loss.'
     return title_collection
-    
+
+
 def process_data(data):
     """
     Returns string list all lowercase, with punctuation removed.
@@ -210,73 +238,83 @@ def process_data(data):
     data = str(data)
     try:
         # remove punctuation
-        data = re.sub(r'[^\w\s]','', data)
+        data = re.sub(r'[^\w\s]', '', data)
         data = data.lower()
         data = data.split()
-        
+
         # turn any int within text into words
         for word in data:
             if word is int:
                 word = inflect.engine().number_to_words(word)
                 data = ' '.join(data)
             data = list(data)
-    except  TypeError as e:
-        pprint(f'String needed to process data. Data is currenctly {type(data)}.')
+    except TypeError as e:
+        pprint(f'String needed to process data. Data is currently \
+            {type(data)}.')
         raise e.with_traceback()
     except Exception as e:
         pprint(f'An error occurred while processing data. Please try again.')
         raise Exception
     return data
 
-def find_list_intersections(list1, list2):  
+
+def find_list_intersections(list1, list2):
     """
     Returns list of all intersections between list1 and list2.
     """
     try:
         intersections = set(list1).intersection(list2)
     except TypeError as e:
-        pprint(f'List parameters must be list types: find_list_intersections function received: {type(list1)} and {type(list2)}.\nPlease try again.')
+        pprint(f'List parameters must be list types: \
+            find_list_intersections function received: {type(list1)} \
+                and {type(list2)}.\nPlease try again.')
         raise e.with_traceback()
     except Exception:
-        raise Exception(f'An error occurred while finding list intersections. Please try again.')
+        raise Exception(f'An error occurred while finding list \
+            intersections. Please try again.')
     return intersections
 
-def remove_common_words(data): 
+
+def remove_common_words(data):
     """
     Returns string list with common words removed.
     """
-    common_words = SHEET.worksheet('wordbank').col_values(3)[1:] #TODO make a function to avoid repeating this
+    common_words = SHEET.worksheet('wordbank').col_values(3)[1:]  # TODO make a function to avoid repeating this
     try:
-        #find all words in data that are not in common_words
+        # find all words in data that are not in common_words
         words_to_remove = find_list_intersections(common_words, data)
         data = [word for word in data if word not in stopwords.words('english') and word not in words_to_remove]
-    except ValueError as e: 
-        raise ValueError('Could not find words to remove. Check stopwords and worksheet connectivity.')
+    except ValueError as e:
+        raise ValueError('Could not find words to remove. \
+            Check stopwords and worksheet connectivity.')
     except Exception as e:
         raise e.with_traceback()
     return data
-    
-def percentage_of_wordbank_matches(data): 
+
+
+def percentage_of_wordbank_matches(data):
     """
     Returns percentage of matches between data and wordbank.
     This defines the percentage likelihood of apocalypse.
     """
-    wordbank = SHEET.worksheet('wordbank').col_values(2)[1:] #TODO add as a function to avoid repeating this
+    wordbank = SHEET.worksheet('wordbank').col_values(2)[1:]  # TODO add as a function to avoid repeating this
     matches = find_list_intersections(wordbank, data)
-    try:    
-        #find percentage of wordbank matches
+    try:
+        # find percentage of wordbank matches
         # print(f'percentage = {len(matches)} divided by {len(wordbank)} * 100') #TODO remove this print statement before submit - only for testing
         percentage = len(matches) / (len(wordbank)) * 100
         percentage = math.floor(percentage)
     except ValueError as e:
-        raise ValueError('Could not find wordbank matches. Check worksheet connectivity.')
+        raise ValueError('Could not find wordbank matches. \
+            Check worksheet connectivity.')
     except ZeroDivisionError as e:
         raise ValueError('Zero division error')
-        print(f'percentage = {len(matches)} divided by {len(wordbank)} * 100') # TODO confirm if works
+        # print(f'percentage = {len(matches)} divided by \{len(wordbank)} * 100') # TODO confirm if works
     except Exception as e:
         print('An error occurred')
         raise e.with_traceback()
     return percentage
+
 
 def get_wordbank_matches_list(data):
     """
@@ -284,23 +322,24 @@ def get_wordbank_matches_list(data):
     """
     wordbank = SHEET.worksheet('wordbank').col_values(2)[1:] #TODO use function to avoid repeating
     try:
-        #find number of matches between data and wordbank 
+        #find number of matches between data and wordbank
         matches = find_list_intersections(wordbank, data)
     except TypeError as e:
         raise TypeError('Could not parse wordbank matches')
         print(f'{wordbank}, {data}') #TODO test - reachable?
     except Exception as e:
-        raise e.with_traceback()   
+        raise e.with_traceback()
     return matches
-    
+
+
 def update_worksheet_row(worksheet_name, values): # TODO add google API error handling once correctly imported see import list above
     """
     Adds data to spreadsheet as a new row.
     """
     try:
         print(f'Updating {worksheet_name} worksheet...\n')
-        SHEET.worksheet(worksheet_name).append_row(values) 
-        print(f'{Fore.LIGHTGREEN_EX}{worksheet_name} worksheet successfully updated...\n')   
+        SHEET.worksheet(worksheet_name).append_row(values)
+        print(f'{Fore.LIGHTGREEN_EX}{worksheet_name} worksheet successfully updated...\n')
     except TypeError as e:
         print('Data must be a list: please check')
         while True:
@@ -320,39 +359,49 @@ def update_worksheet_row(worksheet_name, values): # TODO add google API error ha
         print('An error occured. Check your internet connection and error details below:\n')
         raise e.with_traceback()
 
-def update_worksheet_cell(worksheet_name, data): # TODO add google API error handling once correctly imported see import list above  
+
+def update_worksheet_cell(worksheet_name, data): # TODO add google API error handling once correctly imported see import list above
     """
     Adds data to spreadsheet as a new cell.
     """
     try:
         print(f'Updating {worksheet_name} worksheet...\n')
-        SHEET.worksheet(worksheet_name).append_row(data) 
-        print(f'{worksheet_name} worksheet successfully updated...\n')
+        SHEET.worksheet(worksheet_name).append_row(data)
+        # print(f'{worksheet_name} worksheet successfully updated...\n') #TODO remove before submitting
     except TypeError as e:
-        raise TypeError(f'Data must be a list. When updating worksheet cell it was: {type(data)}') #TODO sort so doesn't finish program, will ask to start again.
+        raise TypeError(f'Data must be a list. When updating worksheet \
+            cell it was: {type(data)}') #TODO sort so doesn't finish program, will ask to start again.
     except Exception as e:
-        print(f'An error occured. Check your internet connection and error details below:\n{e.with_traceback}')
+        print(f'An error occured. Check your internet connection and \
+            error details below:\n{e.with_traceback}')
         while True:
-            user_response = input('Would you like to try updating worksheet again? y/n\n')
+            user_response = input('Would you like to try updating \
+                worksheet again? y/n\n')
             if user_response == 'y'.lower():
                 print('Trying again! Please hold...')
-                animation_loop()
+                animation_loop(1)
                 update_worksheet_cell(worksheet_name, data)
                 break
             elif user_response == 'n'.lower():
                 print('Ok. Clearing...')
-                animation_loop()
+                animation_loop(1)
                 sys.stdout.flush()
                 os.system('clear')
                 break
-def get_user_input1(): 
+
+
+def get_user_input1():
     """
     Returns user input 1.
     """
     print(SEPARATE)
-    print(f'{Fore.LIGHTRED_EX}Welcome pessimist. I have two questions for you.\n') # TODO center this
-    print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 1: {Style.BRIGHT}How likely is doomsday today?\n')
-    print(f'{Style.NORMAL}Your answer should be a number between 0 and 100.\nEnter 0 if you think the world is in perfect harmony.\nEnter 100 if Earth is burning\n')
+    print(f'{Fore.LIGHTRED_EX}Welcome pessimist. I have two questions \
+        for you.\n') # TODO center this
+    print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 1: \
+        {Style.BRIGHT}How likely is doomsday today?\n')
+    print(f'{Style.NORMAL}Your answer should be a number between 0 and \
+        100.\nEnter 0 if you think the world is in perfect \
+            harmony.\nEnter 100 if Earth is burning\n')
     print(f'{Style.DIM}Here\'s an example: 65\n')
     print(SEPARATE)
 
@@ -362,10 +411,11 @@ def get_user_input1():
             print(f'{Fore.LIGHTGREEN_EX}Awesome, thanks.\n')
             break
     return user_answer
- 
-def validate_user_input1(user_input1): 
+
+
+def validate_user_input1(user_input1):
     """
-    If user input is not an integer, or if number 
+    If user input is not an integer, or if number
     is not between 0 and 100, raises exception.
     Returns boolean. Handles empty answers.
     """
@@ -373,71 +423,89 @@ def validate_user_input1(user_input1):
     if user_input1 == '':
         print('Please enter a number')
         return False
-    else: 
+    else:
         try: # try converting to integer
             user_input1 = int(user_input1)
             if user_input1 < 0 or user_input1 > 100:
-                print('Woah woah, I said I number between 0 and 100. Check your math...')
-        except (ValueError):
-                print(f'I need a number, silly! You provided {type(user_input1)}\n')
-                return False # for correct functionality within get_user_input1() 
+                print('Woah woah, I said I number between 0 and 100. \
+                    Check your math...')
+        except ValueError:
+            print(f'I need a number, silly! You provided \
+                {type(user_input1)}\n')
+            return False
         except EOFError as e:
-            print(f'EOF Error occurred: {e.with_traceback}. I\'ll have to restart to make some space...') 
+            print(f'EOF Error occurred: {e.with_traceback}. \
+                I\'ll have to restart to make some space...') 
             main() # restarts game
         except Exception as e:
             raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return True
-    
+
+
 def get_user_input2():
     """
     Returns user input 2 as list of strings.
     """
     print(SEPARATE)
-    print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 2: {Style.BRIGHT}Enter 3 key words you think are in the news today\n')
-    print(f'{Style.NORMAL}I\'ll check your answers against the top headlines from today.\nEach word you get right will get you a juicy point so choose wisely.\n')
+    print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 2: \
+        {Style.BRIGHT}Enter 3 key words you think are in the news today\n')
+    print(f'{Style.NORMAL}I\'ll check your answers against the top \
+        headlines from today.\nEach word you get right will get you a \
+            juicy point so choose wisely.\n')
     print(f'{Style.DIM}Here\'s an example: apocalypse, AI, mutation\n')
     print(SEPARATE)
     while True:
         input_data = input('Enter 3 key words: ')
         user_answer = input_data.split(',')
-        
-        # validate answer 
+
+        # validate answer
         if validate_user_input2(user_answer):
             break
     print(SEPARATE)
-    print(f'{Fore.LIGHTGREEN_EX}Gotcha! Logging your answers to my spreadsheets.\nHang on just a moment...\n')
+    print(f'{Fore.LIGHTGREEN_EX}Gotcha! Logging your answers to my \
+        spreadsheets.\nHang on just a moment...\n')
     print(SEPARATE)
-    return user_answer        
-    
-def validate_user_input2(user_input2): 
+    return user_answer
+
+
+def validate_user_input2(user_input2):
     """
-    Raises error if user input is not a string, 
+    Raises error if user input is not a string,
     or if total number of provided key words
     is not 3.
-    """       
-    if len(user_input2)!= 3:
+    """
+    if len(user_input2) != 3:
         print(SEPARATE)
-        print(f'Please enter 3 key words, separated by commas.\n You entered: {len(user_input2)}\n')
+        print(f'Please enter 3 key words, separated by commas.\n \
+            You entered: {len(user_input2)}\n')
         return False
-    else: 
+    else:
         try: # check if all items in user_input2 list are words
-            def not_valid(user_input2): 
-                """Prints any answers in the user_input2 list that are not words"""
-                result = list(filter(lambda word: not word[1], map(lambda word: (word, word.isalpha()), user_input2)))
+            def not_valid(user_input2):
+                """Prints any answers in the user_input2 list that are \
+                    not words"""
+                result = list(filter(lambda word: not word[1], map(lambda word: (word, word.isalpha()), user_input2))) # TODO debug as not actually finding ones with errors
                 print('\nThe following answer(s) are not valid:\n')
                 for word_tuple in result:
-                    print(f'{Fore.RED}{word_tuple[0]}: {Fore.LIGHTMAGENTA_EX}this is not a word{Fore.RESET}')
+                    print(f'{Fore.RED}{word_tuple[0]}: {Fore.LIGHTMAGENTA_EX}\
+                        this is not a word{Fore.RESET}')
                 print('\nPlease try again...\n')
-            return True if all(word.isalpha() for word in user_input2) else not_valid(user_input2)
+            return True if all(word.isalpha() for word in user_input2) else\
+                not_valid(user_input2)
         except TypeError as e:
-            print(f'Please only use words.\nYou wrote: {user_input2} which is type {type(user_input2)}.\nPlease enter 3 key words. Numbers are not allowed.\n')
+            print(f'Please only use words.\nYou wrote: {user_input2} which \
+                is type {type(user_input2)}.\nPlease enter 3 key words. \
+                    Numbers are not allowed.\n')
         except ValueError as e:
-            print(f'Invalid Type: {e.args}. Please enter 3 key words. Numbers are not allowed.\n')
+            print(f'Invalid Type: {e.args}. Please enter 3 key words. \
+                Numbers are not allowed.\n')
             return False
         except Exception as e:
             raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return True
-def calculate_user_buzzword_points(keyword_list, user_list): 
+
+
+def calculate_user_buzzword_points(keyword_list, user_list):
     """
     Find any matches between API headlines and user buzzwords.
     Generate score - one point per matched buzzword.
@@ -447,17 +515,20 @@ def calculate_user_buzzword_points(keyword_list, user_list):
         matches_list = find_list_intersections(user_list, keyword_list)
         points = len(matches_list)
     except ValueError as e:
-        raise ValueError(f'Invalid Value: {e.args}. Please enter 3 key words. Numbers are not allowed.\n')
+        raise ValueError(f'Invalid Value: {e.args}. Please enter 3 key \
+            words. Numbers are not allowed.\n')
     except TypeError as e:
-        raise TypeError(f'Invalid Type: {e.args}. Please enter 3 key words. Numbers are not allowed.\n')
+        raise TypeError(f'Invalid Type: {e.args}. Please enter 3 key words. \
+            Numbers are not allowed.\n')
     except Exception as e:
         raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return points
 
+
 def calculate_user_percentage_score(user_input1, percentage):
     """
     Ensures both user_input1 and percentage are integers.
-    If user is within 10% range of actual percentage, 
+    If user is within 10% range of actual percentage,
     return 1 point. Else return 0 points.
     Points will be added to total score count.
     """
@@ -470,15 +541,18 @@ def calculate_user_percentage_score(user_input1, percentage):
         else:
             return 0
     except ValueError as e:
-        raise ValueError(f'Invalid Value: {e.args}. Please enter 3 key words. Numbers are not allowed.\n')
+        raise ValueError(f'Invalid Value: {e.args}. Please enter 3 key \
+            words. Numbers are not allowed.\n')
     except TypeError as e:
-        raise TypeError(f'Invalid Type: {e.args}. Please enter 3 key words. Numbers are not allowed.\n')
+        raise TypeError(f'Invalid Type: {e.args}. Please enter 3 key words. \
+            Numbers are not allowed.\n')
     except Exception as e:
         raise Exception(f'Unknown error occurred: {e.with_traceback}')
 
+
 def get_user_scores_list(): #TODO: Handle API error
     """
-    Gets column data from user scores logged from each time 
+    Gets column data from user scores logged from each time
     user completes game.
     """
     try:
@@ -488,74 +562,86 @@ def get_user_scores_list(): #TODO: Handle API error
             value = int(value)
             user_scores.append(value)
     except TypeError as e:
-        print(f'Error getting user scores. This is what I got: {sheet_values}')
-        raise TypeError(f'Invalid Type: {e.args}\n.Check sheet values from end_calculator worksheet as well as internet connection') # TODO are e.args useful here? Or e.with_traceback or something else more helpful?
+        print(f'Error getting user scores. This is what I got: \
+            {sheet_values}')
+        raise TypeError(f'Invalid Type: {e.args}\n.Check sheet values \
+            from end_calculator worksheet as well as internet connection') # TODO are e.args useful here? Or e.with_traceback or something else more helpful?
     except TimeoutError as e:
-        pprint(f'Timeout Error: {e}.\n.Check your internet connection. I\'ll try again if I have a connection now...') # TODO test timeout
-        animation_loop()    
+        pprint(f'Timeout Error: {e}.\n.Check your internet connection. \
+            I\'ll try again if I have a connection now...') # TODO test timeout
+        animation_loop(1)
         get_user_scores_list() # TODO will this stop the program even if successful? Is there a method to retry that part of main?
     except Exception as e:
-        raise Exception(f'Unknown error occurred: {e.with_traceback}')  
+        raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return user_scores
+
+
 def get_user_average_score(user_scores):
     """
     Returns average score for user from all games played.
     """
     try:
-        score = sum(user_scores) / len(user_scores)    
+        score = sum(user_scores) / len(user_scores)
     except ZeroDivisionError:
         score = 0
-        print(f'{Fore.LIGHTRED_EX}There was an issue calculating your average score. Your score has not been counted.\n')
-        print(f'User scores came back as: {user_scores}. Check your worksheet and internet connection if this doesn\'t look right...')
+        print(f'{Fore.LIGHTRED_EX}There was an issue calculating your \
+            average score. Your score has not been counted.\n')
+        print(f'User scores came back as: {user_scores}. Check your \
+            worksheet and internet connection if this doesn\'t look right...')
     except TypeError as e:
-        raise TypeError(f'Invalid Type: {e.args}. User scores came back as {type(user_scores)}\n')
+        raise TypeError(f'Invalid Type: {e.args}. User scores came back \
+            as {type(user_scores)}\n')
     except Exception as e:
         raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return math.floor(score)
+
+
 def play_again():
-    """ 
+    """
     Starts program again if y.
     Finishes program if n.
     """
-    if input(f'Would you like to play again? {Fore.LIGHTBLACK_EX}({Fore.GREEN}y{Fore.LIGHTBLACK_EX}/{Fore.RED}n{Fore.LIGHTBLACK_EX}): ').lower() == 'y':
+    if input(f'Would you like to play again? {Fore.LIGHTBLACK_EX}\
+        ({Fore.GREEN}y{Fore.LIGHTBLACK_EX}/{Fore.RED}n{Fore.LIGHTBLACK_EX}): ')\
+            .lower() == 'y':
         os.system('clear') # clear terminal
         main()
     else:
         print(f'{Fore.RESET}Thank you for playing!')
         exit() # terminate program
 
-def main(): #TODO: Handle any leftover errors not handled in individual functions. 
+
+def main(): #TODO: Handle any leftover errors not handled in individual functions.
     """
     Runs all program functions.
     """
     start_game()
 
     # global headlines = get_headlines() # TODO put back in before submitting: commented output for testing purposes, using testing headlines instead to avoid maxing API requests*****
-    
-    global headlines 
+
+    global headlines
     headlines = test_get_headlines()
     processed_headlines = process_data(headlines)
     keyword_list = remove_common_words(processed_headlines)
     percentage = percentage_of_wordbank_matches(keyword_list)
-    headline_matches = get_wordbank_matches_list(keyword_list) # TODO make headline matches alphabetical so appear nicely in worksheet 
+    headline_matches = get_wordbank_matches_list(keyword_list) # TODO make headline matches alphabetical so appear nicely in worksheet
 
     # TODO Add animation loop whilst functions above are running to keep user updated - see link below
     # https://stackoverflow.com/questions/22029562/python-how-to-make-simple-animated-loading-while-process-is-running
-    animation_loop(1) 
-       
+    animation_loop(1)
+
     # concatenate program answers for easy worksheet parsing
-    program_full_answer = list(str(percentage)) + list(headline_matches) 
-    
+    program_full_answer = list(str(percentage)) + list(headline_matches)
+
     # get user answers
     answer1 = get_user_input1()
     answer2 = get_user_input2()
-    
+
     # concatenate user answers for easy worksheet parsing
     print(answer1)
     user_full_answer = [answer1] + answer2
     print(f'user full answer: {user_full_answer}')
-    
-    
+
     # calculate scores
     user_matches = calculate_user_buzzword_points(answer2, headline_matches)
     user_percentage_score = calculate_user_percentage_score(int(answer1), percentage) #TODO test functions correctly
@@ -563,25 +649,27 @@ def main(): #TODO: Handle any leftover errors not handled in individual function
     scores_history = get_user_scores_list()
     average_score = get_user_average_score(scores_history)
     end_results = [percentage, user_total_score]
-    # print(f'End results: {end_results}\n') # TODO remove before submitting: for debug purposes only
 
     # update worksheets
     update_worksheet_row('program_answers', program_full_answer)
-    update_worksheet_row('user_answers', user_full_answer)
+    update_worksheet_row('user_answers', user_full_answer) # TODO debug formatting issues in spreadsheet
     update_worksheet_cell('end_calculator', end_results)
 
     # report info to terminal for user
-    print(SEPARATE + '\n') #TODO tabulate these data points so looks nice in terminal. Or write as a function?
+    print(SEPARATE + '\n')
     print(f'{Fore.GREEN}Your answers: {user_full_answer}\n') #TODO DEBUG picks up a two digit number as two numbers: e.g. 65, 66 = '6','6'
-    print(f'{Fore.RED}Today\'s keywords in the news headlines were:\n{Fore.LIGHTYELLOW_EX}{headline_matches}\n')
+    print(f'{Fore.RED}Today\'s keywords in the news headlines were:\n\
+        {Fore.LIGHTYELLOW_EX}{headline_matches}\n')
     print(f'You won: {user_total_score} point(s)\n') #TODO add graphic depending on how many points out of max won. (Smiley face or cool terminal graphic). Will need new function.
     print(f'Your average score is: {average_score} point(s)')
-    print(SEPARATE + '\n') 
-    print(f'{Fore.RED}{Style.BRIGHT}****  We are forcasting a {percentage}% chance of apocalypse today!  ****')
-    print(SEPARATE + '\n') 
+    print(SEPARATE + '\n')
+    print(f'{Fore.RED}{Style.BRIGHT}****  We are forecasting a \
+        {percentage}% chance of apocalypse today!  ****')
+    print(SEPARATE + '\n')
 
     # play again y/n
     play_again()
 
-if __name__ == '__main__':    
+
+if __name__ == '__main__':
     main()
