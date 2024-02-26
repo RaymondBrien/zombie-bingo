@@ -48,69 +48,6 @@ xxxxxxxxx |
 
 | x | x | x | repeat for all remaining Python files |
 
-## Browser Compatibility
-
-<!--
-Consider testing at least 3 different browsers, if available on your system. -->
-
-Recommended browsers to consider:
-- [Chrome](https://www.google.com/chrome)
-- [Firefox (Developer Edition)](https://www.mozilla.org/firefox/developer)
-- [Safari](https://support.apple.com/downloads/safari)
-- [Opera](https://www.opera.com/download)
-
-I've tested my deployed project on multiple browsers to check for compatibility issues.
-
-| Browser | Home | Notes |
-| --- | --- | --- |
-| Chrome | ![screenshot](documentation/browser-chrome-home.png) | Works as expected |
-| Firefox | ![screenshot](documentation/browser-firefox-home.png) | Works as expected |
-| Edge | ![screenshot](documentation/browser-edge-home.png) | Works as expected |
-| Safari | ![screenshot](documentation/browser-safari-home.png) | Minor CSS differences |
-| Opera | ![screenshot](documentation/browser-opera-home.png) | Minor differences |
-
-## Responsiveness
-
-<!-- Use this space to discuss testing the live/deployed site on various device sizes.
-
-The minimum requirement is for the following 3 tests:
-- Mobile
-- Tablet
-- Desktop
-
-**IMPORTANT**: You must provide screenshots of the tested responsiveness, to "prove" that you've actually tested them.
-
-Using the "amiresponsive" mockup image (or similar) does not suffice the requirements.
-Consider using some of the built-in device sizes in the Developer Tools.
-
-If you have tested the project on your actual mobile phone or tablet, consider also including screenshots of these as well.
-It showcases a higher level of manual tests, and can be seen as a positive inclusion! -->
-
-I've tested my deployed project on multiple devices to check for responsiveness issues.
-
-
-## Lighthouse Audit
-
-<!-- Use this space to discuss testing the live/deployed site's Lighthouse Audit reports.
-Avoid testing the local version (especially if developing in Gitpod), as this can have knock-on effects of performance.
-
-If you don't have Lighthouse in your Developer Tools,
-it can be added as an [extension](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk).
-
-Don't just test the home page (unless it's a single-page application).
-Make sure to test the Lighthouse Audit results for all of your pages.
-
-**IMPORTANT**: You must provide screenshots of the results, to "prove" that you've actually tested them. -->
-
-Sample Lighthouse testing documentation:
-
-I've tested my deployed project using the Lighthouse Audit tool to check for any major issues.
-
-| Page | Mobile | Desktop | Notes |
-| --- | --- | --- | --- |
-| Home | ![screenshot](documentation/lighthouse-home-mobile.png) | ![screenshot](documentation/lighthouse-home-desktop.png) | Some minor warnings |
-| About | ![screenshot](documentation/lighthouse-about-mobile.png) | ![screenshot](documentation/lighthouse-about-desktop.png) | Some minor warnings |
-| Gallery | ![screenshot](documentation/lighthouse-gallery-mobile.png) | ![screenshot](documentation/lighthouse-gallery-desktop.png) | Slow response time due to large images |
 
 
 ## Defensive Programming
