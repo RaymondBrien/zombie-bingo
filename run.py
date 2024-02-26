@@ -29,7 +29,6 @@ separate = '----------------------------------------------------------------\n'
 SEPARATE = separate.center(80)
 
 # REFACTORING TODOs:
-# TODO Handle errors in MAIN if none handled in individual functions.
 # TODO look up how to handle empty input errors (perhaps with counter or len). ValueError used here? 
 # TODO error for second user questsion - if not right type, loop back to ask second Q again so doesn't just complete the program and finish
 # TODO make all questions, input text prompts and elements consistent in their styling.
@@ -37,6 +36,7 @@ SEPARATE = separate.center(80)
 # TODO use this link to add zombie art at beggining and end: https://www.tutorialspoint.com/display-images-on-terminal-using-python#:~:text=There%20are%20several%20Python%20libraries,%2C%20OpenCV%2C%20and%20ASCII%20Art.
 # TODO https://pypi.org/project/tabulate/
 # TODO remove any unused imports. 
+# TODO add strings method so always full words on new line, not single letters
 # TODO reupdate requirements.txt before submitting!
 # TODO check deployed version on heroku. Note differences for readme
 # TODO test errors and document in testing with screenshots
@@ -354,34 +354,37 @@ def get_user_input1():
     print(f'{Style.NORMAL}Your answer should be a number between 0 and 100.\nEnter 0 if you think the world is in perfect harmony.\nEnter 100 if Earth is burning\n')
     print(f'{Style.DIM}Here\'s an example: 65\n')
     print(SEPARATE)
-    try:
-        while True:
-            user_answer = int(input('\nEnter a number: '))
-            if validate_user_input1(user_answer):
-                print(f'{Fore.LIGHTGREEN_EX}Awesome, thanks.\n')
-                break
-    except ValueError as e:
-        raise ValueError(f'I needed a number that makes sense!\nYou gave me: {user_answer}.\nPlease try again...')
-    except EOFError as e:
-        print(f'EOF Error occurred: {e.with_traceback}. I\'ll have to restart to make some space...') 
-        main() # restarts game
-    except Exception as e:
-        raise Exception(f'Unknown error occurred: {e.with_traceback}')
+
+    while True:
+        user_answer = input('Enter a number: ')
+        if validate_user_input1(user_answer):
+            print(f'{Fore.LIGHTGREEN_EX}Awesome, thanks.\n')
+            break
     return user_answer
  
 def validate_user_input1(user_input1): # TODO fix logic and loop.
     """
     If user input is not an integer, or if number 
     is not between 0 and 100, raises exception.
-    Returns boolean.
+    Returns boolean. Handles empty answers.
     """
-    try:
-        user_input1 = int(user_input1) #TODO fix. At moment if false, still returns true? Test and know how if else, except and better error handling work better    
-        if user_input1 < 0 or user_input1 > 100:
-            print('Woah woah, I said I number between 0 and 100. Check your math...')
-    except (ValueError, TypeError):
-            print(f'I need a number, silly!. You provided {type(user_input1)}')
-            return False # for correct functionality within get_user_input1() 
+    # first check if answer given
+    if user_input1 == '':
+        print('Please enter a number')
+        return False
+    else: 
+        try: # try converting to integer
+            user_input1 = int(user_input1)
+            if user_input1 < 0 or user_input1 > 100:
+                print('Woah woah, I said I number between 0 and 100. Check your math...')
+        except (ValueError):
+                print(f'I need a number, silly! You provided {type(user_input1)}\n')
+                return False # for correct functionality within get_user_input1() 
+        except EOFError as e:
+            print(f'EOF Error occurred: {e.with_traceback}. I\'ll have to restart to make some space...') 
+            main() # restarts game
+        except Exception as e:
+            raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return True
     
 def get_user_input2():
@@ -572,6 +575,8 @@ def main(): #TODO: Handle any leftover errors not handled in individual function
     # play again y/n
     play_again()
 
-if __name__ == '__main__':    
-    main()
+# if __name__ == '__main__':    
+#     main()
+# 
 
+get_user_input1()
