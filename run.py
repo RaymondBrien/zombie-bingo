@@ -16,8 +16,8 @@ import sys
 import os
 if os.path.exists('env.py'):
     import env
-import art # TODO - needed?
-from art import text2art
+# import art # TODO - needed?
+# from art import text2art
 # https://googleapis.dev/python/google-api-core/latest/exceptions.html 
 # https://stackoverflow.com/questions/23945784/how-to-manage-google-api-errors-in-python
 # from google.api_core import AlreadyExists  #TODO sort why this isn't working - tried to install. Unclear. See two links above. Needed for google API errors.
@@ -29,18 +29,20 @@ separate = '----------------------------------------------------------------\n'
 SEPARATE = separate.center(80)
 
 # REFACTORING TODOs:
-# TODO error for second user questsion - if not right type, loop back to ask second Q again so doesn't just complete the program and finish
-# TODO make all questions, input text prompts and elements consistent in their styling.
-# TODO get system type - if mac or linux, use os.system(clear). If windows use 'cls' instead. Try as class on init?
-# TODO use this link to add zombie art at beggining and end: https://www.tutorialspoint.com/display-images-on-terminal-using-python#:~:text=There%20are%20several%20Python%20libraries,%2C%20OpenCV%2C%20and%20ASCII%20Art.
-# TODO https://pypi.org/project/tabulate/
-# TODO remove any unused imports. 
-# TODO add strings method so always full words on new line, not single letters
-# TODO reupdate requirements.txt before submitting!
 # TODO check deployed version on heroku. Note differences for readme
 # TODO test errors and document in testing with screenshots
+# TODO prefix any global variables with underscore if being passed to another function
+# TODO refactor by using function decorators directly above function def for printing running tests or uploading something (see screenshot) 
+# TODO TEST ctrl c on deployed - does it work? If not, get system type - if mac or linux, use os.system(clear). If windows use 'cls' instead. Try as class on init? 
+# TODO check formatting in heroku - add strings method so always full words on new line for any that spill over so not single letters
+# TODO ensure full deployment functionality - update requirements.txt if needed before submitting!
+# TODO remove any unused imports. 
 # TODO remove commented out sections from readme
-# TODO readme opening paragraphs restyle
+# TODO make all questions, input text prompts and elements consistent in their styling.
+
+# OTHER:
+# TODO NOT IMPORTANT https://pypi.org/project/tabulate/
+# TODO NOT IMPORTANT use this link to add zombie art at beggining and end: https://www.tutorialspoint.com/display-images-on-terminal-using-python#:~:text=There%20are%20several%20Python%20libraries,%2C%20OpenCV%2C%20and%20ASCII%20Art.
 
 SCOPE = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -61,7 +63,7 @@ def start_game():
         # Clear terminal if user has already played before:
         os.system('clear') # TODO add 'cls' parameter? CLear for Linux and MacOS?
         # Loading and introduction text to user
-        heading = text2art('Zombie Bingo!', font="small")
+        heading = ascii('Zombie Bingo!') # font='small'
         print(heading.center(80)) #why doesn't this work TODO fix center
         print(SEPARATE)
         print((f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info: please wait a moment...'))
