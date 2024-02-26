@@ -528,6 +528,8 @@ def main(): #TODO: Handle any leftover errors not handled in individual function
     percentage = percentage_of_wordbank_matches(keyword_list)
     headline_matches = get_wordbank_matches_list(keyword_list) # TODO make headline matches alphabetical so appear nicely in worksheet 
 
+    # TODO Add animation loop whilst functions above are running to keep user updated - see link below
+    # https://stackoverflow.com/questions/22029562/python-how-to-make-simple-animated-loading-while-process-is-running
     animation_loop(2) 
        
     # concatenate program answers for easy worksheet parsing

@@ -61,68 +61,62 @@ IMPORTANT: Remember to always include a screenshot of each individual feature! -
 
 ### Existing Features
 
-- **Wordbank List**
-
-    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
-
-![screenshot](documentation/feature01.png)
-
 - **News Headlines API**
 
     - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
-
+<!-- ADD SCREENSHOT -->
 ![screenshot](documentation/feature02.png)
-
-- **Text Processing**
-
-    - To remove all punctuation and parse to lowercase characters.
-
-![screenshot](documentation/feature03.png)
 
 - **Keywords Finder**
 
     - Removes most common words using stopwords from the NLTK library and common words defined in the wordbank.
-
+<!-- ADD SCREENSHOT -->
 ![screenshot](documentation/feature03.png)
 
 - **Google Sheets API**
 
-    - Adds user answers, points, maintains wordbank and API information directly from the terminal. Tables of data to use for google charts for data visualization.
-
+    - Adds user answers, points, maintains wordbank and API information directly from the terminal. Tables of data to check any time.
+<!-- ADD SCREENSHOT -->
 ![screenshot](documentation/featurex.png)
 
 - **User input via terminal**
 
     - The user answers questions directly typing into the terminal.
-
+<!-- ADD SCREENSHOT -->
 ![screenshot](documentation/featurex.png)
 
 - **User feedback**
 
     - The user is prompted, kept informed of current processes running and when processes have successfully finished or raised an error.
-
+<!-- ADD SCREENSHOT -->
 ![screenshot](documentation/featurex.png)
 
 - **Game restart**
 
     - At the end of the game, the user is prompted to restart the game or finished the game.
-
+<!-- ADD SCREENSHOT -->
 ![screenshot](documentation/featurex.png)
 
 - **Game Answers**
 
     - After the user has answered both main questions, the game provides the game answers alongside the user's answers, with an aplocalypse probability based on the current headlines and their respective buzzwords.
+<!-- ADD SCREENSHOT -->
+![screenshot](documentation/featurex.png)
 
+- **Average Score**
+
+    - ...
+<!-- ADD SCREENSHOT -->
 ![screenshot](documentation/featurex.png)
 
 ### Future Features
 
 - Optional headline filtering via terminal
-    - The user could add optional filters of criteria for the news API to use, including its main sources or number of results.
+    - The user could add optional filters of criteria for the news API to use, including which country the program sources headlines from, or the number of results.
 - Add further wordbank entries
-    - Users could add additional stopwords and buzzwords to the wordbank to refine the game further, espeically if some words become more common over time due to media trends.
+    - Users could add additional key words they think are relevant over time to impending doom, to refine the game further, espeically if some words become more common over time due to media trends.
 - Analytics and interpretation
-    - At the end of each week, users will receive insights on their average point scores over time.
+    - At the end of each week, users might receive insights on their average point scores over time, represented in fun and visual ways with google charts or graphics.
 
 ## Tools & Technologies Used
 
@@ -135,7 +129,6 @@ IMPORTANT: Remember to always include a screenshot of each individual feature! -
 - [Google Sheets](https://www.google.com...), used for...
 - [NewsNowAPI](https://rapidapi.com/rphrp1985/api/newsnow), used for gathering a list of contemporary headlines from top news sites.
 - [Google Cloud](https://www.google.com...), used for...
-- [Google Charts](https://www.google.com...), used for...
 
 
 ## Data Model
@@ -164,7 +157,8 @@ class Person:
         self.inventory = inventory
 ``` -->
 
-The primary functions used on this application are:
+The primary functions used on this application are: 
+<!-- UPDATE THIS FURTHER -->
 
 - `get_headlines()`
     <!-- - Get sales figures input from the user. -->
@@ -308,14 +302,11 @@ You can fork this repository by using the following steps:
 ### Local VS Deployment
 
 <!-- Use this space to discuss any differences between the local version you've developed, and the live deployment site on Heroku. -->
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+...
+...
+...
 
 ## Credits
-
-<!-- In this section you need to reference where you got your content, media, and extra help from.
-It is common practice to use code from other repositories and tutorials,
-however, it is important to be very specific about these sources to avoid plagiarism. -->
 
 ### Content
 
