@@ -16,32 +16,30 @@ import sys
 import os
 if os.path.exists('env.py'):
     import env
-# import art # TODO - needed?
-# from art import text2art
+from art import text2art
 # https://googleapis.dev/python/google-api-core/latest/exceptions.html
 # https://stackoverflow.com/questions/23945784/how-to-manage-google-api-errors-in-python
 # from google.api_core import AlreadyExists  #TODO sort why this isn't working - tried to install. Unclear. See two links above. Needed for google API errors.
 
 colorama.init(autoreset=True)  # auto-reset color for each new line
 
-# global variable to avoid repeating TODO is this the best way to do this?
+# global variable to avoid repeating 
 separate = '----------------------------------------------------------------\n'
 SEPARATE = separate.center(80)
 
 # REFACTORING TODOs:
-# TODO check deployed version on heroku. Note differences for readme
-# TODO test errors and document in testing with screenshots
-# TODO prefix any global variables with underscore if being passed to another function
+# TODO art for requirements how?
 # TODO refactor by using function decorators directly above function def for printing running tests or uploading something (see screenshot)
 # TODO TEST ctrl c on deployed - does it work? If not, get system type - if mac or linux, use os.system(clear). If windows use 'cls' instead. Try as class on init?
-# TODO check formatting in heroku - add strings method so always full words on new line for any that spill over so not single letters
-# TODO ensure full deployment functionality - update requirements.txt if needed before submitting!
+# TODO check text formatting in heroku no spillover
+# TODO update requirements.txt if needed before submitting!
 # TODO remove any unused imports.
 # TODO remove commented out sections from readme
+# TODO remove commented out sections from testing
 # TODO make all questions, input text prompts and elements consistent in their styling.
-# TODO tabulate final data points in main so looks nice in terminal. Or write as a function?
 
 # OTHER:
+# TODO tabulate final data points in main so looks nice in terminal. Or write as a function?
 # TODO NOT IMPORTANT https://pypi.org/project/tabulate/
 # TODO NOT IMPORTANT use this link to add zombie art at beggining and end: https://www.tutorialspoint.com/display-images-on-terminal-using-python#:~:text=There%20are%20several%20Python%20libraries,%2C%20OpenCV%2C%20and%20ASCII%20Art.
 
@@ -65,7 +63,7 @@ def start_game():
         # Clear terminal if user has already played before:
         os.system('clear')  # TODO add 'cls' parameter? CLear for Linux and MacOS?
         # Loading and introduction text to user
-        heading = ascii('Zombie Bingo!')  # TODO ascii isn't doing anything. FIX.
+        heading = text2art('Zombie Bingo!')  # TODO ascii isn't doing anything. FIX.
         print(heading.center(80))  
         print(SEPARATE)
         print((f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info: \
@@ -204,8 +202,8 @@ def get_headlines():
                     saved...\n')
                 print('Please hold...')
                 animation_loop()
-                global headlines
-                headlines = test_get_headlines() #TODO does this work? Try when internet off
+                global _headlines
+                _headlines = test_get_headlines() # TODO does this work? Try when internet off
                 break
     return title_collection
 
@@ -617,9 +615,9 @@ def main(): #TODO: Handle any leftover errors not handled in individual function
     """
     start_game()
 
-    # global headlines = get_headlines() # TODO put back in before submitting: commented output for testing purposes, using testing headlines instead to avoid maxing API requests*****
+    # global _headlines = get_headlines() # TODO put back in before submitting: commented output for testing purposes, using testing headlines instead to avoid maxing API requests*****
 
-    global headlines
+    global _headlines
     headlines = test_get_headlines()
     processed_headlines = process_data(headlines)
     keyword_list = remove_common_words(processed_headlines)
