@@ -10,7 +10,6 @@ import re
 import inflect
 import math 
 import colorama
-from playsound import playsound
 from colorama import Fore, Back, Style
 import time
 import sys
@@ -565,7 +564,7 @@ def main(): #TODO: Handle any leftover errors not handled in individual function
     print(f'You won: {user_total_score} point(s)\n') #TODO add graphic depending on how many points out of max won. (Smiley face or cool terminal graphic). Will need new function.
     print(f'Your average score is: {average_score} point(s)')
     print(SEPARATE + '\n') 
-    print(f'{Fore.RED}{Style.BRIGHT}****  We are forcasting a {percentage}% chance of apocalypse today!  ****') and playsound('/zombie-bingo/sound-effect.mp3') # TODO add border and center? Or emoji? TODO add sound effect from workspace at same time
+    print(f'{Fore.RED}{Style.BRIGHT}****  We are forcasting a {percentage}% chance of apocalypse today!  ****')
     print(SEPARATE + '\n') 
 
     # play again y/n
