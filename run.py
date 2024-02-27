@@ -66,7 +66,7 @@ def start_game():
         os.system('clear')
         # Loading and introduction text to user
         heading = text2art('Zombie Bingo!', font="small")
-        print(heading.center(80))  
+        print(heading.center(20))  
         print(('o==[]::::::::::::::>').center(80))
         print(opening_text.center(20))
         input('Press enter to continue...')
@@ -439,8 +439,8 @@ def get_user_input2():
     Returns user input 2 as list of strings.
     """
     print(SEPARATE)
-    print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 2: \
-        {Style.BRIGHT}Enter 3 key words you think are in the news today, each separated by a comma\n')
+    print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 2:')
+    print(f'{Style.BRIGHT}Enter 3 key words you think are in the news today, each separated by a comma\n')
     print(f'{Style.NORMAL}I\'ll check your answers against the top \
         headlines from today.\nEach word you get right will get you a \
             juicy point so choose wisely.\n')
