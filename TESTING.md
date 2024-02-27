@@ -52,10 +52,7 @@ xxxxxxxxx |
 
 ## Defensive Programming
 <!-- 
-Defensive programming (defensive design) is extremely important!
 
-When building projects that accept user inputs or forms, you should always test the level of security for each.
-Examples of this could include (not limited to):
 
 PP3 (Python-only):
 - Users must enter a valid letter/word/string when prompted
@@ -86,7 +83,7 @@ Expected Outcome / Test Performed / Result Received / Fixes Implemented
 
 Defensive programming was manually tested with the below user acceptance testing:
 
-| Page | Expectation | Test | Result | Fix | Screenshot |
+| Section | Expectation | Test | Result | Fix | Screenshot |
 
 | --- | --- | --- | --- | --- | --- |
 
@@ -96,7 +93,19 @@ Defensive programming was manually tested with the below user acceptance testing
 | Home | x| x |x |x | ![screenshot](documentation/feature01.png) |
 | Home | x| x |x |x | ![screenshot](documentation/feature01.png) |
 
+Landing page
+Pressing enter starts the game
+Press enter when instructed
+The Game started as expected
+No fix required.
 
+Landing page
+Ctrl C will confirm if user wants to leave the game. If not, the game will continue.
+
+
+
+Question 1
+Only will accept number. Will prompt user to try again if not a number.
 
 
 ## Bugs

@@ -27,7 +27,7 @@ separate = '----------------------------------------------------------------\n'
 SEPARATE = separate.center(80)
 
 # REFACTORING TODOs:
-# TODO art for requirements how?
+# TODO make sure only one number is allowed for q1
 # TODO refactor by using function decorators directly above function def for printing running tests or uploading something (see screenshot)
 # TODO TEST ctrl c on deployed - does it work? If not, get system type - if mac or linux, use os.system(clear). If windows use 'cls' instead. Try as class on init?
 # TODO check text formatting in heroku no spillover
@@ -65,14 +65,13 @@ def start_game():
         heading = text2art('Zombie Bingo!', font="small")
         print(heading.center(80))  
         print(('o==[]::::::::::::::>').center(80))
+        input('Press enter to continue...')
         print(SEPARATE)
         print(f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}WELCOME TO ZOMBIE BINGO{Style.RESET_ALL}')
-        print('\n' + SEPARATE)
-        print(
-            'Let\'s play bingo: how close is the zombie apocalypse according to the news?')
+        print('Let\'s play bingo: how close is the zombie apocalypse according to the news?\n')
         print('Guess the right key words and you win a point!')  
-        print('\n' + SEPARATE)
-        input('Press enter to continue...')
+        print(SEPARATE)
+        print('Press ctrl + c to exit')
         print(
             (f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info: please wait a moment...'))
         animation_loop(2)
@@ -300,15 +299,13 @@ def percentage_of_wordbank_matches(data):
     matches = find_list_intersections(wordbank, data)
     try:
         # find percentage of wordbank matches
-        # print(f'percentage = {len(matches)} divided by {len(wordbank)} * 100') #TODO remove this print statement before submit - only for testing
         percentage = len(matches) / (len(wordbank)) * 100
         percentage = math.floor(percentage)
     except ValueError as e:
         raise ValueError('Could not find wordbank matches. \
             Check worksheet connectivity.')
     except ZeroDivisionError as e:
-        raise ValueError('Zero division error')
-        # print(f'percentage = {len(matches)} divided by \{len(wordbank)} * 100') # TODO confirm if works
+        raise ValueError('Zero division error')  # TODO confirm if works
     except Exception as e:
         print('An error occurred')
         raise e.with_traceback()
@@ -324,8 +321,8 @@ def get_wordbank_matches_list(data):
         #find number of matches between data and wordbank
         matches = find_list_intersections(wordbank, data)
     except TypeError as e:
+        print(f'{wordbank}, {data}')
         raise TypeError('Could not parse wordbank matches')
-        print(f'{wordbank}, {data}') #TODO test - reachable?
     except Exception as e:
         raise e.with_traceback()
     return matches
@@ -366,10 +363,9 @@ def update_worksheet_cell(worksheet_name, data): # TODO add google API error han
     try:
         print(f'Updating {worksheet_name} worksheet...\n')
         SHEET.worksheet(worksheet_name).append_row(data)
-        # print(f'{worksheet_name} worksheet successfully updated...\n') #TODO remove before submitting
     except TypeError as e:
-        raise TypeError(f'Data must be a list. When updating worksheet \
-            cell it was: {type(data)}') #TODO sort so doesn't finish program, will ask to start again.
+        raise TypeError(
+            f'Data must be a list. When updating worksheet cell it was: {type(data)}') #TODO sort so doesn't finish program, will ask to start again.
     except Exception as e:
         print(f'An error occured. Check your internet connection and \
             error details below:\n{e.with_traceback}')
@@ -394,8 +390,8 @@ def get_user_input1():
     Returns user input 1.
     """
     print(SEPARATE)
-    print(f'{Fore.LIGHTRED_EX}Welcome pessimist. I have two questions \
-        for you.\n') # TODO center this
+    print(
+        f'{Fore.LIGHTRED_EX}Welcome pessimist. I have two questions for you.\n').center(80)
     print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 1: \
         {Style.BRIGHT}How likely is doomsday today?\n')
     print(f'{Style.NORMAL}Your answer should be a number between 0 and \
@@ -480,17 +476,8 @@ def validate_user_input2(user_input2):
         return False
     else:
         try: # check if all items in user_input2 list are words
-            def not_valid(user_input2):
-                """Prints any answers in the user_input2 list that are \
-                    not words"""
-                result = list(filter(lambda word: not word[1], map(lambda word: (word, word.isalpha()), user_input2))) # TODO debug as not actually finding ones with errors
-                print('\nThe following answer(s) are not valid:\n')
-                for word_tuple in result:
-                    print(f'{Fore.RED}{word_tuple[0]}: {Fore.LIGHTMAGENTA_EX}\
-                        this is not a word{Fore.RESET}')
-                print('\nPlease try again...\n')
-            return True if all(word.isalpha() for word in user_input2) else\
-                not_valid(user_input2)
+            result = list(filter(lambda word: not word[1], map(lambda word: (word, word.isalpha()), user_input2)))  # noaq
+            
         except TypeError as e:
             print(f'Please only use words.\nYou wrote: {user_input2} which \
                 is type {type(user_input2)}.\nPlease enter 3 key words. \
@@ -670,5 +657,8 @@ def main(): #TODO: Handle any leftover errors not handled in individual function
     play_again()
 
 
-if __name__ == '__main__':
-    main()
+#if __name__ == '__main__':
+#    main()
+#
+
+get_user_input2()
