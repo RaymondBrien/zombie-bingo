@@ -113,7 +113,7 @@ Ctrl C will confirm if user wants to leave the game. If not, the game will conti
 
 ---
 
-Question 1
+Question 1 - DONE
 Only will accept number. Will prompt user to try again if not a number (for example if a letter or symbol was used).
 
 
