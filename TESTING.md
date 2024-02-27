@@ -140,7 +140,7 @@ Question 2 - TO FIX and document fix (says 'you entered: 1' - not needed)
 Answers must be separated by commas. If they are not separated by commas, user will be prompted again.
 
 9
-Question 2
+Question 2 - TO FIX and document fix (1: number included; 2: symbol included)
 User cannot use numbers or symbols. If user uses numbers or symbols, user will be prompted again.
 
 10
