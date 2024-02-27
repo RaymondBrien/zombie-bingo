@@ -123,7 +123,7 @@ Question 1 - DONE
 Will accept two-digit numbers as well as single digit numbers (e.g. 72 or 3). 
 
 5
-Question 1 - TO FIX (bug documented)
+Question 1 - FIX and document fix (bug documented)
 Only will accept number between 0 and 100. Will prompt user to try again if not within range.
 
 6
@@ -136,7 +136,7 @@ Question 2 - Done
 If user does not put in three words, user will be prompted again to put in three words.
 
 8
-Question 2
+Question 2 - TO FIX and document fix (says 'you entered: 1' - not needed)
 Answers must be separated by commas. If they are not separated by commas, user will be prompted again.
 
 9
