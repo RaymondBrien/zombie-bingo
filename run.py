@@ -419,8 +419,9 @@ def validate_user_input1(user_input1):
         try: # try converting to integer
             user_input1 = int(user_input1)
             if user_input1 < 0 or user_input1 > 100:
-                print('Woah, I said I number between 0 and 100. \
-                    Check your math...')
+                print(
+                    'Woah, I said I number between 0 and 100.\nCheck your math...')
+                return False
         except ValueError:
             print(f'I need a number, silly! You provided \
                 {type(user_input1)}\n')
@@ -658,4 +659,4 @@ def main(): #TODO: Handle any leftover errors not handled in individual function
 #if __name__ == '__main__':
 #    main()
 
-play_again()
+get_user_input1()

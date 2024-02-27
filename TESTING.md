@@ -109,11 +109,12 @@ Question 1 - DONE
 Will accept two-digit numbers as well as single digit numbers (e.g. 72 or 3). 
 
 5
-Question 1 - FIX and document fix (bug documented)
+Question 1 - DONE
 Only will accept number between 0 and 100. Will prompt user to try again if not within range.
 Tested by inputting 450. 
 Program noted the error in the terminal but continued.
-Fixed by...
+Fixed by adding ```Return False``` to second if statement in validate_user_input1().
+(Add both screenshots before fix and after fix.)
 
 
 6
