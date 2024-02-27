@@ -34,7 +34,6 @@ Any opening bracket type will work: `(`, `[`, `{`.
 By using an opening bracket, Python knows where to appropriately indent the next line of code,
 without having to "guess" yourself and attempt to tab to the correct indentation level.
 
-Sample Python code validation documentation below (tables are extremely helpful!).
 -->
 
 I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com) to validate all of my Python files.
@@ -46,7 +45,7 @@ I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com
 ![screenshot](documentation/py-validation-run.png) | 
 xxxxxxxxx |
 
-| x | x | x | repeat for all remaining Python files |
+<!-- Do I need to run requirements through linter? -->
 
 
 
@@ -83,7 +82,7 @@ Expected Outcome / Test Performed / Result Received / Fixes Implemented
 
 Defensive programming was manually tested with the below user acceptance testing:
 
-| Section | Expectation | Test | Result | Fix | Screenshot |
+| Section | Expectation | Test | Result | Fix | Screenshots |
 
 | --- | --- | --- | --- | --- | --- |
 
@@ -104,15 +103,17 @@ Defensive programming was manually tested with the below user acceptance testing
 
 1
 Landing page - DONE
-Pressing enter starts the game
-Press enter when instructed
-The Game started as expected
+Pressing enter starts the game.
+Press enter when instructed.
+The Game started as expected.
 No fix required.
 
 2
 Landing page - DONE
 Ctrl C will confirm if user wants to leave the game. If not, the game will continue.
-
+Used control C on home page.
+Program confirms y or n with user as expected. Program finishes if y inputted, program starts if n inputted.
+No fix required.
 ---
 3
 Question 1 - DONE
@@ -125,32 +126,53 @@ Will accept two-digit numbers as well as single digit numbers (e.g. 72 or 3).
 5
 Question 1 - FIX and document fix (bug documented)
 Only will accept number between 0 and 100. Will prompt user to try again if not within range.
+Tested by inputting 450. 
+Program noted the error in the terminal but continued.
+Fixed by...
+
 
 6
 Question 1 - DONE 
 If format is correct, user will receive confirmation that answer has been received and will move on to question 2.
+Tested by inputting 77.
+Resulted in program confirming result has received and moves on to question 2.
+No fix required.
 
 ---
 7
 Question 2 - Done
 If user does not put in three words, user will be prompted again to put in three words.
+Tested by inputting only two words, separated by single comma.
+Resulted in reporting error to user and asks user the question again.
+No fix required.
 
 8
 Question 2 - TO FIX and document fix (says 'you entered: 1' - not needed)
 Answers must be separated by commas. If they are not separated by commas, user will be prompted again.
+Tested by inputting three words without any commas.
+Resulted in error being logged to user, but error message needs to be improved to emphasize the lack of commas as the issue.
+Fixed by...
 
 9
 Question 2 - TO FIX and document fix (1: number included; 2: symbol included)
-
 User cannot use numbers or symbols. If user uses numbers or symbols, user will be prompted again.
+Tested by inputting a number in test 1, and symbols in test 2.
+Both tests resulted in the same result: no errors were logged.
+Fixed by...
 
 10
-Question 2 - FIX and document
+Question 2 - FIX WHEN COMPLETE and document
 If one answer within their three words is not valid, the incorrect answer will highlighted to the user and the user will be prompted to try again.
+Tested by inputting...
+Resulted in...
+Fixed by...
 
 11
 Question 2 - DONE
 If answer is in correct format, user will receive confirmation that: their answer has been logged; that their information is being logged to a spreadsheet.
+Tested by inputting...
+Resulted in...
+Fixed by...
 
 
 ---
@@ -158,14 +180,23 @@ If answer is in correct format, user will receive confirmation that: their answe
 12
 End of Game - DONE
 When user is asked 'Would you like to play again?', if 'y' is selected, the terminal will clear and the program will run again.
+Tested by inputting...
+Resulted in...
+Fixed by...
 
 13  - DONE
 End of Game
 When user is asked 'Would you like to play again?', if 'n' is selected, the program will finish after printing 'thank you for playing'.
+Tested by inputting...
+Resulted in...
+Fixed by...
 
 14
-End of Game
+End of Game - FIX WHEN COMPLETE and document
 When user is asked 'Would you like to play again?', if the user does not press 'y' or 'n' then the program will prompt the user to type only 'y' or 'n'. If no input is provided then the program will sleep after 2 minutes.
+Tested by inputting...
+Resulted in...
+Fixed by...
 
 
 ## Bugs
