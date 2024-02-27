@@ -159,7 +159,7 @@ If answer is in correct format, user will receive confirmation that: their answe
 End of Game - DONE
 When user is asked 'Would you like to play again?', if 'y' is selected, the terminal will clear and the program will run again.
 
-13
+13  - DONE
 End of Game
 When user is asked 'Would you like to play again?', if 'n' is selected, the program will finish after printing 'thank you for playing'.
 
