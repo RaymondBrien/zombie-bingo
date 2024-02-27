@@ -141,14 +141,15 @@ Answers must be separated by commas. If they are not separated by commas, user w
 
 9
 Question 2 - TO FIX and document fix (1: number included; 2: symbol included)
+
 User cannot use numbers or symbols. If user uses numbers or symbols, user will be prompted again.
 
 10
-Question 2
+Question 2 - FIX and document
 If one answer within their three words is not valid, the incorrect answer will highlighted to the user and the user will be prompted to try again.
 
 11
-Question 2
+Question 2 - DONE
 If answer is in correct format, user will receive confirmation that: their answer has been logged; that their information is being logged to a spreadsheet.
 
 

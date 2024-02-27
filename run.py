@@ -454,8 +454,9 @@ def get_user_input2():
         if validate_user_input2(user_answer):
             break
     print(SEPARATE)
-    print(f'{Fore.LIGHTGREEN_EX}Gotcha! Logging your answers to my \
-        spreadsheets.\nHang on just a moment...\n')
+    print(
+        f'{Fore.LIGHTGREEN_EX}Gotcha! Logging your answers to my spreadsheets.')
+    print('Hang on just a moment...\n')
     print(SEPARATE)
     return user_answer
 
