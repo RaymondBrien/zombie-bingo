@@ -102,15 +102,16 @@ Defensive programming was manually tested with the below user acceptance testing
 | End | x| x |x |x | ![screenshot](documentation/feature01.png) |
 | End | x| x |x |x | ![screenshot](documentation/feature01.png) |
 
-Landing page
+Landing page - DONE
 Pressing enter starts the game
 Press enter when instructed
 The Game started as expected
 No fix required.
 
-Landing page
+Landing page - DONE
 Ctrl C will confirm if user wants to leave the game. If not, the game will continue.
 
+---
 
 Question 1
 Only will accept number. Will prompt user to try again if not a number (for example if a letter or symbol was used).
