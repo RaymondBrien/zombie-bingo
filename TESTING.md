@@ -50,35 +50,6 @@ xxxxxxxxx |
 
 
 ## Defensive Programming
-<!-- 
-
-
-PP3 (Python-only):
-- Users must enter a valid letter/word/string when prompted
-- Users must choose from a specific list only -->
-
-<!-- You should include any manual tests performed, and the expected results/outcome.
-
-Testing should be replicable.
-Ideally, tests cases should focus on each individual section of every page on the website.
-Each test case should be specific, objective, and step-wise replicable. -->
-
-<!-- Instead of adding a general overview saying that everything works fine,
-consider documenting tests on each element of the page
-(ie. button clicks, input box validation, navigation links, etc.) by testing them in their happy flow,
-and also the bad/exception flow, mentioning the expected and observed results,
-and drawing a parallel between them where applicable. -->
-
-<!-- Consider using the following format for manual test cases:
-
-Expected Outcome / Test Performed / Result Received / Fixes Implemented
-
-- **Expected**: "Feature is expected to do X when the user does Y."
-- **Testing**: "Tested the feature by doing Y."
-- (either) **Result**: "The feature behaved as expected, and it did Y."
-- (or) **Result**: "The feature did not respond to A, B, or C."
-- **Fix**: "I did Z to the code because something was missing." -->
-
 
 Defensive programming was manually tested with the below user acceptance testing:
 
@@ -115,9 +86,21 @@ Used control C on home page.
 Program confirms y or n with user as expected. Program finishes if y inputted, program starts if n inputted.
 No fix required.
 ---
-3
+3a
+Question 1
+Will report an error to user if the answer submitted is blank.
+Tested by inputting nothing before pressing enter.
+Resulted in user being prompted again to submit an answer.
+No fix required.
+
+
+3b
 Question 1 - DONE
 Only will accept number. Will prompt user to try again if not a number (for example if a letter or symbol was used).
+Tested by inputting 'b' for test 1, '&' for test 2. 
+Resulted in...
+Fixed by...
+(NOTE: ADD BOTH SCREENSHOTS)
 
 4
 Question 1 - DONE
