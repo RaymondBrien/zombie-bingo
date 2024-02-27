@@ -123,11 +123,11 @@ Question 1 - DONE
 Will accept two-digit numbers as well as single digit numbers (e.g. 72 or 3). 
 
 5
-Question 1
+Question 1 - TO FIX 
 Only will accept number between 0 and 100. Will prompt user to try again if not within range.
 
 6
-Question 1
+Question 1 - DONE ()
 If format is correct, user will receive confirmation that answer has been received and will move on to question 2.
 
 ---
