@@ -59,21 +59,18 @@ def start_game():
     Starts the game with small loading screen
     """
     try:
+        opening_text = (
+            f'{SEPARATE}{Fore.BLACK}{Back.LIGHTYELLOW_EX}WELCOME TO ZOMBIE BINGO{Style.RESET_ALL}\n{SEPARATE}\
+            Let\'s play bingo: how close is the zombie apocalypse according to the news?\nGuess the right key words and you win a point!\n(Press ctrl + c to exit)\n{SEPARATE}')
         # Clear terminal if user has already played before:
         os.system('clear')
         # Loading and introduction text to user
         heading = text2art('Zombie Bingo!', font="small")
         print(heading.center(80))  
         print(('o==[]::::::::::::::>').center(80))
-        print(SEPARATE)
-        print(f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}WELCOME TO ZOMBIE BINGO{Style.RESET_ALL}')
-        print('Let\'s play bingo: how close is the zombie apocalypse according to the news?\n')
-        print('Guess the right key words and you win a point!')  
-        print(SEPARATE)
-        print('Press ctrl + c to exit')
+        print(opening_text.center(20))
         input('Press enter to continue...')
-        print(
-            (f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info: please wait a moment...'))
+        print(f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info: please wait a moment...')
         animation_loop(2)
     except KeyboardInterrupt as e:
         print(SEPARATE)
