@@ -85,9 +85,11 @@ Ctrl C will confirm if user wants to leave the game. If not, the game will conti
 Used control C on home page.
 Program confirms y or n with user as expected. Program finishes if y inputted, program starts if n inputted.
 No fix required.
+
 ---
+
 3a
-Question 1
+Question 1 - DONE
 Will report an error to user if the answer submitted is blank.
 Tested by inputting nothing before pressing enter.
 Resulted in user being prompted again to submit an answer.
@@ -98,8 +100,8 @@ No fix required.
 Question 1 - DONE
 Only will accept number. Will prompt user to try again if not a number (for example if a letter or symbol was used).
 Tested by inputting 'b' for test 1, '&' for test 2. 
-Resulted in...
-Fixed by...
+Resulted in error being reported to user appropriately on both counts, before asking user to try answering again.
+No fix required.
 (NOTE: ADD BOTH SCREENSHOTS)
 
 4
