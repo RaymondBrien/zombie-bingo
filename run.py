@@ -391,7 +391,7 @@ def get_user_input1():
     """
     print(SEPARATE)
     print(
-        f'{Fore.LIGHTRED_EX}Welcome pessimist. I have two questions for you.\n').center(80)
+        f'{Fore.LIGHTRED_EX}Welcome pessimist. I have two questions for you.\n')
     print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 1: \
         {Style.BRIGHT}How likely is doomsday today?\n')
     print(f'{Style.NORMAL}Your answer should be a number between 0 and \
@@ -443,7 +443,7 @@ def get_user_input2():
     """
     print(SEPARATE)
     print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 2: \
-        {Style.BRIGHT}Enter 3 key words you think are in the news today\n')
+        {Style.BRIGHT}Enter 3 key words you think are in the news today, each separated by a comma\n')
     print(f'{Style.NORMAL}I\'ll check your answers against the top \
         headlines from today.\nEach word you get right will get you a \
             juicy point so choose wisely.\n')
@@ -481,7 +481,7 @@ def validate_user_input2(user_input2):
         except TypeError as e:
             print(f'Please only use words.\nYou wrote: {user_input2} which \
                 is type {type(user_input2)}.\nPlease enter 3 key words. \
-                    Numbers are not allowed.\n')
+                    Numbers and symbols are not allowed.\n')
         except ValueError as e:
             print(f'Invalid Type: {e.args}. Please enter 3 key words. \
                 Numbers are not allowed.\n')
