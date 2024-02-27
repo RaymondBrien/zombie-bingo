@@ -102,60 +102,67 @@ Defensive programming was manually tested with the below user acceptance testing
 | End | x| x |x |x | ![screenshot](documentation/feature01.png) |
 | End | x| x |x |x | ![screenshot](documentation/feature01.png) |
 
+1
 Landing page - DONE
 Pressing enter starts the game
 Press enter when instructed
 The Game started as expected
 No fix required.
 
+2
 Landing page - DONE
 Ctrl C will confirm if user wants to leave the game. If not, the game will continue.
 
 ---
-
+3
 Question 1 - DONE
 Only will accept number. Will prompt user to try again if not a number (for example if a letter or symbol was used).
 
-
-Question 1
+4
+Question 1 - DONE
 Will accept two-digit numbers as well as single digit numbers (e.g. 72 or 3). 
 
-
+5
 Question 1
 Only will accept number between 0 and 100. Will prompt user to try again if not within range.
 
-
+6
 Question 1
 If format is correct, user will receive confirmation that answer has been received and will move on to question 2.
 
 ---
-
+7
 Question 2
 If user does not put in three words, user will be prompted again to put in three words.
 
+8
 Question 2
 Answers must be separated by commas. If they are not separated by commas, user will be prompted again.
 
+9
 Question 2
 User cannot use numbers or symbols. If user uses numbers or symbols, user will be prompted again.
 
+10
 Question 2
 If one answer within their three words is not valid, the incorrect answer will highlighted to the user and the user will be prompted to try again.
 
+11
 Question 2
 If answer is in correct format, user will receive confirmation that: their answer has been logged; that their information is being logged to a spreadsheet.
 
 
 ---
 
-
+12
 End of Game
 When user is asked 'Would you like to play again?', if 'y' is selected, the terminal will clear and the program will run again.
 
-
+13
 End of Game
 When user is asked 'Would you like to play again?', if 'n' is selected, the program will finish after printing 'thank you for playing'.
 
+14
 End of Game
 When user is asked 'Would you like to play again?', if the user does not press 'y' or 'n' then the program will prompt the user to type only 'y' or 'n'. If no input is provided then the program will sleep after 2 minutes.
 
