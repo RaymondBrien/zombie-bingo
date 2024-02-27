@@ -654,5 +654,7 @@ def main(): #TODO: Handle any leftover errors not handled in individual function
     play_again()
 
 
-if __name__ == '__main__':
-    main()
+#if __name__ == '__main__':
+#    main()
+
+get_user_input2()
