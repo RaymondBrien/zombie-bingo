@@ -87,11 +87,20 @@ Defensive programming was manually tested with the below user acceptance testing
 
 | --- | --- | --- | --- | --- | --- |
 
-| Home | x| x |x |x | ![screenshot](documentation/feature01.png) |
-| Home | x| x |x |x | ![screenshot](documentation/feature01.png) |
-| Home | x| x |x |x | ![screenshot](documentation/feature01.png) |
-| Home | x| x |x |x | ![screenshot](documentation/feature01.png) |
-| Home | x| x |x |x | ![screenshot](documentation/feature01.png) |
+| Start | | x |x |x | ![screenshot](documentation/feature01a.jpeg) |
+| Start | x| x |x |x | ![screenshot](documentation/feature01b.png) |
+| Q1 | x| x |x |x | ![screenshot](documentation/feature01.png) |
+| Q1 | x| x |x |x | ![screenshot](documentation/feature01.png) |
+| Q1 | x| x |x |x | ![screenshot](documentation/feature01.png) |
+| Q1 | x| x |x |x | ![screenshot](documentation/feature01.png) |
+| Q2 | x| x |x |x | ![screenshot](documentation/feature01.png) |
+| Q2 | x| x |x |x | ![screenshot](documentation/feature01.png) |
+| Q2 | x| x |x |x | ![screenshot](documentation/feature01.png) |
+| Q2 | x| x |x |x | ![screenshot](documentation/feature01.png) |
+| Q2 | x| x |x |x | ![screenshot](documentation/feature01.png) |
+| End | x| x |x |x | ![screenshot](documentation/feature01.png) |
+| End | x| x |x |x | ![screenshot](documentation/feature01.png) |
+| End | x| x |x |x | ![screenshot](documentation/feature01.png) |
 
 Landing page
 Pressing enter starts the game
@@ -103,9 +112,51 @@ Landing page
 Ctrl C will confirm if user wants to leave the game. If not, the game will continue.
 
 
+Question 1
+Only will accept number. Will prompt user to try again if not a number (for example if a letter or symbol was used).
+
 
 Question 1
-Only will accept number. Will prompt user to try again if not a number.
+Will accept two-digit numbers as well as single digit numbers (e.g. 72 or 3). 
+
+
+Question 1
+Only will accept number between 0 and 100. Will prompt user to try again if not within range.
+
+
+Question 1
+If format is correct, user will receive confirmation that answer has been received and will move on to question 2.
+
+---
+
+Question 2
+If user does not put in three words, user will be prompted again to put in three words.
+
+Question 2
+Answers must be separated by commas. If they are not separated by commas, user will be prompted again.
+
+Question 2
+User cannot use numbers or symbols. If user uses numbers or symbols, user will be prompted again.
+
+Question 2
+If one answer within their three words is not valid, the incorrect answer will highlighted to the user and the user will be prompted to try again.
+
+Question 2
+If answer is in correct format, user will receive confirmation that: their answer has been logged; that their information is being logged to a spreadsheet.
+
+
+---
+
+
+End of Game
+When user is asked 'Would you like to play again?', if 'y' is selected, the terminal will clear and the program will run again.
+
+
+End of Game
+When user is asked 'Would you like to play again?', if 'n' is selected, the program will finish after printing 'thank you for playing'.
+
+End of Game
+When user is asked 'Would you like to play again?', if the user does not press 'y' or 'n' then the program will prompt the user to type only 'y' or 'n'. If no input is provided then the program will sleep after 2 minutes.
 
 
 ## Bugs
