@@ -658,4 +658,4 @@ def main(): #TODO: Handle any leftover errors not handled in individual function
 #if __name__ == '__main__':
 #    main()
 
-get_user_input2()
+play_again()

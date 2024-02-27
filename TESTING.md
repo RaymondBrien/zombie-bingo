@@ -156,7 +156,7 @@ If answer is in correct format, user will receive confirmation that: their answe
 ---
 
 12
-End of Game
+End of Game - DONE
 When user is asked 'Would you like to play again?', if 'y' is selected, the terminal will clear and the program will run again.
 
 13
