@@ -133,7 +133,7 @@ Resulted in reporting error to user and asks user the question again.
 No fix required.
 
 8
-Question 2 - TO FIX and document fix (says 'you entered: 1' - not needed)
+Question 2 - DONE
 Answers must be separated by commas. If they are not separated by commas, user will be prompted again.
 Tested by inputting three words without any commas.
 Resulted in error being logged to user, but error message needs to be improved to emphasize the lack of commas as the issue.
@@ -178,11 +178,11 @@ Resulted in...
 Fixed by...
 
 14
-End of Game - FIX WHEN COMPLETE and document
+End of Game - DONE
 When user is asked 'Would you like to play again?', if the user does not press 'y' or 'n' then the program will prompt the user to type only 'y' or 'n'. If no input is provided then the program will sleep after 2 minutes.
-Tested by inputting...
-Resulted in...
-Fixed by...
+Tested by inputting 'y' and 'n' and 'h' respectively
+Results: 'y' restarts the game as expected; 'n' terminates the program as expected; 'h' raises an error and prompts the user either 'y' or 'n'.
+No fix required.
 
 
 ## Bugs

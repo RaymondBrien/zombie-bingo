@@ -441,7 +441,7 @@ def get_user_input2():
     """
     print(SEPARATE)
     print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 2:')
-    print(f'{Style.BRIGHT}Enter 3 key words you think are in the news today, each separated by a comma\n')
+    print(f'{Style.BRIGHT}Enter 3 key words you think are in the news today, each separated by a comma like the example below\n')
     print(f'{Style.NORMAL}I\'ll check your answers against the top \
         headlines from today.\nEach word you get right will get you a \
             juicy point so choose wisely.\n')
@@ -450,7 +450,7 @@ def get_user_input2():
     while True:
         input_data = input('Enter 3 key words: ')
         user_answer = input_data.split(',')
-
+        user_answer = [x.strip() for x in my_string.split(',')]
         # validate answer
         if validate_user_input2(user_answer):
             break
@@ -468,15 +468,23 @@ def validate_user_input2(user_input2):
     or if total number of provided key words
     is not 3.
     """
+    # first check if user input is correct amount of words
     if len(user_input2) != 3:
         print(SEPARATE)
-        print(f'Please enter 3 key words, separated by commas.\n \
-            You entered: {len(user_input2)}\n')
+        print(f'You only gave me {len(user_input2)} answers...')
+        print('Please enter 3 key words, remembering to separate each by a comma.')
+        print(f'{Style.DIM}Here\'s an example: apocalypse, AI, mutation\n')
         return False
     else:
-        try: # check if all items in user_input2 list are words
-            result = list(filter(lambda word: not word[1], map(lambda word: (word, word.isalpha()), user_input2)))  # noaq
-            
+        try: 
+            # check if all items in user_input2 list are words
+            results = list(filter(lambda word: not word[1], map(lambda word: (word, word.isalpha()), user_input2)))  # noaq
+            for result in results:
+                print(f'{result[0]} is not valid')
+            if not results:
+                return True
+    
+
         except TypeError as e:
             print(f'Please only use words.\nYou wrote: {user_input2} which \
                 is type {type(user_input2)}.\nPlease enter 3 key words. \
@@ -585,15 +593,22 @@ def play_again():
     """
     Starts program again if y.
     Finishes program if n.
+    Handles if user input invalid.
     """
-    if input(f'Would you like to play again? {Fore.LIGHTBLACK_EX}\
-        ({Fore.GREEN}y{Fore.LIGHTBLACK_EX}/{Fore.RED}n{Fore.LIGHTBLACK_EX}): ')\
-            .lower() == 'y':
-        os.system('clear') # clear terminal
-        main()
-    else:
-        print(f'{Fore.RESET}Thank you for playing!')
-        exit() # terminate program
+    answer= input(f'Would you like to play again? {Fore.LIGHTBLACK_EX}({Fore.GREEN}y{Fore.LIGHTBLACK_EX}/{Fore.RED}n{Fore.LIGHTBLACK_EX}): ')
+    try:
+        if answer.lower() == 'y':
+                os.system('clear')
+                main()
+        elif answer.lower() == 'n':
+            print(f'{Fore.RESET}Thank you for playing!')
+            exit() # terminate program
+        else:
+            print(f'{Fore.LIGHTRED_EX}Please enter y or n.')
+            play_again()
+    except ValueError as e:
+        raise ValueError(f'Invalid Value: {e.args}. Please enter y or n.')
+
 
 
 def main(): #TODO: Handle any leftover errors not handled in individual functions.
@@ -659,4 +674,4 @@ def main(): #TODO: Handle any leftover errors not handled in individual function
 #if __name__ == '__main__':
 #    main()
 
-get_user_input1()
+play_again()
