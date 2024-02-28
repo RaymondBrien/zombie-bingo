@@ -103,15 +103,14 @@ reference the specific project files that implement them.
 
 ## Tools & Technologies Used
 
-<!-- TODO UPDATE LINKS -->
 - [Python](https://www.python.org) used as the back-end programming language.
 - [Git](https://git-scm.com) used for version control. (`git add`, `git commit`, `git push`)
 - [GitHub](https://github.com) used for secure online code storage.
 - [Heroku](https://www.heroku.com) used for hosting the deployed back-end site.
 - [Gspread](https://www.google.com...) used for...
-- [Google Sheets](https://www.google.com...), used for...
+- [Google Sheets](https://www.google.com...), used for logging program and user scores and data, as well as drawing data for average score functions.
 - [NewsNowAPI](https://rapidapi.com/rphrp1985/api/newsnow), used for gathering a list of contemporary headlines from top news sites.
-- [Google Cloud](https://www.google.com...), used for...
+- [Google Cloud](https://www.google.com...), used for hosting the Google Sheets API.
 
 
 ## Data Model
