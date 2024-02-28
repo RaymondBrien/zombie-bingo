@@ -27,7 +27,7 @@ separate = '----------------------------------------------------------------\n'
 SEPARATE = separate.center(80)
 
 # REFACTORING TODOs:
-# TODO feature 9 and 10 testing complete
+# TODO ensure all screenshots added to testing 
 # TODO refactor by using function decorators directly above function def for printing running tests or uploading something (see screenshot)
 # TODO check text formatting in heroku no spillover
 # TODO update requirements.txt if needed before submitting!
@@ -471,7 +471,7 @@ def validate_user_input2(user_input2):
     # first check if user input is correct amount of words
     if len(user_input2) != 3:
         print(SEPARATE)
-        print(f'You only gave me {len(user_input2)} answers...')
+        print(f'You only gave me {len(user_input2)} answer(s) or forgot to add commas...')
         print('Please enter 3 key words, remembering to separate each by a comma.')
         print(f'{Style.DIM}Here\'s an example: apocalypse, AI, mutation\n')
         return False
