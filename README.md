@@ -111,6 +111,8 @@ IMPORTANT: Remember to always include a screenshot of each individual feature! -
     - At the end of each week, users might receive insights on their average point scores over time, represented in fun and visual ways with google charts or graphics.
 - Add sound effects when results are printed
     - At the end of each game, a sound is played to add additional user feedback for improved UX. This was not possible at the current time of deployment due to issues with static file handling in Heroku.
+- If no input is provided then the program will sleep after 2 minutes.
+    - This would be useful for power saving at the end of the game or where any user input is required and none is given within the two minutes.
 
 ## Tools & Technologies Used
 
