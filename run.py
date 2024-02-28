@@ -27,12 +27,12 @@ separate = '----------------------------------------------------------------\n'
 SEPARATE = separate.center(80)
 
 # REFACTORING TODOs:
-# TODO make sure only one number is allowed for q1
+# TODO feature 9 and 10 testing complete
 # TODO refactor by using function decorators directly above function def for printing running tests or uploading something (see screenshot)
-# TODO TEST ctrl c on deployed - does it work? If not, get system type - if mac or linux, use os.system(clear). If windows use 'cls' instead. Try as class on init?
 # TODO check text formatting in heroku no spillover
 # TODO update requirements.txt if needed before submitting!
 # TODO remove any unused imports.
+# TODO make sure only one number is allowed for q1
 # TODO remove commented out sections from readme
 # TODO remove commented out sections from testing
 # TODO make all questions, input text prompts and elements consistent in their styling.
@@ -449,8 +449,8 @@ def get_user_input2():
     print(SEPARATE)
     while True:
         input_data = input('Enter 3 key words: ')
-        user_answer = input_data.split(',')
-        user_answer = [x.strip() for x in my_string.split(',')]
+        # user_answer = input_data.split(',')
+        user_answer = [x.strip() for x in input_data.split(',')]
         # validate answer
         if validate_user_input2(user_answer):
             break
@@ -480,9 +480,12 @@ def validate_user_input2(user_input2):
             # check if all items in user_input2 list are words
             results = list(filter(lambda word: not word[1], map(lambda word: (word, word.isalpha()), user_input2)))  # noaq
             for result in results:
-                print(f'{result[0]} is not valid')
-            if not results:
-                return True
+                print(f'{Fore.RED}{result[0]} is not valid')
+                return False
+        except ValueError as e:
+            print(f'Invalid Type: {e.args}. Please enter 3 key words. \
+                Numbers are not allowed.\n')
+            return False
     
 
         except TypeError as e:
@@ -674,4 +677,4 @@ def main(): #TODO: Handle any leftover errors not handled in individual function
 #if __name__ == '__main__':
 #    main()
 
-play_again()
+get_user_input2()
