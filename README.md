@@ -91,13 +91,13 @@ reference the specific project files that implement them.
 ### Future Features
 
 - Optional headline filtering via terminal
-    - The user could add optional filters of criteria for the news API to use, including which country the program sources headlines from, or the number of results.
+    - The user could add optional filters of criteria for the news API to use, including which country the program sources headlines from, or the number of results. This will bring an even further number of filtered results to keep the game interesting. Players could then test their world events knowledge based on headlines for specific countries and improve their performance!
 - Add further word bank entries
     - Users could add additional key words they think are relevant over time to impending doom, to refine the game further, especially if some words become more common over time due to media trends.
 - Analytics and interpretation
-    - At the end of each week, users might receive insights on their average point scores over time, represented in fun and visual ways with google charts or graphics.
+    - At the end of each week, users may receive insights on their average point scores based on different data points over time: such as what times of day they generally scored the best scores and when they really flopped... The data can be represented in fun and visual ways with google charts or other fun and colorful graphics to make it even more engaging for our data-junkies and perfectionists alike.
 - Add sound effects when results are printed
-    - At the end of each game, a sound is played to add additional user feedback for improved UX. This was not possible at the current time of deployment due to issues with static file handling in Heroku.
+    - At the end of each game, a sound is played to add additional user feedback for improved UX. This was not possible at the current time of deployment due to issues with static file handling in Heroku. I hope to find a workaround for this to provide user feedback and interactivity that supports the silly and simple themes this game has to offer for an even more engaging experience during gameplay. Sound effects can change depending on whether scores are good or bad, whether the chance of apocalypse according to the program is greater or smaller. Cue impending doom music...
 - If no input is provided then the program will sleep after 2 minutes.
     - This would be useful for power saving at the end of the game or where any user input is required and none is given within the two minutes.
 
