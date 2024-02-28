@@ -21,83 +21,70 @@ The target audience for Zombie Bingo includes:
 
 Zombie Bingo 🧟‍♂️ offers a humorous, succinct gaming experience by blending current events with apocalyptic anticipation. By guessing key words sourced from news headlines, players earn points and gauge the likelihood of an impending apocalypse, adding an exciting twist of actually being based on real life headlines gathered freshly each time the game is run. This game is perfect for pessimists, game enthusiasts seeking something offbeat, contemporary culture fans intrigued by apocalyptic scenarios, news junkies looking to merge current events with entertainment, trivia and word game players eager for challenges, and tech-savvy users seeking something silly and fun as a digital experience. Whether you're craving a dose of fun, a challenge for your brain, or simply a quick break from the mundane, Zombie Bingo promises to deliver an entertaining and memorable, brief experience for all.
 
-<!-- https://ui.dev/amiresponsive?url=https://zombie-bingo-a26c47d43c24.herokuapp.com
-
-Screenshots for the README and testing should not be inside of `assets/` or `static/` image folders.
-(reminder: `assets/` and `static/` are for files used on the live site, not documentation)
-Consider adding a new folder called `documentation`, and add the amiresponsive screenshot inside of that folder.
-To add the image into your README, use this format:
-(assuming you have a new folder called `documentation` with an image called "mockup.png") -->
-
-<!-- ![screenshot](documentation/mockup.png)
-
-Note: Markdown files (.md) should not contain HTML elements like `img`, `br`, `div`, `a`, etc, only Markdown formatting.
-Find out more about using Markdown elements here:
-https://pandao.github.io/editor.md/en.html -->
-
-
 ## UX
 
 ## Features
 
-<!-- In this section, you should go over the different parts of your project,
-and describe each in a sentence or so.
+<!-- 
 
-You will need to explain what value each of the features provides for the user,
-focusing on who this website is for, what it is that they want to achieve,
-and how your project is the best way to help them achieve these things.
+explain what value each of the features 
+focusing on who this website is for,
+what it is that they want to achieve,
+how your project is the best way to help achieve these things.
 
-For some/all of your features, you may choose to reference the specific project files that implement them.
+reference the specific project files that implement them.
 
-IMPORTANT: Remember to always include a screenshot of each individual feature! -->
+!-->
 
 ### Existing Features
 
 - **News Headlines API**
 
-    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
+    - Gathers top news headlines fresh each time the API is called. These headlines are real and broad-ranging offering a gaming experience completely based on real, tangible headlines from across the world, perfect for target audiences including the news junkies! Only the top headlines are offered, meaning that no matter who plays, the headlines are almost guaranteed to be relevant in some way to each user, regardless of background or country. 
 <!-- TODO ADD SCREENSHOT -->
 ![screenshot](documentation/feature02.png)
 
-- **Keywords Finder**
-
-    - Removes most common words using stopwords from the NLTK library and common words defined in the wordbank.
-<!-- TODO ADD SCREENSHOT -->
-![screenshot](documentation/feature03.png)
 
 - **Google Sheets API**
 
-    - Adds user answers, points, maintains word bank and API information directly from the terminal. Tables of data to check any time.
+    - For the more data-oriented news junkies, or more hard-core players, each time the game is played, answers from both the program (including top keywords from the headlines and the calculated likelihood of apocalypse) and the user. Users can look at their scores overtime and also look back at old faux-pas to learning better strategies for next games! Users can check their answers, scores and the program's answers any time to improve and learn more about the headlines in the real life news as they play.
 <!-- TODO ADD SCREENSHOT -->
 ![screenshot](documentation/featurex.png)
 
 - **User Input via Terminal**
 
-    - The user answers questions directly typing into the terminal.
+    - The game is played entirely via the terminal as a self-contained app, perfect for the technically-minded of our target audiences. Users answer questions directly typing into the terminal, with results printed and fed back to the user all within the terminal interface. This is therefore very lightweight taking up almost zero storage space, whilst also being easy to read. Users are kept up to date with the program as it runs, what it's doing and when it is loading to ensure a seamless, clean and self-contained experience for ease of use and a positive UX.
 <!-- TODO ADD SCREENSHOT -->
 ![screenshot](documentation/featurex.png)
 
 - **User Feedback**
 
-    - The user is prompted, kept informed of current processes running and when processes have successfully finished or raised an error.
+    - Any errors, either from the program or issues with user answers not being valid are returned directly in the terminal to the user for a seamless gaming experience with quick feedback on what is incorrect to fix for another try. This way, the program will also not break and the user can keep playing as many times as they like. (It can get quite addictive, as it's a quick game if you want it to be!).
 <!-- TODO ADD SCREENSHOT -->
 ![screenshot](documentation/featurex.png)
 
 - **Game Restart**
 
-    - At the end of the game, the user is prompted to restart the game or finished the game.
+    - At the end of the game, the user is prompted to restart the game or finished the game. Any previous data and text within the terminal will be cleared. A fresh batch of news headlines will be pulled and the game begins seamlessly again, meaning our hardcore news junkies can play as many times as they wish to their heart's content. Something just happened in the news? The game is totally fresh as the API pulls the very latest news headlines from the real world! Make the real life news your game!
 <!-- TODO ADD SCREENSHOT -->
 ![screenshot](documentation/featurex.png)
 
 - **Game Answers**
 
-    - After the user has answered both main questions, the game provides the game answers alongside the user's answers, with an apocalypse probability based on the current headlines and their respective buzzwords.
+    - After the user has answered both main questions, the game provides the game answers alongside the user's answers, with an apocalypse probability based on the current headlines and their respective buzzwords. This will help all our users, whether brand new or very experienced players of the game to keep in touch with the latest keywords from top news articles across the world. 
 <!-- TODO ADD SCREENSHOT -->
 ![screenshot](documentation/featurex.png)
 
 - **Average Score**
 
-    - ...
+    - Players who have played the game at least once in the past will receive an average score back in the terminal at the end of the game, before being asked to play again. Perfectionists like me I'm sure will want to press that 'yes I'll play again button'... there are scores to improve!
+    This will keep each user fully engaged in trying to improve and try the game again. The game is much more than just the game, it's about the user's awareness of contemporary events, or a fun way to let off steam channelling your inner pessimism...! The world isn't always bright and shiny, so we may as well have some fun despite the hard times. 
+<!-- TODO ADD SCREENSHOT -->
+![screenshot](documentation/featurex.png)
+
+- **Colors and Visuals!**
+
+    - Yes, it's a terminal game. But that doesn't mean we have to stick to a black and white screen. Thanks to the text2art and colorama libraries, this terminal just got a bit more fun (not to mention for those of you, like me, who have visual stress and dyslexia, it's a bit easier to read...!). The game is here for everyone to enjoy and the colors and visuals add a touch of chilli to your con carne... 
 <!-- TODO ADD SCREENSHOT -->
 ![screenshot](documentation/featurex.png)
 
