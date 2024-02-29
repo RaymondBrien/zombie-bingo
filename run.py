@@ -103,7 +103,8 @@ def start_game():
                 sys.exit(0)
             elif key_interrupt.lower() != 'y' and key_interrupt.lower() != 'n':  
                 print(
-                    f'Please enter either y or n. {Fore.LIGHTYELLOW_EX}You wrote: {key_interrupt}')  # noqa
+                    f'Please enter either y or n.'
+                    f'{Fore.LIGHTYELLOW_EX}You wrote: {key_interrupt}')
     except ImportError as e:
         print(f'Import Error: {e.args}')
     except RuntimeError as e:
@@ -118,9 +119,8 @@ def animation_loop(sec):
     """
     Loading animation loop of rotating slashes.
 
-    Credit: https://medium.com/@joloiuy/creating-captivating-\
-        terminal-animations-in-python-a-fun-and-interactive-guide-\
-            2eeb2a6b25ec
+    Credit: 
+    Medium @joloiuy - see README for details.
     """
     animation = "|/-\\"
     start_time = time.time()
@@ -199,15 +199,17 @@ def get_headlines():
         print("An Unknown Error occurred")
         while True:
             try:
-                user_response = int(input('Press 1 to try again, or 9 to use the \
-                    preloaded headlines I cooked up yesterday'))
+                user_response = int(input(
+                    'Type 1 to try again, or,'
+                    'type 9 to use the preloaded headlines I cooked up yesterday'))
                 if user_response == 1:
                     print('Trying again!')
                     get_headlines()
                     break
                 elif user_response == 9:
-                    print('OK! I\'ll use a precooked batch of headlines I have \
-                        saved...\n')
+                    print(
+                        'OK!'
+                        'I\'ll use a precooked batch of headlines I have saved...\n')
                     print('Please hold...')
                     animation_loop(2)
                     global _headlines
@@ -485,6 +487,7 @@ def get_user_input2():
         f'{Fore.LIGHTGREEN_EX}Gotcha! Logging your answers to my spreadsheets.')
     print('Hang on just a moment...\n')
     print(SEPARATE)
+    os.system('clear')  # clear terminal due to Heroku clear 
     return user_answer
 
 
@@ -516,7 +519,7 @@ def validate_user_input2(user_input2):
         except TypeError as e:
             print(
                 f'Please only use words.\n'
-                'You wrote: {user_input2} which is type {type(user_input2)}.\n'
+                f'You wrote: {user_input2} which is type {type(user_input2)}.\n'
                 'Please enter 3 key words. Numbers and symbols are not allowed.\n')
         except Exception as e:
             raise Exception(f'Unknown error occurred: {e.with_traceback}')
@@ -533,11 +536,13 @@ def calculate_user_buzzword_points(keyword_list, user_list):
         matches_list = find_list_intersections(user_list, keyword_list)
         points = len(matches_list)
     except ValueError as e:
-        raise ValueError(f'Invalid Value: {e.args}. Please enter 3 key \
-            words. Numbers are not allowed.\n')
+        raise ValueError(
+            f'Invalid Value: {e.args}. Please enter 3 key words.'
+            'Numbers are not allowed.\n')
     except TypeError as e:
-        raise TypeError(f'Invalid Type: {e.args}. Please enter 3 key words. \
-            Numbers are not allowed.\n')
+        raise TypeError(
+            f'Invalid Type: {e.args}. Please enter 3 key words.'
+            'Numbers are not allowed.\n')
     except Exception as e:
         raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return points
@@ -560,11 +565,12 @@ def calculate_user_percentage_score(user_input1, percentage):
         else:
             return 0
     except ValueError as e:
-        raise ValueError(f'Invalid Value: {e.args}. Please enter 3 key \
-            words. Numbers are not allowed.\n')
+        raise ValueError(
+            f'Invalid Value: {e.args}. Please enter 3 key words.'
+            'Numbers are not allowed.\n')
     except TypeError as e:
-        raise TypeError(f'Invalid Type: {e.args}. Please enter 3 key words. \
-            Numbers are not allowed.\n')
+        raise TypeError(f'Invalid Type: {e.args}. Please enter 3 key words.'
+                        'Numbers are not allowed.\n')
     except Exception as e:
         raise Exception(f'Unknown error occurred: {e.with_traceback}')
 
@@ -586,7 +592,7 @@ def get_user_scores_list():
             f'This is what I got: {sheet_values}')
         raise TypeError(
             f'Invalid Type: {e.args}\n.'
-            'Check sheet values from end_calculator worksheet as well as internet connection')
+            'Check sheet values from worksheet as well as internet connection')
     except TimeoutError as e:
         print(
             f'Timeout Error: {e}.\n.Check your internet connection.'
@@ -628,13 +634,17 @@ def play_again():
     """
     answer = input(
         'Would you like to play again?'
-        f'{Fore.LIGHTBLACK_EX}({Fore.GREEN}y{Fore.LIGHTBLACK_EX}/{Fore.RED}n{Fore.LIGHTBLACK_EX}): ')
+        f'({Fore.GREEN}y{Fore.LIGHTBLACK_EX}/{Fore.RED}n): ')
     try:
         if answer.lower() == 'y':
                 os.system('clear')
                 main()
         elif answer.lower() == 'n':
-            print(f'{Fore.RESET}Thank you for playing!')
+            print(
+                f'{Fore.RESET}Thank you for playing!'
+                'Be sure to check back tomorrow with tomorrow\'s headlines...'
+                'Who knows, maybe there\'s a real apocalypse tomorrow...')
+            os.system('clear')
             exit() # terminate program
         else:
             print(f'{Fore.LIGHTRED_EX}Please enter y or n.')
@@ -675,7 +685,7 @@ def main():
 
     # calculate scores
     user_matches = calculate_user_buzzword_points(answer2, headline_matches)
-    user_percentage_score = calculate_user_percentage_score(int(answer1), percentage) #TODO test functions correctly
+    user_percentage_score = calculate_user_percentage_score(int(answer1), percentage)
     user_total_score = user_matches + user_percentage_score
     scores_history = get_user_scores_list()
     average_score = get_user_average_score(scores_history)
@@ -689,21 +699,22 @@ def main():
     # report info to terminal for user
     print(SEPARATE)
     print(f'{Fore.GREEN}Your answers: {user_full_answer}\n') 
-    print(f'{Fore.RED}Today\'s keywords in the news headlines were:\n{Fore.LIGHTYELLOW_EX}{headline_matches}')
+    print(
+        f'{Fore.RED}Today\'s keywords in the news headlines were:\n{Fore.LIGHTYELLOW_EX}{headline_matches}')  # noaq
     print(f'You won: {user_total_score} point(s)\n')
     print(f'Users on this site have an average score of: {average_score} point(s)')
     print(SEPARATE + '\n')
-    print(f'{Fore.RED}{Style.BRIGHT}****  We are forecasting a {percentage}% chance of apocalypse today!  ****')
-    # TODO be sure to cehck back tomorrow with tomorrow's headlines. Who knows, maybe there's a real apoloclyse tomorrow, there's a fun game to plau 
-    print(SEPARATE + '\n')
+    print(
+        f'{Fore.RED}{Style.BRIGHT}****  We are forecasting a {percentage}% chance of apocalypse today!  ****')  # noaq
+    print(SEPARATE)
 
     # play again y/n
     play_again()
 
 
+os.system('clear')  # prevents file name appearing before program is run on heroku
 # TODO add 
-# clear()
-# launching zombie bingo 
-# clear 
+print('launching Zombie Bingo')
+os.system('clear')
 if __name__ == '__main__':
     main()
