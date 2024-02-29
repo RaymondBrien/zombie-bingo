@@ -26,11 +26,11 @@ colorama.init(autoreset=True)  # auto-reset color for each new line
 SEPARATE = ('----------------------------------------------------------------\n').center(80)
 
 # TIM checks:
-# TODO API exceptions ok?
-# TODO any classes I could implement? 
-# TODO ensure happy will meet all marking criteria
+# TODO heroku and local deployment, need heroku and rapid api keys for config vars ADD TO README
 # TODO loading whilst running functions? https://stackoverflow.com/questions/22029562/python-how-to-make-simple-animated-loading-while-process-is-running
 # TODO centering issue and line breaks
+# TODO Clear() between each input
+
 
 # ESSENTIAL TODOs: 
 # TODO ADD LINTER SCREENSHOT BEFORE SUBMITTING AFTER ALL COMMENTS REMOVED
@@ -64,9 +64,14 @@ def start_game():
     """
     Starts the game with small loading screen
     """
-    try: # TODO check tim example for text align using function and see github page mutiple print statements
+    try:
         opening_text = (
-            f'{SEPARATE}{Fore.BLACK}{Back.LIGHTYELLOW_EX}WELCOME TO ZOMBIE BINGO{Style.RESET_ALL}{SEPARATE}Let\'s play bingo: how close is the zombie apocalypse according to the news?\nGuess the right key words and you win a point!\n{Style.DIM}(Press ctrl + c to exit){Style.RESET_ALL}\n{SEPARATE}')
+            f'{SEPARATE}{Fore.BLACK}{Back.LIGHTYELLOW_EX}WELCOME TO ZOMBIE BINGO{Style.RESET_ALL}'
+            f'{SEPARATE}'
+            'Let\'s play bingo: how close is the zombie apocalypse according to the news?'
+            'Guess the right key words and you win a point!'
+            f'{Style.DIM}(Press ctrl + c to exit){Style.RESET_ALL}'
+            f'{SEPARATE}')
         # Clear terminal for terminal readability
         os.system('clear')
         # Loading and introduction text to user
@@ -75,7 +80,9 @@ def start_game():
         print((f'{Fore.RED}o==[]::::::::::::::>').center(40))
         print(opening_text.center(25))
         input('Press enter to continue...').center(25)
-        print(f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info: please wait a moment...')
+        print(
+            f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info:'
+            'please wait a moment...')
         animation_loop(2)
     except KeyboardInterrupt as e:
         print(SEPARATE)
@@ -83,7 +90,8 @@ def start_game():
         while True:
             print(SEPARATE)
             key_interrupt = input(
-                f'Do you want to continue launching the game?\n{Fore.LIGHTYELLOW_EX}Type y or n:\n')  # noqa
+                f'Do you want to continue launching the game?\n'
+                '{Fore.LIGHTYELLOW_EX}Type y or n:\n')
             if key_interrupt.lower() == 'y':
                 print('\nCool, I\'ll start the game')
                 os.system('clear')
@@ -172,21 +180,21 @@ def get_headlines():
         "X-RapidAPI-Host": "newsnow.p.rapidapi.com"
     }
 
-    try:
+    try: # TODO UPDATE TEST SET so default for future proof 
         response = requests.post(url, json=payload, headers=headers)
         primary_text = response.json()
         title_collection = []
         for news_item in primary_text['news']:
             title_collection.append(news_item['title'])  # ensures only title text returned
     # credit secopshub.com for requests exceptions below. See readme.md for details
-    # except requests.exceptions.HTTPError as errh:
-    #     return "An Http Error occurred:" + repr(errh)
-    # except requests.exceptions.ConnectionError as errc:
-    #     return "An Error Connecting to the API occurred:" + repr(errc)
-    # except requests.exceptions.Timeout as errt:
-    #     return "A Timeout Error occurred:" + repr(errt)
-    # except requests.exceptions.RequestException as err:
-    #     return "An Unknown Error occurred" + repr(err)
+    except requests.exceptions.HTTPError as errh:
+        return "An Http Error occurred:" + repr(errh)
+    except requests.exceptions.ConnectionError as errc:
+        return "An Error Connecting to the API occurred:" + repr(errc)
+    except requests.exceptions.Timeout as errt:
+        return "A Timeout Error occurred:" + repr(errt)
+    except requests.exceptions.RequestException as err:
+        return "An Unknown Error occurred" + repr(err)
     except Exception:
         print("An Unknown Error occurred")
         while True:
@@ -203,7 +211,7 @@ def get_headlines():
                     print('Please hold...')
                     animation_loop(2)
                     global _headlines
-                    _headlines = test_get_headlines() # TODO does this work? Try when internet off
+                    _headlines = test_get_headlines()
                     title_collection = _headlines
                     break
             except ValueError:
@@ -211,7 +219,7 @@ def get_headlines():
     return title_collection
 
 
-def test_get_headlines():
+def test_get_headlines(): # test col, 
     """
     FOR TESTING PURPOSES ONLY TO AVOID MAXING OUT API REQUESTS.
     Used as backup if headlines API fails / no internet connection.
@@ -331,7 +339,7 @@ def get_wordbank_matches_list(data):
     return matches
 
 
-def update_worksheet_row(worksheet_name, values): # TODO add google API error handling once correctly imported see import list above
+def update_worksheet_row(worksheet_name, values):
     """
     Adds data to spreadsheet as a new row.
     """
@@ -359,7 +367,7 @@ def update_worksheet_row(worksheet_name, values): # TODO add google API error ha
         raise e.with_traceback()
 
 
-def update_worksheet_cell(worksheet_name, data): # TODO add google API error handling once correctly imported see import list above
+def update_worksheet_cell(worksheet_name, data):
     """
     Adds data to spreadsheet as a new cell.
     """
@@ -388,7 +396,7 @@ def update_worksheet_cell(worksheet_name, data): # TODO add google API error han
                 break
 
 
-def get_user_input1(): # TODO 
+def get_user_input1():
     """
     Returns user input 1.
     """
@@ -554,7 +562,7 @@ def calculate_user_percentage_score(user_input1, percentage):
         raise Exception(f'Unknown error occurred: {e.with_traceback}')
 
 
-def get_user_scores_list(): #TODO: Handle API error
+def get_user_scores_list():
     """
     Gets column data from user scores logged from each time
     user completes game.
@@ -672,16 +680,17 @@ def main():
     print(f'{Fore.GREEN}Your answers: {user_full_answer}\n') 
     print(f'{Fore.RED}Today\'s keywords in the news headlines were:\n{Fore.LIGHTYELLOW_EX}{headline_matches}')
     print(f'You won: {user_total_score} point(s)\n')
-    print(f'Your average score is: {average_score} point(s)')
+    print(f'Users on this site have an average score of: {average_score} point(s)')
     print(SEPARATE + '\n')
     print(f'{Fore.RED}{Style.BRIGHT}****  We are forecasting a {percentage}% chance of apocalypse today!  ****')
+    # TODO be sure to cehck back tomorrow with tomorrow's headlines. Who knows, maybe there's a real apoloclyse tomorrow, there's a fun game to plau 
     print(SEPARATE + '\n')
 
     # play again y/n
     play_again()
 
 
-
+# TODO add 
 # clear()
 # launching zombie bingo 
 # clear 
