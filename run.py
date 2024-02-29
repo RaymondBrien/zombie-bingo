@@ -26,18 +26,16 @@ colorama.init(autoreset=True)  # auto-reset color for each new line
 SEPARATE = ('----------------------------------------------------------------\n').center(80)
 
 # TIM checks:
-# TODO API exceptions 
+# TODO API exceptions ok?
 # TODO any classes I could implement? 
 # TODO ensure happy will meet all marking criteria
 # TODO loading whilst running functions? https://stackoverflow.com/questions/22029562/python-how-to-make-simple-animated-loading-while-process-is-running
-# TODO centering issue? 
+# TODO centering issue and line breaks
 
 # ESSENTIAL TODOs: 
 # TODO ADD LINTER SCREENSHOT BEFORE SUBMITTING AFTER ALL COMMENTS REMOVED
 # TODO refactor by using function decorators directly above function def for printing running tests or uploading something (see screenshot)
 # TODO check text formatting in heroku no spillover
-# TODO update readme screenshots
-# TODO update requirements.txt if needed before submitting!
 # TODO ENSURE ALL TODOS removed before submitting
 # TODO remove any unused imports.
 # TODO make sure only one number is allowed for q1
@@ -48,7 +46,7 @@ SEPARATE = ('----------------------------------------------------------------\n'
 # OTHER:
 # TODO tabulate final data points in main so looks nice in terminal. Or write as a function?
 # TODO NOT IMPORTANT https://pypi.org/project/tabulate/
-# TODO NOT IMPORTANT use this link to add zombie art at beggining and end: https://www.tutorialspoint.com/display-images-on-terminal-using-python#:~:text=There%20are%20several%20Python%20libraries,%2C%20OpenCV%2C%20and%20ASCII%20Art.
+
 
 SCOPE = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -66,14 +64,14 @@ def start_game():
     """
     Starts the game with small loading screen
     """
-    try:
+    try: # TODO check tim example for text align using function and see github page mutiple print statements
         opening_text = (
-            f'{SEPARATE}{Fore.BLACK}{Back.LIGHTYELLOW_EX}WELCOME TO ZOMBIE BINGO{Style.RESET_ALL}\n{SEPARATE}Let\'s play bingo: how close is the zombie apocalypse according to the news?\nGuess the right key words and you win a point!\n{Style.DIM}(Press ctrl + c to exit){Style.RESET_ALL}\n{SEPARATE}')
+            f'{SEPARATE}{Fore.BLACK}{Back.LIGHTYELLOW_EX}WELCOME TO ZOMBIE BINGO{Style.RESET_ALL}{SEPARATE}Let\'s play bingo: how close is the zombie apocalypse according to the news?\nGuess the right key words and you win a point!\n{Style.DIM}(Press ctrl + c to exit){Style.RESET_ALL}\n{SEPARATE}')
         # Clear terminal for terminal readability
         os.system('clear')
         # Loading and introduction text to user
         heading = text2art(('Zombie Bingo!').center(20), font="small")
-        print(f'{Fore.GREEN}{heading}')  
+        print(f'{Fore.GREEN}{heading}')
         print((f'{Fore.RED}o==[]::::::::::::::>').center(40))
         print(opening_text.center(25))
         input('Press enter to continue...').center(25)
@@ -181,14 +179,14 @@ def get_headlines():
         for news_item in primary_text['news']:
             title_collection.append(news_item['title'])  # ensures only title text returned
     # credit secopshub.com for requests exceptions below. See readme.md for details
-    except requests.exceptions.HTTPError as errh:
-        return "An Http Error occurred:" + repr(errh)
-    except requests.exceptions.ConnectionError as errc:
-        return "An Error Connecting to the API occurred:" + repr(errc)
-    except requests.exceptions.Timeout as errt:
-        return "A Timeout Error occurred:" + repr(errt)
-    except requests.exceptions.RequestException as err:
-        return "An Unknown Error occurred" + repr(err)
+    # except requests.exceptions.HTTPError as errh:
+    #     return "An Http Error occurred:" + repr(errh)
+    # except requests.exceptions.ConnectionError as errc:
+    #     return "An Error Connecting to the API occurred:" + repr(errc)
+    # except requests.exceptions.Timeout as errt:
+    #     return "A Timeout Error occurred:" + repr(errt)
+    # except requests.exceptions.RequestException as err:
+    #     return "An Unknown Error occurred" + repr(err)
     except Exception:
         print("An Unknown Error occurred")
         while True:
@@ -206,9 +204,10 @@ def get_headlines():
                     animation_loop(2)
                     global _headlines
                     _headlines = test_get_headlines() # TODO does this work? Try when internet off
+                    title_collection = _headlines
                     break
             except ValueError:
-                print('Please enter a number between 1 and 9')
+                print('Please enter 1 or 9')
     return title_collection
 
 
@@ -389,7 +388,7 @@ def update_worksheet_cell(worksheet_name, data): # TODO add google API error han
                 break
 
 
-def get_user_input1():
+def get_user_input1(): # TODO 
     """
     Returns user input 1.
     """
@@ -408,6 +407,7 @@ def get_user_input1():
         user_answer = input('Enter a number: ')
         if validate_user_input1(user_answer):
             print(f'{Fore.LIGHTGREEN_EX}Awesome, thanks.\n')
+            os.system('clear')  # clear needed to keep TODO add to testing as heroku known clear bug - more clears needed to keep tidy
             break
     return user_answer
 
@@ -531,14 +531,15 @@ def calculate_user_buzzword_points(keyword_list, user_list):
 def calculate_user_percentage_score(user_input1, percentage):
     """
     Ensures both user_input1 and percentage are integers.
-    If user is within 10% range of actual percentage,
+    If user is within range of actual percentage,
     return 1 point. Else return 0 points.
     Points will be added to total score count.
     """
     try:
         user_input1 = int(user_input1)
         percentage = int(percentage)
-        if user_input1 <= percentage + 10 and user_input1 >= percentage - 10:
+
+        if user_input1 in range(percentage - 10, percentage + 10)
             #1 point awarded to user
             return 1
         else:
@@ -627,11 +628,12 @@ def main():
     """
     start_game()
 
-    # global _headlines = get_headlines() # TODO put back in before submitting: commented output for testing purposes, using testing headlines instead to avoid maxing API requests*****
+    global _headlines 
+    _headlines = get_headlines() # TODO put back in before submitting: commented output for testing purposes, using testing headlines instead to avoid maxing API requests*****
 
-    global _headlines # TODO sort before submitting
-    headlines = test_get_headlines() # TODO sort before submitting
-    processed_headlines = process_data(headlines)
+    # global _headlines
+    # _headlines = test_get_headlines() # TODO sort before submitting
+    processed_headlines = process_data(_headlines)
     keyword_list = remove_common_words(processed_headlines)
     percentage = percentage_of_wordbank_matches(keyword_list)
     headline_matches = get_wordbank_matches_list(keyword_list) 
@@ -679,5 +681,9 @@ def main():
     play_again()
 
 
+
+# clear()
+# launching zombie bingo 
+# clear 
 if __name__ == '__main__':
     main()
