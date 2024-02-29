@@ -139,7 +139,7 @@ The primary functions used on this application are:
 - `validate_user_input1` and `validate_user_input2`
     - Validates the user inputs for defensive purposes, ensuring user answers are in correct format, and if not that errors and handles without program terminating or crashing.
 - `find_list_intersection()`
-    - Returns list of all intersections between list1 and list2.
+    - Returns list of all intersections between list1 and list2. This is significantly faster and more efficient than looping through lists to find shared values.
 - `calculate_user_buzzword_points()`
     - Find any matches between API headlines and user key words. Generate scores - one point per matched key word. Maximum of three points per turn.
 - `calculate_user_percentage_score()`
