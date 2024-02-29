@@ -279,8 +279,9 @@ def find_list_intersections(list1, list2):
                 and {type(list2)}.\nPlease try again.')
         raise e.with_traceback()
     except Exception:
-        raise Exception('An error occurred while finding list \
-            intersections. Please try again.')
+        raise Exception(
+            'An error occurred while finding list intersections.'
+            'Please try again.')
     return intersections
 
 
@@ -288,14 +289,15 @@ def remove_common_words(data):
     """
     Returns string list with common words removed.
     """
-    common_words = SHEET.worksheet('wordbank').col_values(3)[1:]  # TODO make a function to avoid repeating this
+    common_words = SHEET.worksheet('wordbank').col_values(3)[1:]
     try:
         # find all words in data that are not in common_words
         words_to_remove = find_list_intersections(common_words, data)
         data = [word for word in data if word not in stopwords.words('english') and word not in words_to_remove]
     except ValueError as e:
-        raise ValueError('Could not find words to remove. \
-            Check stopwords and worksheet connectivity.')
+        raise ValueError(
+            'Could not find words to remove.'
+            'Check stopwords and worksheet connectivity.')
     except Exception as e:
         raise e.with_traceback()
     return data
@@ -306,17 +308,18 @@ def percentage_of_wordbank_matches(data):
     Returns percentage of matches between data and wordbank.
     This defines the percentage likelihood of apocalypse.
     """
-    wordbank = SHEET.worksheet('wordbank').col_values(2)[1:]  # TODO add as a function to avoid repeating this
+    wordbank = SHEET.worksheet('wordbank').col_values(2)[1:]
     matches = find_list_intersections(wordbank, data)
     try:
         # find percentage of wordbank matches
         percentage = len(matches) / (len(wordbank)) * 100
         percentage = math.floor(percentage)
     except ValueError as e:
-        raise ValueError('Could not find wordbank matches. \
-            Check worksheet connectivity.')
+        raise ValueError(
+            'Could not find wordbank matches.'
+            'Check worksheet connectivity.')
     except ZeroDivisionError as e:
-        raise ValueError('Zero division error')  # TODO confirm if works
+        raise ValueError('Zero division error')
     except Exception as e:
         print('An error occurred')
         raise e.with_traceback()
@@ -327,7 +330,7 @@ def get_wordbank_matches_list(data):
     """
     Returns list of wordbank matches.
     """
-    wordbank = SHEET.worksheet('wordbank').col_values(2)[1:] #TODO use function to avoid repeating
+    wordbank = SHEET.worksheet('wordbank').col_values(2)[1:]
     try:
         #find number of matches between data and wordbank
         matches = find_list_intersections(wordbank, data)
@@ -353,17 +356,19 @@ def update_worksheet_row(worksheet_name, values):
             user_response = input('Would you like to try again? y/n\n')
             if user_response == 'y'.lower():
                 print('Trying again! Please hold...')
-                animation_loop()
+                animation_loop(2)
                 update_worksheet_row(worksheet_name, values)
                 break
             elif user_response == 'n'.lower():
                 print('Ok. Clearing...')
-                animation_loop()
+                animation_loop(2)
                 sys.stdout.flush()
                 os.system('clear')
                 break
     except Exception as e:
-        print('An error occured. Check your internet connection and error details below:\n')
+        print(
+            'An error occurred.'
+            'Check your internet connection and error details below:\n')
         raise e.with_traceback()
 
 
@@ -376,10 +381,12 @@ def update_worksheet_cell(worksheet_name, data):
         SHEET.worksheet(worksheet_name).append_row(data)
     except TypeError as e:
         raise TypeError(
-            f'Data must be a list. When updating worksheet cell it was: {type(data)}') #TODO sort so doesn't finish program, will ask to start again.
+            f'Data must be a list.'
+            f'When updating worksheet cell it was: {type(data)}')
     except Exception as e:
-        print(f'An error occured. Check your internet connection and \
-            error details below:\n{e.with_traceback}')
+        print(
+            f'An error occurred. Check your internet connection'
+            f'error details:\n{e.with_traceback}')
         while True:
             user_response = input('Would you like to try updating \
                 worksheet again? y/n\n')
@@ -403,11 +410,13 @@ def get_user_input1():
     print(SEPARATE)
     print(
         f'{Fore.LIGHTRED_EX}Welcome pessimist. I have two questions for you.\n')
-    print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 1: \
-        {Style.BRIGHT}How likely is doomsday today?\n')
-    print(f'{Style.NORMAL}Your answer should be a number between 0 and \
-        100.\nEnter 0 if you think the world is in perfect \
-            harmony.\nEnter 100 if Earth is burning\n')
+    print(
+        f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 1:'
+        '{Style.BRIGHT}How likely is doomsday today?\n')
+    print(
+        f'{Style.NORMAL}Your answer should be a number between 0 and 100.\n'
+        'Enter 0 if you think the world is in perfect harmony.\n'
+        'Enter 100 if Earth is burning\n')
     print(f'{Style.DIM}Here\'s an example: 65\n')
     print(SEPARATE)
 
@@ -415,7 +424,7 @@ def get_user_input1():
         user_answer = input('Enter a number: ')
         if validate_user_input1(user_answer):
             print(f'{Fore.LIGHTGREEN_EX}Awesome, thanks.\n')
-            os.system('clear')  # clear needed to keep TODO add to testing as heroku known clear bug - more clears needed to keep tidy
+            os.system('clear')
             break
     return user_answer
 
@@ -435,15 +444,17 @@ def validate_user_input1(user_input1):
             user_input1 = int(user_input1)
             if user_input1 < 0 or user_input1 > 100:
                 print(
-                    'Woah, I said I number between 0 and 100.\nCheck your math...')
+                    'Woah, I said I number between 0 and 100.\n'
+                    'Check your math...')
                 return False
         except ValueError:
             print(f'I need a number, silly! You provided \
                 {type(user_input1)}\n')
             return False
         except EOFError as e:
-            print(f'EOF Error occurred: {e.with_traceback}. \
-                I\'ll have to restart to make some space...') 
+            print(
+                f'EOF Error occurred: {e.with_traceback}.'
+                'I\'ll have to restart to make some space...') 
             main() # restarts game
         except Exception as e:
             raise Exception(f'Unknown error occurred: {e.with_traceback}')
@@ -456,15 +467,15 @@ def get_user_input2():
     """
     print(SEPARATE)
     print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 2:')
-    print(f'{Style.BRIGHT}Enter 3 key words you think are in the news today, each separated by a comma like the example below\n')
-    print(f'{Style.NORMAL}I\'ll check your answers against the top \
-        headlines from today.\nEach word you get right will get you a \
-            juicy point so choose wisely.\n')
+    print(
+        f'{Style.BRIGHT}Enter 3 key words you think are in the news today'
+        'separate each by a comma like the example below\n')
+    print(f'{Style.NORMAL}I\'ll check your answers against the top headlines from today.'
+          'Each word you get right will get you a juicy point so choose wisely.\n')
     print(f'{Style.DIM}Here\'s an example: apocalypse, AI, mutation\n')
     print(SEPARATE)
     while True:
         input_data = input('Enter 3 key words: ')
-        # user_answer = input_data.split(',')
         user_answer = [x.strip() for x in input_data.split(',')]
         # validate answer
         if validate_user_input2(user_answer):
@@ -498,19 +509,15 @@ def validate_user_input2(user_input2):
                 print(f'{Fore.RED}{result[0]} is not valid')
                 return False
         except ValueError as e:
-            print(f'Invalid Type: {e.args}. Please enter 3 key words. \
-                Numbers are not allowed.\n')
+            print(
+                f'Invalid Type: {e.args}.'
+                'Please enter 3 key words. Numbers are not allowed.\n')
             return False
-    
-
         except TypeError as e:
-            print(f'Please only use words.\nYou wrote: {user_input2} which \
-                is type {type(user_input2)}.\nPlease enter 3 key words. \
-                    Numbers and symbols are not allowed.\n')
-        except ValueError as e:
-            print(f'Invalid Type: {e.args}. Please enter 3 key words. \
-                Numbers are not allowed.\n')
-            return False
+            print(
+                f'Please only use words.\n'
+                'You wrote: {user_input2} which is type {type(user_input2)}.\n'
+                'Please enter 3 key words. Numbers and symbols are not allowed.\n')
         except Exception as e:
             raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return True
@@ -568,21 +575,24 @@ def get_user_scores_list():
     user completes game.
     """
     try:
-        sheet_values = SHEET.worksheet('end_calculator').col_values(2)[1:] # TODO avoid repetition with function instead
+        sheet_values = SHEET.worksheet('end_calculator').col_values(2)[1:]
         user_scores = []
         for value in sheet_values:
             value = int(value)
             user_scores.append(value)
     except TypeError as e:
-        print(f'Error getting user scores. This is what I got: \
-            {sheet_values}')
-        raise TypeError(f'Invalid Type: {e.args}\n.Check sheet values \
-            from end_calculator worksheet as well as internet connection') # TODO are e.args useful here? Or e.with_traceback or something else more helpful?
+        print(
+            f'Error getting user scores.'
+            f'This is what I got: {sheet_values}')
+        raise TypeError(
+            f'Invalid Type: {e.args}\n.'
+            'Check sheet values from end_calculator worksheet as well as internet connection')
     except TimeoutError as e:
-        pprint(f'Timeout Error: {e}.\n.Check your internet connection. \
-            I\'ll try again if I have a connection now...') # TODO test timeout
+        print(
+            f'Timeout Error: {e}.\n.Check your internet connection.'
+            'I\'ll try again if I have a connection now...')
         animation_loop(1)
-        get_user_scores_list() # TODO will this stop the program even if successful? Is there a method to retry that part of main?
+        get_user_scores_list()
     except Exception as e:
         raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return user_scores
@@ -596,13 +606,15 @@ def get_user_average_score(user_scores):
         score = sum(user_scores) / len(user_scores)
     except ZeroDivisionError:
         score = 0
-        print(f'{Fore.LIGHTRED_EX}There was an issue calculating your \
-            average score. Your score has not been counted.\n')
-        print(f'User scores came back as: {user_scores}. Check your \
-            worksheet and internet connection if this doesn\'t look right...')
+        print(
+            f'{Fore.LIGHTRED_EX}There was an issue calculating your average score.'
+            'Your score has not been counted.\n')
+        print(
+            f'User scores came back as: {user_scores}.'
+            'Check your worksheet and internet connection if this doesn\'t look right...')
     except TypeError as e:
-        raise TypeError(f'Invalid Type: {e.args}. User scores came back \
-            as {type(user_scores)}\n')
+        raise TypeError(
+            f'Invalid Type: {e.args}. User scores came back as {type(user_scores)}\n')
     except Exception as e:
         raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return math.floor(score)
@@ -614,7 +626,9 @@ def play_again():
     Finishes program if n.
     Handles if user input invalid.
     """
-    answer= input(f'Would you like to play again? {Fore.LIGHTBLACK_EX}({Fore.GREEN}y{Fore.LIGHTBLACK_EX}/{Fore.RED}n{Fore.LIGHTBLACK_EX}): ')
+    answer = input(
+        'Would you like to play again?'
+        f'{Fore.LIGHTBLACK_EX}({Fore.GREEN}y{Fore.LIGHTBLACK_EX}/{Fore.RED}n{Fore.LIGHTBLACK_EX}): ')
     try:
         if answer.lower() == 'y':
                 os.system('clear')
@@ -636,11 +650,8 @@ def main():
     """
     start_game()
 
-    global _headlines 
-    _headlines = get_headlines() # TODO put back in before submitting: commented output for testing purposes, using testing headlines instead to avoid maxing API requests*****
-
-    # global _headlines
-    # _headlines = test_get_headlines() # TODO sort before submitting
+    global _headlines
+    _headlines = get_headlines()
     processed_headlines = process_data(_headlines)
     keyword_list = remove_common_words(processed_headlines)
     percentage = percentage_of_wordbank_matches(keyword_list)
