@@ -23,8 +23,7 @@ from art import text2art
 colorama.init(autoreset=True)  # auto-reset color for each new line
 
 # global variable to avoid repeating 
-separate = '----------------------------------------------------------------\n'
-SEPARATE = separate.center(80)
+SEPARATE = ('----------------------------------------------------------------\n').center(80)
 
 # TIM checks:
 # TODO API exceptions 
