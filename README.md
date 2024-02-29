@@ -25,68 +25,49 @@ Zombie Bingo 🧟‍♂️ offers a humorous, succinct gaming experience by blen
 
 ## Features
 
-<!-- 
-
-explain what value each of the features 
-focusing on who this website is for,
-what it is that they want to achieve,
-how your project is the best way to help achieve these things.
-
-reference the specific project files that implement them.
-
-!-->
-
 ### Existing Features
 
 - **News Headlines API**
 
     - Gathers top news headlines fresh each time the API is called. These headlines are real and broad-ranging offering a gaming experience completely based on real, tangible headlines from across the world, perfect for target audiences including the news junkies! Only the top headlines are offered, meaning that no matter who plays, the headlines are almost guaranteed to be relevant in some way to each user, regardless of background or country. 
-<!-- TODO ADD SCREENSHOT -->
-![screenshot](documentation/feature02.png)
+![screenshot](documentation/feature_a.png)
 
 
 - **Google Sheets API**
 
     - For the more data-oriented news junkies, or more hard-core players, each time the game is played, answers from both the program (including top keywords from the headlines and the calculated likelihood of apocalypse) and the user. Users can look at their scores overtime and also look back at old faux-pas to learning better strategies for next games! Users can check their answers, scores and the program's answers any time to improve and learn more about the headlines in the real life news as they play.
-<!-- TODO ADD SCREENSHOT -->
-![screenshot](documentation/featurex.png)
+![screenshot](documentation/feature_b.png)
 
 - **User Input via Terminal**
 
     - The game is played entirely via the terminal as a self-contained app, perfect for the technically-minded of our target audiences. Users answer questions directly typing into the terminal, with results printed and fed back to the user all within the terminal interface. This is therefore very lightweight taking up almost zero storage space, whilst also being easy to read. Users are kept up to date with the program as it runs, what it's doing and when it is loading to ensure a seamless, clean and self-contained experience for ease of use and a positive UX.
-<!-- TODO ADD SCREENSHOT -->
-![screenshot](documentation/featurex.png)
+![screenshot](documentation/feature04a.png)
 
 - **User Feedback**
 
     - Any errors, either from the program or issues with user answers not being valid are returned directly in the terminal to the user for a seamless gaming experience with quick feedback on what is incorrect to fix for another try. This way, the program will also not break and the user can keep playing as many times as they like. (It can get quite addictive, as it's a quick game if you want it to be!).
-<!-- TODO ADD SCREENSHOT -->
-![screenshot](documentation/featurex.png)
+![screenshot](documentation/feature09_fixed.png)
 
 - **Game Restart**
 
     - At the end of the game, the user is prompted to restart the game or finished the game. Any previous data and text within the terminal will be cleared. A fresh batch of news headlines will be pulled and the game begins seamlessly again, meaning our hardcore news junkies can play as many times as they wish to their heart's content. Something just happened in the news? The game is totally fresh as the API pulls the very latest news headlines from the real world! Make the real life news your game!
-<!-- TODO ADD SCREENSHOT -->
-![screenshot](documentation/featurex.png)
+![screenshot](documentation/feature11.png)
 
 - **Game Answers**
 
     - After the user has answered both main questions, the game provides the game answers alongside the user's answers, with an apocalypse probability based on the current headlines and their respective buzzwords. This will help all our users, whether brand new or very experienced players of the game to keep in touch with the latest keywords from top news articles across the world. 
-<!-- TODO ADD SCREENSHOT -->
-![screenshot](documentation/featurex.png)
+![screenshot](documentation/feature_a.png)
 
 - **Average Score**
 
     - Players who have played the game at least once in the past will receive an average score back in the terminal at the end of the game, before being asked to play again. Perfectionists like me I'm sure will want to press that 'yes I'll play again button'... there are scores to improve!
     This will keep each user fully engaged in trying to improve and try the game again. The game is much more than just the game, it's about the user's awareness of contemporary events, or a fun way to let off steam channelling your inner pessimism...! The world isn't always bright and shiny, so we may as well have some fun despite the hard times. 
-<!-- TODO ADD SCREENSHOT -->
-![screenshot](documentation/featurex.png)
+![screenshot](documentation/feature_d.png)
 
 - **Colors and Visuals!**
 
     - Yes, it's a terminal game. But that doesn't mean we have to stick to a black and white screen. Thanks to the text2art and colorama libraries, this terminal just got a bit more fun (not to mention for those of you, like me, who have visual stress and dyslexia, it's a bit easier to read...!). The game is here for everyone to enjoy and the colors and visuals add a touch of chilli to your con carne... 
-<!-- TODO ADD SCREENSHOT -->
-![screenshot](documentation/featurex.png)
+![screenshot](documentation/feature_e.png)
 
 ### Future Features
 
@@ -202,7 +183,6 @@ This is to improve the accessibility of the project to others.
 
 The live deployed application can be found deployed on [Heroku](https://zombie-bingo-a26c47d43c24.herokuapp.com).
 
-<!-- CHECK THIS LINK ABOVE WORKS -->
 
 ### Heroku Deployment
 
@@ -290,11 +270,11 @@ You can fork this repository by using the following steps:
 
 ### Local VS Deployment
 
-<!-- Use this space to discuss any differences between the local version you've developed, and the live deployment site on Heroku. -->
 
-Minor differences:
+#### Minor differences:
 - Heroku displays strings with the center() function correctly at the center of the mock terminal, unlike how they often display within VS code.
 - The colors displayed in the terminal are slightly different to the local version but still distinct and remain functional throughout the app.
+- No major differences have been identified.
 
 ## Credits
 

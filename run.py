@@ -30,9 +30,10 @@ SEPARATE = separate.center(80)
 # TODO API exceptions 
 # TODO any classes I could implement? 
 # TODO ensure happy will meet all marking criteria
-# TODO centering issue?
+# TODO loading whilst running functions? https://stackoverflow.com/questions/22029562/python-how-to-make-simple-animated-loading-while-process-is-running
+# TODO centering issue? 
 
-# REFACTORING TODOs: 
+# ESSENTIAL TODOs: 
 # TODO ADD LINTER SCREENSHOT BEFORE SUBMITTING AFTER ALL COMMENTS REMOVED
 # TODO refactor by using function decorators directly above function def for printing running tests or uploading something (see screenshot)
 # TODO check text formatting in heroku no spillover
@@ -106,7 +107,7 @@ def start_game():
     except Exception as e:
         print(f'Error: {e.with_traceback}')
     finally:
-        False  # prevent uncaught while loop errors from KeyboardInterrupt.
+        False  # backup to safely handle while loop 
 
 
 def animation_loop(sec):
@@ -630,12 +631,12 @@ def main():
 
     # global _headlines = get_headlines() # TODO put back in before submitting: commented output for testing purposes, using testing headlines instead to avoid maxing API requests*****
 
-    global _headlines
-    headlines = test_get_headlines()
+    global _headlines # TODO sort before submitting
+    headlines = test_get_headlines() # TODO sort before submitting
     processed_headlines = process_data(headlines)
     keyword_list = remove_common_words(processed_headlines)
     percentage = percentage_of_wordbank_matches(keyword_list)
-    headline_matches = get_wordbank_matches_list(keyword_list) # TODO make headline matches alphabetical so appear nicely in worksheet
+    headline_matches = get_wordbank_matches_list(keyword_list) 
 
     # TODO Add animation loop whilst functions above are running to keep user updated - see link below
     # https://stackoverflow.com/questions/22029562/python-how-to-make-simple-animated-loading-while-process-is-running
@@ -663,19 +664,17 @@ def main():
 
     # update worksheets
     update_worksheet_row('program_answers', program_full_answer)
-    update_worksheet_row('user_answers', user_full_answer) # TODO debug formatting issues in spreadsheet
+    update_worksheet_row('user_answers', user_full_answer) 
     update_worksheet_cell('end_calculator', end_results)
 
     # report info to terminal for user
-    print(SEPARATE + '\n')
-    print(f'{Fore.GREEN}Your answers: {user_full_answer}\n') #TODO DEBUG picks up a two digit number as two numbers: e.g. 65, 66 = '6','6'
-    print(f'{Fore.RED}Today\'s keywords in the news headlines were:\n\
-        {Fore.LIGHTYELLOW_EX}{headline_matches}\n')
-    print(f'You won: {user_total_score} point(s)\n') #TODO add graphic depending on how many points out of max won. (Smiley face or cool terminal graphic). Will need new function.
+    print(SEPARATE)
+    print(f'{Fore.GREEN}Your answers: {user_full_answer}\n') 
+    print(f'{Fore.RED}Today\'s keywords in the news headlines were:\n{Fore.LIGHTYELLOW_EX}{headline_matches}')
+    print(f'You won: {user_total_score} point(s)\n')
     print(f'Your average score is: {average_score} point(s)')
     print(SEPARATE + '\n')
-    print(f'{Fore.RED}{Style.BRIGHT}****  We are forecasting a \
-        {percentage}% chance of apocalypse today!  ****')
+    print(f'{Fore.RED}{Style.BRIGHT}****  We are forecasting a {percentage}% chance of apocalypse today!  ****')
     print(SEPARATE + '\n')
 
     # play again y/n
