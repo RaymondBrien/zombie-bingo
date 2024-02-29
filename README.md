@@ -108,18 +108,6 @@ Below is the flowchart of the main process of this Python program. It shows the 
 
 ### Classes & Functions
 
-<!-- The program uses classes as a blueprint for the project's objects (OOP). This allows for the object to be reusable.
-
-```python
-class Person:
-    """ Insert docstring comments here """
-    def __init__(self, name, age, health, inventory):
-        self.name = name
-        self.age = age
-        self.health = health
-        self.inventory = inventory
-``` -->
-
 The primary functions used on this application are: 
 
 - `start_game()`

@@ -16,36 +16,24 @@ import os
 if os.path.exists('env.py'):
     import env
 from art import text2art
-# https://googleapis.dev/python/google-api-core/latest/exceptions.html
-# https://stackoverflow.com/questions/23945784/how-to-manage-google-api-errors-in-python
 
 colorama.init(autoreset=True)  # auto-reset color for each new line
 
 # global variable to avoid repeating 
 SEPARATE = ('----------------------------------------------------------------\n').center(80)
 
-# TIM checks:
-# TODO heroku and local deployment, need heroku and rapid api keys for config vars ADD TO README
-# TODO loading whilst running functions? https://stackoverflow.com/questions/22029562/python-how-to-make-simple-animated-loading-while-process-is-running
-# TODO centering issue and line breaks
-# TODO Clear() between each input
-
-
 # ESSENTIAL TODOs: 
+# TODO centering issues sort (see tim github link)
+# TODO loading whilst running functions? https://stackoverflow.com/questions/22029562/python-how-to-make-simple-animated-loading-while-process-is-running
+# TODO heroku and local deployment, need heroku and rapid api keys for config vars ADD TO README
 # TODO ADD LINTER SCREENSHOT BEFORE SUBMITTING AFTER ALL COMMENTS REMOVED
 # TODO refactor by using function decorators directly above function def for printing running tests or uploading something (see screenshot)
 # TODO check text formatting in heroku no spillover
 # TODO ENSURE ALL TODOS removed before submitting
-# TODO remove any unused imports.
 # TODO make sure only one number is allowed for q1
 # TODO remove commented out sections from readme
 # TODO remove commented out sections from testing
 # TODO make all questions, input text prompts and elements consistent in their styling.
-
-# OTHER:
-# TODO tabulate final data points in main so looks nice in terminal. Or write as a function?
-# TODO NOT IMPORTANT https://pypi.org/project/tabulate/
-
 
 SCOPE = [
     'https://www.googleapis.com/auth/spreadsheets',
