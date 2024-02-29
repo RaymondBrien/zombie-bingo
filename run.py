@@ -4,7 +4,6 @@ from google.oauth2.service_account import Credentials
 import json
 import requests
 import nltk
-import pprint
 from nltk.corpus import stopwords
 import re
 import inflect
@@ -260,7 +259,7 @@ def process_data(data):
                 data = ' '.join(data)
             data = list(data)
     except TypeError as e:
-        pprint(f'String needed to process data. Data is currently \
+        print(f'String needed to process data. Data is currently \
             {type(data)}.')
         raise e.with_traceback()
     except Exception as e:
@@ -276,7 +275,7 @@ def find_list_intersections(list1, list2):
     try:
         intersections = set(list1).intersection(list2)
     except TypeError as e:
-        pprint(f'List parameters must be list types: \
+        print(f'List parameters must be list types: \
             find_list_intersections function received: {type(list1)} \
                 and {type(list2)}.\nPlease try again.')
         raise e.with_traceback()
