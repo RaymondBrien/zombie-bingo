@@ -140,30 +140,33 @@ class Person:
 ``` -->
 
 The primary functions used on this application are: 
-<!-- UPDATE THIS FURTHER -->
 
+- `start_game()`
+    - Starts game by confirming user wants to start the game via user confirmation.
+- `animation_loop()`
+    - Animates the game loading slash for user confirmation the game is running whilst loading program results for a reassuring UX.
 - `get_headlines()`
-    <!-- - Get sales figures input from the user. -->
+    - Retrieves top 15 contemporary headlines in a single API request from real international online news feeds such as BBC.    
 - `process_data()`
-    <!-- - Converts all string values into integers. -->
-- `remove_common_words()`
-    <!-- - Update the relevant worksheet with the data provided. -->
+    - Processes headlines to remove any common words, returning all key words only.
 - `percentage_of_wordbank_matches()`
-    <!-- - Compare sales with stock and calculate the surplus for each item type. -->
-- `get_wordbank_matches_list()`
-    <!-- - Collects columns of data from sales worksheet.
-- `get_user_input()`
-    <!-- -  Calculate the average stock for each item type, adding 10%. -->
-- `update_worksheet_cell()`
-    <!-- -  Calculate the average stock for each item type, adding 10%. -->
-- `update_worksheet_row()`
-    <!-- -  Calculate the average stock for each item type, adding 10%. -->
+    - Returns percentage of matches between data and wordbank. This defines the percentage likelihood of apocalypse.
+- `get_user_input1()` and `get_user_input2()`
+    - Returns user input for questions 1 and 2 respectively.
+- `update_worksheet_row()` and `update_worksheet_cell`
+    - Adds values to worksheet row or cell accordingly for an up to date record of program calculations and user answers.
+- `validate_user_input1` and `validate_user_input2`
+    - Validates the user inputs for defensive purposes, ensuring user answers are in correct format, and if not that errors and handles without program terminating or crashing.
+- `find_list_intersection()`
+    - Returns list of all intersections between list1 and list2.
 - `calculate_user_buzzword_points()`
-    <!-- -  Calculate the average stock for each item type, adding 10%. -->
+    - Find any matches between API headlines and user key words. Generate scores - one point per matched key word. Maximum of three points per turn.
 - `calculate_user_percentage_score()`
-    <!-- -  Calculate the average stock for each item type, adding 10%. -->
+    - Ensures both user_input1 and percentage are integers. If user is within 10% range of actual percentage, return 1 point. Else return 0 points. Points will be added to total score count.
+- `get_user_average_score()`
+    - Returns average score for user from all games played.
 - `play_again()`
-    <!-- -  Calculate the average stock for each item type, adding 10%. -->
+    - Starts program again if y (clearing terminal). Finishes program if n. Handles if user input invalid.
 - `main()`
     - Run all program functions.
 
@@ -171,17 +174,21 @@ The primary functions used on this application are:
 
 I've used the following Python packages and/or external imported packages.
 
-- `gspread`: used with the Google Sheets API
+- `gspread`: used with the Google Sheets API for effecient data handling within worksheets.
 - `google.oauth2.service_account`: used for the Google Sheets API credentials
-- `json' : used with the Google Sheets API
-- 'requests' : used with the NewsNow API
-- `os`: used for adding a `clear()` function
+- `json` : used for the Google Sheets and NewsNow API functionality
+- `requests` : used with the NewsNow API to also include its own error library for easier debugging and error handling such as HTTP errors.
+- `os`: Used for importing env.py files for significantly improved credentials handling for APIs. Also used for adding a `clear()` function for improving terminal readability and accessibility for all users. 
+- `sys` : to cleanly handle closing the system to avoid unnecessary runtimes within error handling and program termination.
 - `colorama`: used for including color in the terminal
-- `nltk`: used for stopwords to remove generic works from news headlines
-<!-- - 're' -->
-<!-- - 'inflect' -->
-- 'math': to create clear percentage calculations with math.floor
-<!-- TODO add updated list here -->
+- `nltk`: used for stopwords to remove generic works from news headlines significantly more efficiently and in a more targeted way than manually setting stopwords which would be more time consuming to update.
+- `re` : regular expression library used for validating user inputs significantly more efficiently than manual list input.
+- `json` : used with the
+- `inflect` : used for processing data to efficiently and cleanly convert any numbers into words if required. 
+- `math`: to create clear percentage calculations with math.floor 
+- `colorama` : used for clearer terminal output, highlighting errors, successful answer submissions and program execution. Also necessary to make program more accessible and interactive for users. 
+- `art` : used for its text2art module which adds flair to the game and maintains interest for the user.  
+- `time` : used for handling animation loops in a tidy and efficient manner including sleep module, used for the animation_loop function.
 
 
 ## Testing

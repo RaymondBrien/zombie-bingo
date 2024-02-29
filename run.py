@@ -26,11 +26,19 @@ colorama.init(autoreset=True)  # auto-reset color for each new line
 separate = '----------------------------------------------------------------\n'
 SEPARATE = separate.center(80)
 
-# REFACTORING TODOs:
-# TODO ensure all screenshots added to testing 
+# TIM checks:
+# TODO API exceptions 
+# TODO any classes I could implement? 
+# TODO ensure happy will meet all marking criteria
+# TODO centering issue?
+
+# REFACTORING TODOs: 
+# TODO ADD LINTER SCREENSHOT BEFORE SUBMITTING AFTER ALL COMMENTS REMOVED
 # TODO refactor by using function decorators directly above function def for printing running tests or uploading something (see screenshot)
 # TODO check text formatting in heroku no spillover
+# TODO update readme screenshots
 # TODO update requirements.txt if needed before submitting!
+# TODO ENSURE ALL TODOS removed before submitting
 # TODO remove any unused imports.
 # TODO make sure only one number is allowed for q1
 # TODO remove commented out sections from readme
@@ -503,8 +511,8 @@ def validate_user_input2(user_input2):
 
 def calculate_user_buzzword_points(keyword_list, user_list):
     """
-    Find any matches between API headlines and user buzzwords.
-    Generate score - one point per matched buzzword.
+    Find any matches between API headlines and user key words.
+    Generate score - one point per matched key word.
     Maximum of three points per turn.
     """
     try:
@@ -614,7 +622,7 @@ def play_again():
 
 
 
-def main(): #TODO: Handle any leftover errors not handled in individual functions.
+def main(): 
     """
     Runs all program functions.
     """
@@ -674,7 +682,5 @@ def main(): #TODO: Handle any leftover errors not handled in individual function
     play_again()
 
 
-#if __name__ == '__main__':
-#    main()
-
-get_user_input2()
+if __name__ == '__main__':
+    main()
