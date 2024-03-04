@@ -8,7 +8,7 @@ import re
 import inflect
 import math
 import colorama
-from colorama import Fore, Back, Style
+from colorama import Fore, Style
 import time
 import sys
 import os
@@ -18,9 +18,10 @@ from art import text2art
 from pyboxen import boxen
 from rich.table import Table
 
-colorama.init(autoreset=True)  # auto-reset color for each new line
+# auto-reset color for each new line
+colorama.init(autoreset=True)
 
-# always centers text at 80 chars wide.
+# always centers text at 80 chars wide
 CENT = "{:^80}".format
 
 # global variable to avoid repeating
@@ -71,7 +72,7 @@ def start_game():
         input('Press enter to continue...')
         print(
             f'\n{Fore.BLACK}Gathering the hottest info: '
-            f'{Style.DIM}please wait a moment...\n{Style.RESET_ALL}')
+            f'please wait a moment...\n{Style.RESET_ALL}')
         animation_loop(2)
     # keyboard interrupt handling
     except KeyboardInterrupt as e:
@@ -736,6 +737,9 @@ def main():
     update_worksheet_row('user_answers', user_full_answer)
     update_worksheet_cell('end_calculator', end_results)
 
+    # clear terminal 
+    os.system('clear')
+    
     # report info to terminal for user
     # boxen credit: see README.md
     print(

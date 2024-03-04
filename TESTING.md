@@ -58,6 +58,6 @@ Defensive programming was manually tested with the below user acceptance testing
     ![screenshot](documentation/unfixed-bug01a.png)
     ![screenshot](documentation/unfixed-bug01b.png)
 
-    - Attempted fix: I tried to adjust the terminal size, but it only resizes the actual terminal, not the allowable area for text. Instead I have ensured that after each user input, a clear() is used to clear the terminal as much as possible. This also applies to the very start of the program where the file name is displayed, which I tried to clear with `clear()` before the program runs, per line 710.
+    - Attempted fix: I tried to adjust the terminal size, but it only resizes the actual terminal, not the allowable area for text. Instead I have ensured that after each user input, a clear() is used to clear the terminal as much as possible, as well as in the main() function to clear as much space as possible for the table of data displayed at the end of the game. This also applies to the very start of the program where the file name is displayed, which I tried to clear with `clear()`.
 
 There are no remaining bugs that I am aware of.
