@@ -737,9 +737,9 @@ def main():
     update_worksheet_row('user_answers', user_full_answer)
     update_worksheet_cell('end_calculator', end_results)
 
-    # clear terminal 
+    # clear terminal
     os.system('clear')
-    
+
     # report info to terminal for user
     # boxen credit: see README.md
     print(
