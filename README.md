@@ -81,10 +81,12 @@ Zombie Bingo 🧟‍♂️ offers a humorous, succinct gaming experience by blen
     - At the end of each game, a sound is played to add additional user feedback for improved UX. This was not possible at the current time of deployment due to issues with static file handling in Heroku. I hope to find a workaround for this to provide user feedback and interactivity that supports the silly and simple themes this game has to offer for an even more engaging experience during gameplay. Sound effects can change depending on whether scores are good or bad, whether the chance of apocalypse according to the program is greater or smaller. Cue impending doom music...
 - If no input is provided then the program will sleep after 2 minutes.
     - This would be useful for power saving at the end of the game or where any user input is required and none is given within the two minutes.
-- Update stock headlines when API is successful
-    -  Each time the API successfully runs, the stock (backup) headlines saved for if there is no internet connection or if the API fails will be updated so that the stock headlines are as contemporary as possible for game maintainability and relevance.
+- Future-proof stock headlines if API fails
+    -  Each time the API successfully runs, the stock (backup) headlines will be updated and instead drawn from a worksheet using the google sheets API, so that the stock headlines are as contemporary as possible for game maintainability and relevance. These will be constantly updated automatically instead of drawing on static backup headlines currently used within the run.py file, required if the API call fails or raises an exception.
 - Enable loading animation to run whilst the program is gathering data simultaneously. 
     - The loading animation currently runs just after the program has gathered the data for the game to start (ie loading headlines). This will improve user experience by keeping the user informed that the program is running as it gathers the data needed for the game to start. 
+- Exception handling to be reformatted
+    - Add exception handling as a separate try block for each function to isolate and more sophisticatedly streamline debugging any anticipated bugs in future versions separate from the main function's purpose.
 
 ## Tools & Technologies Used
 
@@ -286,7 +288,6 @@ You can fork this repository by using the following steps:
 | [StackOverflow](https://stackoverflow.com/questions/423379/how-to-use-a-global-variable-in-a-function) | global variable usage throughout program | how to reassign global variables to ensure the backup pre-loaded headlines work if headlines API call fails due to internet connection issues or maxing out API requests |
 | [Stanford](https://cs.stanford.edu/people/nick/py/python-map-lambda.html) | input2 error handling | using lambda to more efficiently loop and find invalid values and only print the invalid ones to the terminal for an improved user experience.|
 | [Secopshub](https://www.secopshub.com/t/handling-api-errors-using-\python-requests/589) | http error handling | using lambda to more efficiently loop and find invalid values and only print the invalid ones to the terminal for an improved user experience.|
-<!-- https://stackoverflow.com/questions/22029562/python-how-to-make-simple-animated-loading-while-process-is-running -->
 
 
 
@@ -294,7 +295,7 @@ You can fork this repository by using the following steps:
 
 | Source | Location | Type | Notes |
 | --- | --- | --- | --- |
-| [Pixabay Sound Effect](https://pixabay.com/sound-effects/wrong-answer-126515/) | main function for poor answers | audio clip | free sound effect. Used when printing results at the end of the game to terminal.This was |
+| No media currently used due to Heroku static files issue. | --- | --- | --- | 
 
 
 ### Acknowledgements
