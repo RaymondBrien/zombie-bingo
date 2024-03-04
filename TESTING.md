@@ -4,38 +4,6 @@ Return back to the [README.md](README.md) file.
 
 ## Code Validation
 
-<!-- 
-It's recommended to validate each file using the API URL.
-This will give you a custom URL which you can use on your testing documentation.
-It makes it easier to return back to a file to validate it again in the future.
-Use the steps above to generate your own custom URLs for each Python file.
-
-**IMPORTANT**: `E501 line too long` errors
-
-You must strive to fix any Python lines that are too long ( >80 characters ).
-In rare cases where you cannot break the lines [without breaking the functionality],
-then by adding `# noqa` to the end of those lines will ignore linting validation.
-
-`# noqa` = **NO Quality Assurance**
-
-**NOTE**: You must include 2 *spaces* before the `#`, and 1 *space* after the `#`.
-
-Do not use `# noqa` all over your project just to clear down validation errors!
-This can still cause a project to fail, for failing to fix actual PEP8 validation errors.
-
-Sometimes strings or variables get too long, or long `if` conditional statements.
-These are acceptable instances to use the `# noqa`.
-
-When trying to fix "line too long" errors, try to avoid using `/` to split lines.
-A better approach would be to use any type of opening bracket, and hit Enter just after that.
-
-Any opening bracket type will work: `(`, `[`, `{`.
-
-By using an opening bracket, Python knows where to appropriately indent the next line of code,
-without having to "guess" yourself and attempt to tab to the correct indentation level.
-
--->
-
 I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com) to validate all of my Python files.
 
 | File | CI URL | Screenshot | Notes |
@@ -44,7 +12,6 @@ I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com
 [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/RaymondBrien/zombie-bingo/main/run.py) | ![screenshot](documentation/py-validation-run.png) | 
 xxxxxxxxx |
 
-<!-- Do I need to run requirements through linter? -->
 <!-- ENSURE FINAL CELL FILLED OUT ONCE COMPLETE AND RUNNING NO ERRORS IN LINTER. -->
 
 
@@ -71,52 +38,27 @@ Defensive programming was manually tested with the below user acceptance testing
 | End: feature 13| When user is asked 'Would you like to play again?', if the user does not press 'y' or 'n' then the program will prompt the user to type only 'y' or 'n'. | Tested by inputting 'y' and 'n' and 'h' respectively |'y' restarts the game as expected; 'n' terminates the program as expected; 'h' raises an error and prompts the user either 'y' or 'n'. |No fix required. | ![screenshot](documentation/feature13.png) |
 
 
-
-
-
-
-
 ## Bugs
-<!-- 
-This section is primarily used for JavaScript and Python applications,
-but feel free to use this section to document any HTML/CSS bugs you might run into.
-
-It's very important to document any bugs you've discovered while developing the project.
-Make sure to include any necessary steps you've implemented to fix the bug(s) as well.
-
-**PRO TIP**: screenshots of bugs are extremely helpful, and go a long way! -->
-
-
-- Python `'ModuleNotFoundError'` when trying to import module from imported package
-
-    ![screenshot](documentation/bug03.png)
-
-    - To fix this, I _____________________.
-
 
 - Python `E501 line too long` (93 > 79 characters)
 
-    ![screenshot](documentation/bug04.png)
+    ![screenshot](documentation/bug01.png)
 
-    - To fix this, I _____________________.
+    - To fix this, I reformatted strings to multiple lines. If this was unavoidable (ie for indented code that could not be formatted on multiple lines) I added `# noqa` where absolutely unavoidable.
 
 ## Unfixed Bugs
 
-<!-- You will need to mention unfixed bugs and why they were not fixed.
-This section should include shortcomings of the frameworks or technologies used.
-Although time can be a big variable to consider, paucity of time and difficulty understanding
-implementation is not a valid reason to leave bugs unfixed.
+- When using a helper `clear()` function, any text above the height of the terminal does not clear, and remains when you scroll up.
 
-If you've identified any unfixed bugs, no matter how small, be sure to list them here.
-It's better to be honest and list them, because if it's not documented and an assessor finds the issue,
-they need to know whether or not you're aware of them as well, and why you've not corrected/fixed them. -->
+    ![screenshot](documentation/unfixed-bug01.png)
 
+    - Attempted fix: I tried to adjust the terminal size, but it only resizes the actual terminal, not the allowable area for text. Instead I have ensured that after each user input, a clear() is used to clear the terminal as much as possible. This also applies to the very start of the program where the file name is displayed, which I tried to clear with `clear()` before the program runs, per line 710.
 
-- For PP3, when using a helper `clear()` function, any text above the height of the terminal does not clear, and remains when you scroll up.
+- My original plan to use an audio file for user feedback at the end of the game has been removed as hosting static files on Heroku is not supported within the current Heroku framework used.
 
-    ![screenshot](documentation/unfixed-bug02.png)
-
-    - Attempted fix: I tried to adjust the terminal size, but it only resizes the actual terminal, not the allowable area for text.
+     ![screenshot](documentation/unfixed-bug02.png)
+<!-- ADD SCREENSHOT -->
+    - Attempted fix: I tried to host static files using a third part library but this failed and ran errors with Heroku. Instead it was simpler to ensure the user feedback was text based (with colors) as the error was Heroku based and not something that was because of my own code.
 
 
 There are no remaining bugs that I am aware of.
