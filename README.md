@@ -269,9 +269,9 @@ You can fork this repository by using the following steps:
 
 
 #### Minor differences:
-- Heroku displays strings with the center() function correctly at the center of the mock terminal, unlike how they often display within VS code.
+- Heroku displays text within the terminal without any margin on the left, unlike how it displays locally in VS code. This has made it very difficult to try and center text and ensure consistent terminal space when displaying long strings.
 - The colors displayed in the terminal are slightly different to the local version but still distinct and remain functional throughout the app.
-- No major differences have been identified.
+- No other differences have been identified.
 
 ## Credits
 
