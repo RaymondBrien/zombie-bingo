@@ -15,6 +15,8 @@ import os
 if os.path.exists('env.py'):
     import env
 from art import text2art
+from pyboxen import boxen
+from rich.table import Table
 
 colorama.init(autoreset=True)  # auto-reset color for each new line
 
@@ -22,11 +24,12 @@ colorama.init(autoreset=True)  # auto-reset color for each new line
 CENT = "{:^80}".format
 
 # global variable to avoid repeating
-SEPARATE = ('\n--------------------------------------------------\n').center(10, '')  # noqa
+SEPARATE = CENT('\n' + '* * * * *' + '\n')
 
 
 # TODO ADD LINTER SCREENSHOT BEFORE SUBMITTING AFTER ALL COMMENTS REMOVED
-# TODO remove update cell and row feedback to terminal 
+# TODO add boxen credits to readme 
+# TODO update requirements  
 # TODO remove user full answer print to termianl in main
 # TODO ENSURE ALL TODOS removed before submitting
 # TODO remove commented out sections from testing
@@ -53,20 +56,26 @@ def start_game():
         heading = text2art(('Zombie Bingo!'), font="small")
         
         # Loading and introduction text to user
-        print(f'{Fore.GREEN}\n{heading}{Fore.RED}o==[]::::::::::::::>')
-        print(CENT(f'{SEPARATE}'))
-        print(CENT(f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}WELCOME TO ZOMBIE BINGO{Style.RESET_ALL}'))  # noqa
-        print(CENT(f'{SEPARATE}'))
-        print(CENT(f'{Fore.GREEN}*** LET\'S PLAY *** \n'))
-        print(CENT(f'{Fore.RESET}How close is the zombie apocalypse according to the news?\n'))
-        print(CENT('Guess the right key words and you win a point!\n'))
-        print(CENT(f'{Style.DIM}(Press ctrl + c to exit){Style.RESET_ALL}\n'))
-        print(CENT(f'{SEPARATE}'))
+        print(f'{Fore.GREEN}\n{heading}{Fore.RED}o==[]::::::::::::::>\n')
 
         # User-initialized game start
-        input(CENT('Press enter to continue...'))
+        # boxen credit: https://github.com/savioxavier/pyboxen?tab=readme-ov-file
         print(
-            f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info:{Back.RESET}\n'
+            boxen(
+                "How close is the zombie apocalypse according to the news?\n",
+                "Guess the right key words and you win a point!",
+                title="[black on cyan] What is it? [/]",
+                subtitle="*** LET'S PLAY ***",
+                subtitle_alignment="center",
+                color="yellow",
+                padding=1,
+            )
+        )
+
+        print(f'{Style.DIM}(Press ctrl + c to exit){Style.RESET_ALL}\n')
+        input('Press enter to continue...')
+        print(
+            f'\n{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info:{Back.RESET}\n'
             f'{Style.DIM}please wait a moment...\n{Style.RESET_ALL}')
         animation_loop(2)
     # keyboard interrupt handling
@@ -79,7 +88,7 @@ def start_game():
             print(SEPARATE)
             key_interrupt = input(
                 'Do you want to continue launching the game?\n'
-                F'{Fore.LIGHTYELLOW_EX}Type y or n:\n')
+                F'{Fore.LIGHTYELLOW_EX}Type y or n:\n{Fore.RESET}')
             if key_interrupt.lower() == 'y':
                 print('\nCool, I\'ll start the game')
                 animation_loop(2)  # give user time to read
@@ -210,9 +219,10 @@ def get_headlines():
                         '\nOK!\n'
                         'I\'ll use a precooked batch of headlines I made earlier...\n')  # noqa
                     print(
-                        '\nPlease hold...'
+                        f'{SEPARATE}'
+                        '\nPlease hold...\n'
                         'The screen will clear and then ask you the first question!')
-                    animation_loop(3)
+                    animation_loop(8)
                     global _headlines
                     _headlines = test_get_headlines()
                     title_collection = _headlines
@@ -410,16 +420,22 @@ def get_user_input1():
     print(SEPARATE)
     print(
         f'{Fore.LIGHTRED_EX}Welcome pessimist.\n'
-        'I have two questions for you.\n')
-    print(
-        f'\n{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 1:{Back.RESET}\n'
-        f'{Style.BRIGHT}How likely is doomsday today?\n')
-    print(
-        f'{Style.NORMAL}Your answer should be a number between 0 and 100.\n'
-        'Enter 0 if you think the world is in perfect harmony.\n'
-        'Enter 100 if Earth is burning\n')
-    print(CENT(f'{Style.DIM}Here\'s an example: 65\n'))
+        'I have two questions for you.')
     print(SEPARATE)
+    print(
+        boxen(
+            "[red on yellow] How likely is doomsday today?\n",
+            "* * * * *\n",
+            "Your answer should be a number between 0 and 100.",
+            "Enter 0 if you think the world is in perfect harmony.",
+            "Enter 100 if the earth is burning",
+            title="[black on cyan] QUESTION 1 [/]",
+            subtitle="Here\'s an example: 65",
+            subtitle_alignment="center",
+            color="yellow",
+            padding=1,
+        )
+    )
 
     while True:
         user_answer = input('Enter a number: ')
@@ -468,17 +484,22 @@ def get_user_input2():
     Returns user input 2 as list of strings.
     """
     print(SEPARATE)
-    print(CENT(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 2:{Back.RESET}\n'))
-    print(CENT(
-        f'{Style.BRIGHT}Enter 3 key words you think are in the news today.\n'))
-    print(CENT(f'{Style.DIM}Example: apocalypse, AI, mutation\n'))
-    print(CENT(
-        f'{Style.NORMAL}I\'ll check your answers against the top '
-        'headlines from today.\n'
-        'Each correct word will get you a juicy point, '
-        'so choose wisely.\n'
-        '\nSeparate each by a comma like the example above...\n'))
-    print(SEPARATE)
+    print(
+        boxen(
+            "[red on yellow] Enter 3 key words you think are in the news today?\n",
+            "* * * * *\n",
+            "I\'ll check your answers against the top headlines from today.",
+            "Each correct word will get you a juicy point, so choose wisely...\n",
+            "* * * * *\n",
+            "Separate each by a comma like the example below.\n",
+            title="[black on cyan] QUESTION 2 [/]",
+            subtitle="Example: apocalypse, AI, mutation",
+            subtitle_alignment="center",
+            color="yellow",
+            padding=1,
+        )
+    )
+
     while True:
         input_data = input('Enter 3 key words: ')
         user_answer = [x.strip() for x in input_data.split(',')]
@@ -529,7 +550,7 @@ def validate_user_input2(user_input2):
             print(
                 f'Please only use words.\n'
                 f'You wrote: {user_input2}'
-                'which is type {type(user_input2)}.\n'
+                f'which is type {type(user_input2)}.\n'
                 'Please enter 3 key words.\n'
                 'Remember numbers and symbols are not allowed.\n')
         except Exception as e:
@@ -654,7 +675,7 @@ def play_again():
         elif answer.lower() == 'n':
             print(
                 f'{Fore.RESET}Thank you for playing!\n'
-                'Be sure to check back tomorrow with tomorrow\'s headlines...\n'
+                'Be sure to check back tomorrow with tomorrow\'s headlines.\n'
                 'Who knows, maybe there\'s a real apocalypse tomorrow...')
             animation_loop(10)  # give user time to read
             os.system('clear')
@@ -705,21 +726,40 @@ def main():
     update_worksheet_cell('end_calculator', end_results)
 
     # report info to terminal for user
-    print(SEPARATE)
-    print(CENT(f'{Fore.GREEN}Your answers: {user_full_answer}\n'))
-    print(CENT(
-        f'{Fore.RED}Today\'s keywords in the news headlines were:\n'
-        f'{Fore.LIGHTYELLOW_EX}{[word for word in headline_matches]}'))
-    print(CENT('You won:\n'))
-    print(CENT(f'{Fore.GREEN}{user_total_score} point(s)\n'))
-    print(CENT('Our users\' average score:\n'))
-    print(CENT(f'{Fore.LIGHTYELLOW_EX}{average_score} point(s)'))
-    print(SEPARATE)
     print(
-        f'{Fore.RED}**** '
-        f'We are forecasting a {percentage}% chance of apocalypse today! '
-        '****')
-    print(SEPARATE)
+        boxen(
+            "* * * * *\n",
+            f"[red on yellow] WE ARE FORECASTING A {percentage} CHANCE OF APOCALYPSE TODAY! \n",
+            "* * * * *\n",
+            title="[black on cyan] RESULTS [/]",
+            subtitle="[red] o==[]::::::::::::::> [/]",
+            subtitle_alignment="center",
+            color="yellow",
+            padding=1,
+        )
+    )
+
+    # results table
+    table = Table(show_header=True, header_style="bold magenta")
+    
+    table.add_column("Your Answers", style="yellow", width=12)
+    table.add_column("Today's Key Words", style="red")
+    table.add_column("Your Total Score", justify="right")
+    table.add_column("Other People's Average Score", justify="right")
+    table.add_row(
+        f"{user_full_answer}", 
+        f"{headline_matches}", 
+        f"{user_total_score}", 
+        f"{average_score}"
+    )
+
+    print(
+        boxen(
+            "Results:\n",
+            table
+        )
+    )
+        
 
     # play again y/n
     play_again()
