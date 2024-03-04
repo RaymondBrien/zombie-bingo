@@ -158,12 +158,14 @@ I've used the following Python packages and/or external imported packages.
 - `colorama`: used for including color in the terminal
 - `nltk`: used for stopwords to remove generic works from news headlines significantly more efficiently and in a more targeted way than manually setting stopwords which would be more time consuming to update.
 - `re` : regular expression library used for validating user inputs significantly more efficiently than manual list input.
-- `json` : used with the
+- `json` : used with the creds handling of each API request for google sheets, google cloud and rapid API headline calls.
 - `inflect` : used for processing data to efficiently and cleanly convert any numbers into words if required. 
 - `math`: to create clear percentage calculations with math.floor 
 - `colorama` : used for clearer terminal output, highlighting errors, successful answer submissions and program execution. Also necessary to make program more accessible and interactive for users. 
 - `art` : used for its text2art module which adds flair to the game and maintains interest for the user.  
 - `time` : used for handling animation loops in a tidy and efficient manner including sleep module, used for the animation_loop function.
+- `pyboxen` : used for displaying each question in a neat box for a positive UI and UX to display as cleanly as possible within the given deployed terminal whilst also remaining fun and informative for the user. 
+- `table` : used for displaying the final end-of-game table in a clean and fun way for the user, displaying results and user answers colorfully.
 
 
 ## Testing
@@ -295,9 +297,7 @@ You can fork this repository by using the following steps:
 
 ### Media
 
-| Source | Location | Type | Notes |
-| --- | --- | --- | --- |
-| No media currently used due to Heroku static files issue. | --- | --- | --- | 
+No media currently used due to Heroku static files issue.
 
 
 ### Acknowledgements
