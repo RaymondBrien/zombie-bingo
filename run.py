@@ -19,12 +19,10 @@ from art import text2art
 colorama.init(autoreset=True)  # auto-reset color for each new line
 
 # global variable to avoid repeating
-SEPARATE = ('\n--------------------------------------------------\n').center(80)
+SEPARATE = ('\n--------------------------------------------------\n').center(40)
 
-# TODO heroku and local deployment, need heroku and rapid api keys for config vars ADD TO README
 # TODO ADD LINTER SCREENSHOT BEFORE SUBMITTING AFTER ALL COMMENTS REMOVED
 # TODO ENSURE ALL TODOS removed before submitting
-# TODO remove commented out sections from readme
 # TODO remove commented out sections from testing
 
 SCOPE = [
@@ -47,28 +45,28 @@ def start_game():
         opening_text = (
             f'{SEPARATE}{Fore.BLACK}{Back.LIGHTYELLOW_EX}WELCOME TO ZOMBIE BINGO{Style.RESET_ALL}'  # noqa
             f'{SEPARATE}'
-            'Let\'s play bingo:'
-            'how close is the zombie apocalypse according to the news?'
+            'Let\'s play bingo: \n'
+            'How close is the zombie apocalypse according to the news?\n'
             'Guess the right key words and you win a point!'
-            f'{Style.DIM}(Press ctrl + c to exit){Style.RESET_ALL}'
+            f'{Style.DIM}(Press ctrl + c to exit){Style.RESET_ALL}\n'
             f'{SEPARATE}')
         # Clear terminal for terminal readability
         os.system('clear')
         # Loading and introduction text to user
-        heading = text2art(('Zombie Bingo!').center(20), font="small")
+        heading = text2art(('Zombie Bingo!').center(40), font="small")
         print(f'{Fore.GREEN}{heading}')
         print((f'{Fore.RED}o==[]::::::::::::::>').center(40))
-        print(opening_text.center(25))
-        input('Press enter to continue...').center(25)
+        print(opening_text.center(40))
+        input('Press enter to continue...').center(40)
         print(
-            f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info:'
-            'please wait a moment...')
+            f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info:\n'
+            'please wait a moment...\n')
         animation_loop(2)
     except KeyboardInterrupt as e:
         print(SEPARATE)
         print(
-            f'\n{Fore.RED}Ouch!'
-            'Don\'t poke me when I\'m booting up the program!')
+            f'\n{Fore.RED}** Ouch! **\n'
+            'Don\'t poke me when I\'m booting up the program!\n')
         while True:
             print(SEPARATE)
             key_interrupt = input(
