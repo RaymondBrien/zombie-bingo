@@ -12,8 +12,6 @@ I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com
 [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/RaymondBrien/zombie-bingo/main/run.py) | ![screenshot](documentation/py-validation-run.png) | 
 xxxxxxxxx |
 
-<!-- ENSURE FINAL CELL FILLED OUT ONCE COMPLETE AND RUNNING NO ERRORS IN LINTER. -->
-
 
 
 ## Defensive Programming

@@ -28,7 +28,6 @@ SEPARATE = CENT('\n' + '* * * * *' + '\n')
 
 
 # TODO ADD LINTER SCREENSHOT BEFORE SUBMITTING AFTER ALL COMMENTS REMOVED
-# TODO ENSURE ALL TODOS removed before submitting
 
 SCOPE = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -50,7 +49,7 @@ def start_game():
         # Clear terminal for terminal readability
         os.system('clear')
         heading = text2art(('Zombie Bingo!'), font="small")
-        
+
         # Loading and introduction text to user
         print(f'{Fore.GREEN}\n{heading}{Fore.RED}o==[]::::::::::::::>\n')
 
@@ -92,7 +91,9 @@ def start_game():
                 start_game()
                 break
             elif key_interrupt.lower() == 'n':
-                print(f'{Fore.RESET}\nOk, I\'ll close the game! See you soon!\n')
+                print(
+                    f'{Fore.RESET}\nOk, I\'ll close the game!'
+                    'See you soon!\n')
                 False
                 sys.exit(0)
             elif key_interrupt.lower() != 'y' and key_interrupt.lower() != 'n':
@@ -204,8 +205,8 @@ def get_headlines():
                 user_response = int(input(
                     f'{Fore.LIGHTYELLOW_EX}Type 1 if you want to try using '
                     'rapid API try again\n'
-                    f'\n{Fore.LIGHTGREEN_EX}Type 9 to use the preloaded headlines '
-                    f'I cooked up yesterday\n{Fore.RESET}\n'))
+                    f'\n{Fore.LIGHTGREEN_EX}Type 9 to use the preloaded '
+                    f'headlines I cooked up yesterday\n{Fore.RESET}\n'))
                 if user_response == 1:
                     print('Trying again!')
                     get_headlines()
@@ -214,11 +215,13 @@ def get_headlines():
                     print(
                         f'{SEPARATE}'
                         '\nOK!\n'
-                        'I\'ll use a precooked batch of headlines I made earlier...\n')  # noqa
+                        'I\'ll use a precooked batch of headlines '
+                        'I made earlier...\n')
                     print(
                         f'{SEPARATE}'
                         f'\n{Style.DIM}Please hold...\n'
-                        f'The screen will clear and then ask you the first question!{Style.RESET_ALL}')
+                        f'The screen will clear and then ask '
+                        f'you the first question!{Style.RESET_ALL}')
                     animation_loop(8)
                     global _headlines
                     _headlines = test_get_headlines()
@@ -465,7 +468,7 @@ def validate_user_input1(user_input1):
                 return False
         except ValueError:
             print(f'{Fore.RED}I need a number, silly! You provided '
-                f'{type(user_input1)}\n{Fore.RESET}')
+                  f'{type(user_input1)}\n{Fore.RESET}')
             return False
         except EOFError as e:
             print(
@@ -485,10 +488,12 @@ def get_user_input2():
     # boxen credit: see README.md
     print(
         boxen(
-            "[red on yellow] Enter 3 key words you think are in the news today:\n",
+            "[red on yellow] Enter 3 key words "
+            "you think are in the news today:\n",
             "* * * * *\n",
             "I\'ll check your answers against the top headlines from today.",
-            "Each correct word will get you a juicy point, so choose wisely...\n",
+            "Each correct word will get you a juicy point, "
+            "so choose wisely...\n",
             "* * * * *\n",
             "Separate each by a comma like the example below.\n",
             title="[black on cyan] QUESTION 2 [/]",
@@ -526,10 +531,12 @@ def validate_user_input2(user_input2):
     if len(user_input2) != 3:
         print(SEPARATE)
         print(
-            f'{Fore.RED}You only gave me {len(user_input2)} answer(s) {Fore.RESET}'
+            f'{Fore.RED}You only gave me {len(user_input2)} '
+            f'answer(s) {Fore.RESET}'
             'Check you added commas between your words and try again.\n'
             '\nPlease enter 3 key words.\n'
-            f'{Fore.LIGHTYELLOW_EX}Remember to separate each by a comma!{Fore.RESET}')
+            f'{Fore.LIGHTYELLOW_EX}Remember to separate each '
+            f'by a comma!{Fore.RESET}')
         print(f'{Style.DIM}Here\'s an example: apocalypse, AI, mutation\n')
         print(SEPARATE)
         return False
@@ -669,7 +676,7 @@ def play_again():
         f'({Fore.GREEN}y{Fore.WHITE}/{Fore.RED}n{Fore.WHITE}): \n')
     try:
         if answer.lower() == 'y':
-            print('\nLet\'s go!')
+            print(f'\n{Fore.GREEN}Let\'s go!{Fore.RESET}')
             animation_loop(2)
             os.system('clear')
             main()
@@ -677,8 +684,10 @@ def play_again():
             print(
                 f'{Fore.RESET}Thank you for playing!\n'
                 f'{SEPARATE}'
-                '\nBe sure to check back tomorrow with tomorrow\'s headlines.\n'
-                f'{Style.DIM}Who knows, maybe there\'s a real apocalypse tomorrow...{Style.RESET_ALL}')
+                '\nBe sure to check back tomorrow with '
+                'tomorrow\'s headlines.\n'
+                f'{Style.DIM}Who knows, maybe there\'s '
+                f'a real apocalypse tomorrow...{Style.RESET_ALL}')
             animation_loop(10)  # give user time to read
             os.system('clear')
             exit()  # terminate program
@@ -732,7 +741,8 @@ def main():
     print(
         boxen(
             "* * * * *\n",
-            f"[red on yellow] WE ARE FORECASTING A {percentage} CHANCE OF APOCALYPSE TODAY! \n",
+            f"[red on yellow] WE ARE FORECASTING A {percentage} "
+            "CHANCE OF APOCALYPSE TODAY! \n",
             "* * * * *\n",
             title="[black on cyan] RESULTS [/]",
             subtitle="[red] o==[]::::::::::::::> [/]",
@@ -744,14 +754,14 @@ def main():
 
     # results table
     table = Table(show_header=True, header_style="bold magenta")
-    
+
     table.add_column("Your Answers", style="yellow", width=12)
     table.add_column("From Today's Headlines", style="red")
     table.add_column("Your Total Score", justify="right")
     table.add_column("People's Average Score", justify="right")
     table.add_row(
-        " ".join(user_full_answer), 
-        " ".join(headline_matches), 
+        " ".join(user_full_answer),
+        " ".join(headline_matches),
         f"{user_total_score}",
         f"{average_score}"
     )
@@ -762,7 +772,6 @@ def main():
             table
         )
     )
-        
 
     # play again y/n
     play_again()
