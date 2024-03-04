@@ -18,8 +18,12 @@ from art import text2art
 
 colorama.init(autoreset=True)  # auto-reset color for each new line
 
+# always centers text at 80 chars wide.
+CENT = "{:^80}".format
+
 # global variable to avoid repeating
-SEPARATE = ('\n--------------------------------------------------\n').center(20)
+SEPARATE = CENT('\n--------------------------------------------------\n')
+
 
 # TODO ADD LINTER SCREENSHOT BEFORE SUBMITTING AFTER ALL COMMENTS REMOVED
 # TODO remove update cell and row feedback to terminal 
@@ -45,7 +49,8 @@ def start_game():
     """
     try:
         opening_text = (
-            f'{SEPARATE}{Fore.BLACK}{Back.LIGHTYELLOW_EX}WELCOME TO ZOMBIE BINGO{Style.RESET_ALL}'  # noqa
+            f'{SEPARATE}'
+            f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}WELCOME TO ZOMBIE BINGO{Style.RESET_ALL}'  # noqa
             f'{SEPARATE}'
             'Let\'s play bingo: \n'
             'How close is the zombie apocalypse according to the news?\n'
@@ -56,9 +61,9 @@ def start_game():
         os.system('clear')
         # Loading and introduction text to user
         heading = text2art(('Zombie Bingo!').center(20), font="small")
-        print(f'{Fore.GREEN}{heading}')
-        print((f'{Fore.RED}o==[]::::::::::::::>'))
-        print(opening_text)
+        print(CENT(f'{Fore.GREEN}{heading}'))
+        print(CENT(f'{Fore.RED}o==[]::::::::::::::>'))
+        print(CENT(opening_text))
         input('Press enter to continue...')
         print(
             f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info:\n'
@@ -72,8 +77,8 @@ def start_game():
         while True:
             print(SEPARATE)
             key_interrupt = input(
-                f'Do you want to continue launching the game?\n'
-                '{Fore.LIGHTYELLOW_EX}Type y or n:\n')
+                'Do you want to continue launching the game?\n'
+                F'{Fore.LIGHTYELLOW_EX}Type y or n:\n')
             if key_interrupt.lower() == 'y':
                 print('\nCool, I\'ll start the game')
                 os.system('clear')
