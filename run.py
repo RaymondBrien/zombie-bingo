@@ -22,6 +22,8 @@ colorama.init(autoreset=True)  # auto-reset color for each new line
 SEPARATE = ('\n--------------------------------------------------\n').center(20)
 
 # TODO ADD LINTER SCREENSHOT BEFORE SUBMITTING AFTER ALL COMMENTS REMOVED
+# TODO remove update cell and row feedback to terminal 
+# TODO remove user full answer print to termianl in main
 # TODO ENSURE ALL TODOS removed before submitting
 # TODO remove commented out sections from testing
 
@@ -47,7 +49,7 @@ def start_game():
             f'{SEPARATE}'
             'Let\'s play bingo: \n'
             'How close is the zombie apocalypse according to the news?\n'
-            'Guess the right key words and you win a point!'
+            'Guess the right key words and you win a point!\n'
             f'{Style.DIM}(Press ctrl + c to exit){Style.RESET_ALL}\n'
             f'{SEPARATE}')
         # Clear terminal for terminal readability
@@ -60,7 +62,7 @@ def start_game():
         input('Press enter to continue...')
         print(
             f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info:\n'
-            'please wait a moment...\n')
+            f'{Style.DIM}please wait a moment...\n{Style.RESET_ALL}')
         animation_loop(2)
     except KeyboardInterrupt as e:
         print(SEPARATE)
@@ -183,15 +185,15 @@ def get_headlines():
         while True:
             try:
                 user_response = int(input(
-                    'Type 1 to try again, or,'
-                    'type 9 to use the preloaded headlines I cooked up yesterday'))  # noqa
+                    'Type 1 to try again\n'
+                    'Type 9 to use the preloaded headlines I cooked up yesterday\n'))  # noqa
                 if user_response == 1:
                     print('Trying again!')
                     get_headlines()
                     break
                 elif user_response == 9:
                     print(
-                        'OK!'
+                        'OK!\n'
                         'I\'ll use a precooked batch of headlines I made earlier...\n')  # noqa
                     print('Please hold...')
                     animation_loop(2)
@@ -397,8 +399,8 @@ def get_user_input1():
         f'{Fore.LIGHTRED_EX}Welcome pessimist.'
         'I have two questions for you.\n')
     print(
-        f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 1:'
-        '{Style.BRIGHT}How likely is doomsday today?\n')
+        f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 1:\n'
+        f'{Style.BRIGHT}How likely is doomsday today?\n')
     print(
         f'{Style.NORMAL}Your answer should be a number between 0 and 100.\n'
         'Enter 0 if you think the world is in perfect harmony.\n'
@@ -410,6 +412,7 @@ def get_user_input1():
         user_answer = input('Enter a number: ')
         if validate_user_input1(user_answer):
             print(f'{Fore.LIGHTGREEN_EX}Awesome, thanks.\n')
+            animation_loop(1)  # ensures user sees answer is received
             os.system('clear')
             break
     return user_answer
@@ -452,15 +455,15 @@ def get_user_input2():
     Returns user input 2 as list of strings.
     """
     print(SEPARATE)
-    print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 2:')
+    print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 2:\n')
     print(
-        f'{Style.BRIGHT}Enter 3 key words you think are in the news today'
-        'separate each by a comma like the example below\n')
+        f'{Style.BRIGHT}Enter 3 key words you think are in the news today.\n'
+        f'{Style.NORMAL}Separate each by a comma like the example below...\n')
     print(
         f'{Style.NORMAL}I\'ll check your answers against the top headlines from today.'  # noqa
-        f'{Style.DIM}Each correct word will get you a juicy point'
+        'Each correct word will get you a juicy point, '
         'choose wisely...\n')
-    print(f'{Style.DIM}Here\'s an example: apocalypse, AI, mutation\n')
+    print(f'{Style.DIM}Example: apocalypse, AI, mutation\n')
     print(SEPARATE)
     while True:
         input_data = input('Enter 3 key words: ')
@@ -694,12 +697,13 @@ def main():
         f'{Fore.RED}Today\'s keywords in the news headlines were:'
         f'{Fore.LIGHTYELLOW_EX}{headline_matches}')
     print(f'You won: {user_total_score} point(s)\n')
-    print(f'Users on this site have an average score of:'
+    print(f'Users on this site have an average score of: '
           f'{average_score} point(s)')
     print(SEPARATE)
     print(
-        f'{Fore.RED}{Style.BRIGHT}**** '
-        f'We are forecasting a {percentage}% chance of apocalypse today!  ****')  # noqa
+        f'{Fore.RED}{Style.BRIGHT}****\n'
+        f'We are forecasting a {percentage}% chance of apocalypse today!\n'
+        '****')  # noqa
     print(SEPARATE)
 
     # play again y/n
