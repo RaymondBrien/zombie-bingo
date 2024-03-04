@@ -18,8 +18,8 @@ from art import text2art
 
 colorama.init(autoreset=True)  # auto-reset color for each new line
 
-# global variable to avoid repeating 
-SEPARATE = ('----------------------------------------------------------------\n').center(80)
+# global variable to avoid repeating
+SEPARATE = ('\n-------------------------------------------------------\n').center(80)
 
 # ESSENTIAL TODOs: 
 # TODO heroku and local deployment, need heroku and rapid api keys for config vars ADD TO README
@@ -46,9 +46,10 @@ def start_game():
     """
     try:
         opening_text = (
-            f'{SEPARATE}{Fore.BLACK}{Back.LIGHTYELLOW_EX}WELCOME TO ZOMBIE BINGO{Style.RESET_ALL}'
+            f'{SEPARATE}{Fore.BLACK}{Back.LIGHTYELLOW_EX}WELCOME TO ZOMBIE BINGO{Style.RESET_ALL}'  # noqa
             f'{SEPARATE}'
-            'Let\'s play bingo: how close is the zombie apocalypse according to the news?'
+            'Let\'s play bingo:'
+            'how close is the zombie apocalypse according to the news?'
             'Guess the right key words and you win a point!'
             f'{Style.DIM}(Press ctrl + c to exit){Style.RESET_ALL}'
             f'{SEPARATE}')
@@ -66,7 +67,9 @@ def start_game():
         animation_loop(2)
     except KeyboardInterrupt as e:
         print(SEPARATE)
-        print(f'\n{Fore.RED}Ouch! Don\'t poke me when I\'m booting up the program!')
+        print(
+            f'\n{Fore.RED}Ouch!'
+            'Don\'t poke me when I\'m booting up the program!')
         while True:
             print(SEPARATE)
             key_interrupt = input(
@@ -81,7 +84,7 @@ def start_game():
                 print('\nOk, I\'ll close the game! See you soon!\n')
                 False
                 sys.exit(0)
-            elif key_interrupt.lower() != 'y' and key_interrupt.lower() != 'n':  
+            elif key_interrupt.lower() != 'y' and key_interrupt.lower() != 'n':
                 print(
                     f'Please enter either y or n.'
                     f'{Fore.LIGHTYELLOW_EX}You wrote: {key_interrupt}')
@@ -92,14 +95,14 @@ def start_game():
     except Exception as e:
         print(f'Error: {e.with_traceback}')
     finally:
-        False  # backup to safely handle while loop 
+        False  # backup to safely handle while loop
 
 
 def animation_loop(sec):
     """
     Loading animation loop of rotating slashes.
 
-    Credit: 
+    Credit:
     Medium @joloiuy - see README for details.
     """
     animation = "|/-\\"
@@ -132,7 +135,8 @@ def get_wordbank_list():
         # If the error is a connection error, wait and try again.
         if e.message in [403, 500, 503]:
             time.sleep(5)
-        else: raise RuntimeError(
+        else: 
+            raise RuntimeError(
             f'Error: {e.with_traceback}: please restart the game.\n')
     return wordbank
 
@@ -165,8 +169,10 @@ def get_headlines():
         primary_text = response.json()
         title_collection = []
         for news_item in primary_text['news']:
-            title_collection.append(news_item['title'])  # ensures only title text returned
-    # credit secopshub.com for requests exceptions below. See readme.md for details
+            # ensures only title text returned
+            title_collection.append(news_item['title'])
+    # credit ln 174-183: secopshub.com for requests exceptions below. 
+    # See readme.md for details.
     except requests.exceptions.HTTPError as errh:
         return "An Http Error occurred:" + repr(errh)
     except requests.exceptions.ConnectionError as errc:
@@ -181,7 +187,7 @@ def get_headlines():
             try:
                 user_response = int(input(
                     'Type 1 to try again, or,'
-                    'type 9 to use the preloaded headlines I cooked up yesterday'))
+                    'type 9 to use the preloaded headlines I cooked up yesterday'))  # noqa
                 if user_response == 1:
                     print('Trying again!')
                     get_headlines()
@@ -189,7 +195,7 @@ def get_headlines():
                 elif user_response == 9:
                     print(
                         'OK!'
-                        'I\'ll use a precooked batch of headlines I have saved...\n')
+                        'I\'ll use a precooked batch of headlines I made earlier...\n')  # noqa
                     print('Please hold...')
                     animation_loop(2)
                     global _headlines
@@ -201,7 +207,7 @@ def get_headlines():
     return title_collection
 
 
-def test_get_headlines(): # test col, 
+def test_get_headlines():  # backup headlines
     """
     FOR TESTING PURPOSES ONLY TO AVOID MAXING OUT API REQUESTS.
     Used as backup if headlines API fails / no internet connection.
@@ -275,7 +281,7 @@ def remove_common_words(data):
     try:
         # find all words in data that are not in common_words
         words_to_remove = find_list_intersections(common_words, data)
-        data = [word for word in data if word not in stopwords.words('english') and word not in words_to_remove]
+        data = [word for word in data if word not in stopwords.words('english') and word not in words_to_remove]  # noqa
     except ValueError as e:
         raise ValueError(
             'Could not find words to remove.'
@@ -314,7 +320,7 @@ def get_wordbank_matches_list(data):
     """
     wordbank = SHEET.worksheet('wordbank').col_values(2)[1:]
     try:
-        #find number of matches between data and wordbank
+        # find number of matches between data and wordbank
         matches = find_list_intersections(wordbank, data)
     except TypeError as e:
         print(f'{wordbank}, {data}')
@@ -331,7 +337,7 @@ def update_worksheet_row(worksheet_name, values):
     try:
         print(f'Updating {worksheet_name} worksheet...\n')
         SHEET.worksheet(worksheet_name).append_row(values)
-        print(f'{Fore.LIGHTGREEN_EX}{worksheet_name} worksheet successfully updated...\n')
+        print(f'{Fore.LIGHTGREEN_EX}{worksheet_name} worksheet successfully updated...\n')  # noqa
     except TypeError as e:
         print('Data must be a list: please check')
         while True:
@@ -391,7 +397,8 @@ def get_user_input1():
     """
     print(SEPARATE)
     print(
-        f'{Fore.LIGHTRED_EX}Welcome pessimist. I have two questions for you.\n')
+        f'{Fore.LIGHTRED_EX}Welcome pessimist.'
+        'I have two questions for you.\n')
     print(
         f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 1:'
         '{Style.BRIGHT}How likely is doomsday today?\n')
@@ -422,7 +429,7 @@ def validate_user_input1(user_input1):
         print('Please enter a number')
         return False
     else:
-        try: # try converting to integer
+        try:  # try converting to integer
             user_input1 = int(user_input1)
             if user_input1 < 0 or user_input1 > 100:
                 print(
@@ -436,8 +443,8 @@ def validate_user_input1(user_input1):
         except EOFError as e:
             print(
                 f'EOF Error occurred: {e.with_traceback}.'
-                'I\'ll have to restart to make some space...') 
-            main() # restarts game
+                'I\'ll have to restart to make some space...')
+            main()  # restarts game
         except Exception as e:
             raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return True
@@ -452,8 +459,9 @@ def get_user_input2():
     print(
         f'{Style.BRIGHT}Enter 3 key words you think are in the news today'
         'separate each by a comma like the example below\n')
-    print(f'{Style.NORMAL}I\'ll check your answers against the top headlines from today.'
-          'Each word you get right will get you a juicy point so choose wisely.\n')
+    print(
+        f'{Style.NORMAL}I\'ll check your answers against the top headlines from today.'  # noqa
+        f'{Style.DIM}Each correct word will get you a juicy point - choose wisely...\n')
     print(f'{Style.DIM}Here\'s an example: apocalypse, AI, mutation\n')
     print(SEPARATE)
     while True:
@@ -464,10 +472,11 @@ def get_user_input2():
             break
     print(SEPARATE)
     print(
-        f'{Fore.LIGHTGREEN_EX}Gotcha! Logging your answers to my spreadsheets.')
+        f'{Fore.LIGHTGREEN_EX}Gotcha!'
+        'Logging your answers to my spreadsheets.')
     print('Hang on just a moment...\n')
     print(SEPARATE)
-    os.system('clear')  # clear terminal due to Heroku clear 
+    os.system('clear')  # clear terminal due to Heroku clear
     return user_answer
 
 
@@ -480,14 +489,18 @@ def validate_user_input2(user_input2):
     # first check if user input is correct amount of words
     if len(user_input2) != 3:
         print(SEPARATE)
-        print(f'You only gave me {len(user_input2)} answer(s) or forgot to add commas...')
-        print('Please enter 3 key words, remembering to separate each by a comma.')
+        print(
+            f'You only gave me {len(user_input2)} answer(s).'
+            'Or you forgot to add commas. Check and try again.\n')
+        print(
+            'Please enter 3 key words'
+            'Remember to separate each by a comma.')
         print(f'{Style.DIM}Here\'s an example: apocalypse, AI, mutation\n')
         return False
     else:
-        try: 
+        try:
             # check if all items in user_input2 list are words
-            results = list(filter(lambda word: not word[1], map(lambda word: (word, word.isalpha()), user_input2)))  # noaq
+            results = list(filter(lambda word: not word[1], map(lambda word: (word, word.isalpha()), user_input2)))  # noqa
             for result in results:
                 print(f'{Fore.RED}{result[0]} is not valid')
                 return False
@@ -499,8 +512,10 @@ def validate_user_input2(user_input2):
         except TypeError as e:
             print(
                 f'Please only use words.\n'
-                f'You wrote: {user_input2} which is type {type(user_input2)}.\n'
-                'Please enter 3 key words. Numbers and symbols are not allowed.\n')
+                f'You wrote: {user_input2}'
+                'which is type {type(user_input2)}.\n'
+                'Please enter 3 key words.\n'
+                'Remember numbers and symbols are not allowed.\n')
         except Exception as e:
             raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return True
@@ -539,8 +554,8 @@ def calculate_user_percentage_score(user_input1, percentage):
         user_input1 = int(user_input1)
         percentage = int(percentage)
 
-        if user_input1 in range(percentage - 10, percentage + 10)
-            #1 point awarded to user
+        if user_input1 in range(percentage - 10, percentage + 10):
+            # 1 point awarded to user
             return 1
         else:
             return 0
@@ -593,14 +608,15 @@ def get_user_average_score(user_scores):
     except ZeroDivisionError:
         score = 0
         print(
-            f'{Fore.LIGHTRED_EX}There was an issue calculating your average score.'
+            f'{Fore.LIGHTRED_EX}Issue calculating your average score.'
             'Your score has not been counted.\n')
         print(
             f'User scores came back as: {user_scores}.'
-            'Check your worksheet and internet connection if this doesn\'t look right...')
+            'Check your internet connection if this doesn\'t look right...')
     except TypeError as e:
         raise TypeError(
-            f'Invalid Type: {e.args}. User scores came back as {type(user_scores)}\n')
+            f'Invalid Type: {e.args}.'
+            'User scores came back as {type(user_scores)}\n')
     except Exception as e:
         raise Exception(f'Unknown error occurred: {e.with_traceback}')
     return math.floor(score)
@@ -625,7 +641,7 @@ def play_again():
                 'Be sure to check back tomorrow with tomorrow\'s headlines...'
                 'Who knows, maybe there\'s a real apocalypse tomorrow...')
             os.system('clear')
-            exit() # terminate program
+            exit()  # terminate program
         else:
             print(f'{Fore.LIGHTRED_EX}Please enter y or n.')
             play_again()
@@ -633,8 +649,7 @@ def play_again():
         raise ValueError(f'Invalid Value: {e.args}. Please enter y or n.')
 
 
-
-def main(): 
+def main():
     """
     Runs all program functions.
     """
@@ -645,7 +660,7 @@ def main():
     processed_headlines = process_data(_headlines)
     keyword_list = remove_common_words(processed_headlines)
     percentage = percentage_of_wordbank_matches(keyword_list)
-    headline_matches = get_wordbank_matches_list(keyword_list) 
+    headline_matches = get_wordbank_matches_list(keyword_list)
 
     animation_loop(1)
 
@@ -663,7 +678,7 @@ def main():
 
     # calculate scores
     user_matches = calculate_user_buzzword_points(answer2, headline_matches)
-    user_percentage_score = calculate_user_percentage_score(int(answer1), percentage)
+    user_percentage_score = calculate_user_percentage_score(int(answer1), percentage)  # noqa
     user_total_score = user_matches + user_percentage_score
     scores_history = get_user_scores_list()
     average_score = get_user_average_score(scores_history)
@@ -671,26 +686,30 @@ def main():
 
     # update worksheets
     update_worksheet_row('program_answers', program_full_answer)
-    update_worksheet_row('user_answers', user_full_answer) 
+    update_worksheet_row('user_answers', user_full_answer)
     update_worksheet_cell('end_calculator', end_results)
 
     # report info to terminal for user
     print(SEPARATE)
-    print(f'{Fore.GREEN}Your answers: {user_full_answer}\n') 
+    print(f'{Fore.GREEN}Your answers: {user_full_answer}\n')
     print(
-        f'{Fore.RED}Today\'s keywords in the news headlines were:\n{Fore.LIGHTYELLOW_EX}{headline_matches}')  # noaq
+        f'{Fore.RED}Today\'s keywords in the news headlines were:'
+        f'{Fore.LIGHTYELLOW_EX}{headline_matches}')
     print(f'You won: {user_total_score} point(s)\n')
-    print(f'Users on this site have an average score of: {average_score} point(s)')
-    print(SEPARATE + '\n')
+    print(f'Users on this site have an average score of:'
+          f'{average_score} point(s)')
+    print(SEPARATE)
     print(
-        f'{Fore.RED}{Style.BRIGHT}****  We are forecasting a {percentage}% chance of apocalypse today!  ****')  # noaq
+        f'{Fore.RED}{Style.BRIGHT}**** '
+        f'We are forecasting a {percentage}% chance of apocalypse today!  ****')  # noqa
     print(SEPARATE)
 
     # play again y/n
     play_again()
 
 
-os.system('clear')  # prevents file name appearing before program is run on heroku
+# prevents file name appearing before program is run on heroku
+os.system('clear')
 print('launching Zombie Bingo')
 os.system('clear')  # maintains readable terminal on heroku due to clear() bug documented in testing.
 if __name__ == '__main__':
