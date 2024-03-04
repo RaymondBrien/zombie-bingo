@@ -19,7 +19,7 @@ from art import text2art
 colorama.init(autoreset=True)  # auto-reset color for each new line
 
 # global variable to avoid repeating
-SEPARATE = ('\n--------------------------------------------------\n').center(40)
+SEPARATE = ('\n--------------------------------------------------\n').center(20)
 
 # TODO ADD LINTER SCREENSHOT BEFORE SUBMITTING AFTER ALL COMMENTS REMOVED
 # TODO ENSURE ALL TODOS removed before submitting
@@ -53,11 +53,11 @@ def start_game():
         # Clear terminal for terminal readability
         os.system('clear')
         # Loading and introduction text to user
-        heading = text2art(('Zombie Bingo!').center(40), font="small")
+        heading = text2art(('Zombie Bingo!').center(20), font="small")
         print(f'{Fore.GREEN}{heading}')
-        print((f'{Fore.RED}o==[]::::::::::::::>').center(40))
-        print(opening_text.center(40))
-        input('Press enter to continue...').center(40)
+        print((f'{Fore.RED}o==[]::::::::::::::>'))
+        print(opening_text)
+        input('Press enter to continue...')
         print(
             f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info:\n'
             'please wait a moment...\n')
