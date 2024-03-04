@@ -195,6 +195,7 @@ Heroku needs two additional files in order to deploy properly.
 
 - requirements.txt
 - Procfile
+- Your own config vars to connect to google API and rapid API.
 
 You can install this project's **requirements** (where applicable) using:
 
@@ -217,7 +218,7 @@ Either:
 Or:
 
 - In the Terminal/CLI, connect to Heroku using this command: `heroku login -i`
-- Set the remote for Heroku: `heroku git:remote -a app_name` (replace *app_name* with your app name)
+- Set the remote for Heroku: `heroku git:remote -a zombie_bingo`
 - After performing the standard Git `add`, `commit`, and `push` to GitHub, you can now type:
 	- `git push heroku main`
 
@@ -233,7 +234,7 @@ For either method, you will need to install any applicable packages found within
 
 If using any confidential credentials, such as `CREDS.json` or `env.py` data, these will need to be manually added to your own newly created project as well.
 
-
+Ensure that your config vars for your google sheet AND rapid API are set correctly within the settings tab within heroku, using your own credentials downloaded from the google cloud. You must ensure the names of the tabs within your worksheet are set correctly for the worksheet to update successfully.
 
 #### Cloning
 
@@ -290,7 +291,6 @@ You can fork this repository by using the following steps:
 | [Secopshub](https://www.secopshub.com/t/handling-api-errors-using-\python-requests/589) | http error handling | using lambda to more efficiently loop and find invalid values and only print the invalid ones to the terminal for an improved user experience.|
 
 
-
 ### Media
 
 | Source | Location | Type | Notes |
@@ -303,5 +303,3 @@ You can fork this repository by using the following steps:
 - I would like to thank my Code Institute mentor, [Tim Nelson](https://github.com/TravelTimN) for their support throughout the development of this project.
 - I would like to thank the [Code Institute](https://codeinstitute.net) tutor team for their assistance with troubleshooting and debugging some project issues.
 - I would like to thank the [Code Institute Slack community](https://code-institute-room.slack.com) for the moral support; it kept me going during periods of self doubt and imposter syndrome.
-
-
