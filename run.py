@@ -62,7 +62,7 @@ def start_game():
         # boxen credit: https://github.com/savioxavier/pyboxen?tab=readme-ov-file
         print(
             boxen(
-                "How close is the zombie apocalypse according to the news?\n",
+                "See close is the zombie apocalypse according to the news.\n",
                 "Guess the right key words and you win a point!",
                 title="[black on cyan] What is it? [/]",
                 subtitle="*** LET'S PLAY ***",
@@ -75,7 +75,7 @@ def start_game():
         print(f'{Style.DIM}(Press ctrl + c to exit){Style.RESET_ALL}\n')
         input('Press enter to continue...')
         print(
-            f'\n{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info:{Back.RESET}\n'
+            f'\n{Fore.BLACK}Gathering the hottest info: '
             f'{Style.DIM}please wait a moment...\n{Style.RESET_ALL}')
         animation_loop(2)
     # keyboard interrupt handling
@@ -216,12 +216,13 @@ def get_headlines():
                     break
                 elif user_response == 9:
                     print(
+                        f'{SEPARATE}'
                         '\nOK!\n'
                         'I\'ll use a precooked batch of headlines I made earlier...\n')  # noqa
                     print(
                         f'{SEPARATE}'
-                        '\nPlease hold...\n'
-                        'The screen will clear and then ask you the first question!')
+                        f'\n{Style.DIM}Please hold...\n'
+                        f'The screen will clear and then ask you the first question!{Style.RESET_ALL}')
                     animation_loop(8)
                     global _headlines
                     _headlines = test_get_headlines()
@@ -428,7 +429,7 @@ def get_user_input1():
             "* * * * *\n",
             "Your answer should be a number between 0 and 100.",
             "Enter 0 if you think the world is in perfect harmony.",
-            "Enter 100 if the earth is burning",
+            "Enter 100 if the earth is burning.",
             title="[black on cyan] QUESTION 1 [/]",
             subtitle="Here\'s an example: 65",
             subtitle_alignment="center",
@@ -466,8 +467,8 @@ def validate_user_input1(user_input1):
                     'Check your math...')
                 return False
         except ValueError:
-            print(f'I need a number, silly! You provided \
-                {type(user_input1)}\n')
+            print(f'{Fore.RED}I need a number, silly! You provided '
+                f'{type(user_input1)}\n{Fore.RESET}')
             return False
         except EOFError as e:
             print(
@@ -486,7 +487,7 @@ def get_user_input2():
     print(SEPARATE)
     print(
         boxen(
-            "[red on yellow] Enter 3 key words you think are in the news today?\n",
+            "[red on yellow] Enter 3 key words you think are in the news today:\n",
             "* * * * *\n",
             "I\'ll check your answers against the top headlines from today.",
             "Each correct word will get you a juicy point, so choose wisely...\n",
@@ -509,8 +510,8 @@ def get_user_input2():
     print(SEPARATE)
     print(
         f'{Fore.LIGHTGREEN_EX}Gotcha!\n'
-        'Logging your answers to my spreadsheets.\n')
-    print('\nHang on just a moment...\n')
+        f'{Fore.RESET}{Style.DIM}Logging your answers to my spreadsheets.\n'
+        '\nHang on just a moment...\n')
     animation_loop(3)
     print(SEPARATE)
     os.system('clear')  # clear terminal due to Heroku clear
@@ -527,12 +528,12 @@ def validate_user_input2(user_input2):
     if len(user_input2) != 3:
         print(SEPARATE)
         print(
-            f'You only gave me {len(user_input2)} answer(s).'
-            'Or you forgot to add commas. Check and try again.\n')
-        print(
-            'Please enter 3 key words'
-            'Remember to separate each by a comma.')
+            f'{Fore.RED}You only gave me {len(user_input2)} answer(s) {Fore.RESET}'
+            'Check you added commas between your words and try again.\n'
+            '\nPlease enter 3 key words.\n'
+            f'{Fore.LIGHTYELLOW_EX}Remember to separate each by a comma!{Fore.RESET}')
         print(f'{Style.DIM}Here\'s an example: apocalypse, AI, mutation\n')
+        print(SEPARATE)
         return False
     else:
         try:
@@ -670,15 +671,16 @@ def play_again():
         f'({Fore.GREEN}y{Fore.WHITE}/{Fore.RED}n{Fore.WHITE}): \n')
     try:
         if answer.lower() == 'y':
-            print('Let\'s go!')
+            print('\nLet\'s go!')
             animation_loop(2)
             os.system('clear')
             main()
         elif answer.lower() == 'n':
             print(
                 f'{Fore.RESET}Thank you for playing!\n'
-                'Be sure to check back tomorrow with tomorrow\'s headlines.\n'
-                'Who knows, maybe there\'s a real apocalypse tomorrow...')
+                f'{SEPARATE}'
+                '\nBe sure to check back tomorrow with tomorrow\'s headlines.\n'
+                f'{Style.DIM}Who knows, maybe there\'s a real apocalypse tomorrow...{Style.RESET_ALL}')
             animation_loop(10)  # give user time to read
             os.system('clear')
             exit()  # terminate program
@@ -745,13 +747,13 @@ def main():
     table = Table(show_header=True, header_style="bold magenta")
     
     table.add_column("Your Answers", style="yellow", width=12)
-    table.add_column("Today's Key Words", style="red")
+    table.add_column("From Today's Headlines", style="red")
     table.add_column("Your Total Score", justify="right")
-    table.add_column("Other People's Average Score", justify="right")
+    table.add_column("People's Average Score", justify="right")
     table.add_row(
-        f"{user_full_answer}", 
-        f"{headline_matches}", 
-        f"{user_total_score}", 
+        " ".join(user_full_answer), 
+        " ".join(headline_matches), 
+        f"{user_total_score}",
         f"{average_score}"
     )
 
