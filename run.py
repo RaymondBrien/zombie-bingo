@@ -27,9 +27,6 @@ CENT = "{:^80}".format
 # global variable to avoid repeating
 SEPARATE = CENT('\n' + '* * * * *' + '\n')
 
-
-# TODO ADD LINTER SCREENSHOT BEFORE SUBMITTING AFTER ALL COMMENTS REMOVED
-
 SCOPE = [
     'https://www.googleapis.com/auth/spreadsheets',
     'https://www.googleapis.com/auth/drive.file',
