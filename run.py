@@ -28,11 +28,7 @@ SEPARATE = CENT('\n' + '* * * * *' + '\n')
 
 
 # TODO ADD LINTER SCREENSHOT BEFORE SUBMITTING AFTER ALL COMMENTS REMOVED
-# TODO add boxen credits to readme 
-# TODO update requirements  
-# TODO remove user full answer print to termianl in main
 # TODO ENSURE ALL TODOS removed before submitting
-# TODO remove commented out sections from testing
 
 SCOPE = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -59,7 +55,7 @@ def start_game():
         print(f'{Fore.GREEN}\n{heading}{Fore.RED}o==[]::::::::::::::>\n')
 
         # User-initialized game start
-        # boxen credit: https://github.com/savioxavier/pyboxen?tab=readme-ov-file
+        # boxen credit: see README.md
         print(
             boxen(
                 "See close is the zombie apocalypse according to the news.\n",
@@ -423,6 +419,7 @@ def get_user_input1():
         f'{Fore.LIGHTRED_EX}Welcome pessimist.\n'
         'I have two questions for you.')
     print(SEPARATE)
+    # boxen credit: see README.md
     print(
         boxen(
             "[red on yellow] How likely is doomsday today?\n",
@@ -485,6 +482,7 @@ def get_user_input2():
     Returns user input 2 as list of strings.
     """
     print(SEPARATE)
+    # boxen credit: see README.md
     print(
         boxen(
             "[red on yellow] Enter 3 key words you think are in the news today:\n",
@@ -730,6 +728,7 @@ def main():
     update_worksheet_cell('end_calculator', end_results)
 
     # report info to terminal for user
+    # boxen credit: see README.md
     print(
         boxen(
             "* * * * *\n",
