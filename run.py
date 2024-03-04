@@ -16,13 +16,13 @@ if os.path.exists('env.py'):
     import env
 from art import text2art
 
-colorama.init(autoreset = True)  # auto-reset color for each new line
+colorama.init(autoreset=True)  # auto-reset color for each new line
 
 # always centers text at 80 chars wide.
 CENT = "{:^80}".format
 
 # global variable to avoid repeating
-SEPARATE = ('\n--------------------------------------------------\n').center(40)
+SEPARATE = ('\n--------------------------------------------------\n').center(40)  # noqa
 
 
 # TODO ADD LINTER SCREENSHOT BEFORE SUBMITTING AFTER ALL COMMENTS REMOVED
@@ -48,27 +48,28 @@ def start_game():
     Starts the game with small loading screen
     """
     try:
-        opening_text = (
-            f'{SEPARATE}'
-            f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}WELCOME TO ZOMBIE BINGO{Style.RESET_ALL}'  # noqa
-            f'{SEPARATE}'
-            '*** LET\'S PLAY *** \n'
-            'How close is the zombie apocalypse according to the news?\n'
-            'Guess the right key words and you win a point!\n'
-            f'{Style.DIM}(Press ctrl + c to exit){Style.RESET_ALL}\n'
-            f'{SEPARATE}')
         # Clear terminal for terminal readability
         os.system('clear')
-        # Loading and introduction text to user
         heading = text2art(('Zombie Bingo!'), font="small")
-        print(CENT(f'{Fore.GREEN}{heading}'))
-        print(CENT(f'{Fore.RED}o==[]::::::::::::::>'))
-        print(CENT(opening_text))
+        
+        # Loading and introduction text to user
+        print(f'{Fore.GREEN}{heading}{Fore.RED}o==[]::::::::::::::>')
+        print(CENT(f'{SEPARATE}'))
+        print(CENT(f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}WELCOME TO ZOMBIE BINGO{Style.RESET_ALL}'))  # noqa
+        print(CENT(f'{SEPARATE}'))
+        print(CENT('*** LET\'S PLAY *** \n'))
+        print(CENT('How close is the zombie apocalypse according to the news?\n'))
+        print(CENT('Guess the right key words and you win a point!\n'))
+        print(CENT(f'{Style.DIM}(Press ctrl + c to exit){Style.RESET_ALL}\n'))
+        print(CENT(f'{SEPARATE}'))
+
+        # User-initialized game start
         input('Press enter to continue...')
         print(
             f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info:\n'
             f'{Style.DIM}please wait a moment...\n{Style.RESET_ALL}')
         animation_loop(2)
+    # keyboard interrupt handling
     except KeyboardInterrupt as e:
         print(SEPARATE)
         print(
@@ -81,11 +82,12 @@ def start_game():
                 F'{Fore.LIGHTYELLOW_EX}Type y or n:\n')
             if key_interrupt.lower() == 'y':
                 print('\nCool, I\'ll start the game')
+                animation_loop(2)  # give user time to read
                 os.system('clear')
                 start_game()
                 break
             elif key_interrupt.lower() == 'n':
-                print('\nOk, I\'ll close the game! See you soon!\n')
+                print(f'{Fore.RESET}\nOk, I\'ll close the game! See you soon!\n')
                 False
                 sys.exit(0)
             elif key_interrupt.lower() != 'y' and key_interrupt.lower() != 'n':
@@ -155,7 +157,7 @@ def get_headlines():
         "query": "AI",
         "time_bounded": True,
         "from_date": "01/02/2021",
-        "to_date": "05/06/2021",
+        "to_date": "28/02/2024",
         "location": "us",
         "language": "en",
         "more_information": False,
@@ -187,29 +189,36 @@ def get_headlines():
         return "An Unknown Error occurred" + repr(err)
     except Exception:
         print(
-            'The rapid API calls may have been maxed out'
-            'or another error has occurred')
+            'Hello there: rapid API has a cap on the number of requests...\n'
+            'Looks like they are maxed out or another error occurred'
+            'I have taken the liberty of handling this for you'
+            'with some preloaded headlines\n'
+            f'{SEPARATE}')
         while True:
             try:
                 user_response = int(input(
-                    'Type 1 to try again\n'
-                    'Type 9 to use the preloaded headlines I cooked up yesterday\n'))  # noqa
+                    f'{Fore.LIGHTYELLOW_EX}Type 1 if you want to try using '
+                    'rapid API try again\n'
+                    f'\n{Fore.LIGHTGREEN_EX}Type 9 to use the preloaded headlines '
+                    f'I cooked up yesterday\n{Fore.RESET}\n'))
                 if user_response == 1:
                     print('Trying again!')
                     get_headlines()
                     break
                 elif user_response == 9:
                     print(
-                        'OK!\n'
+                        '\nOK!\n'
                         'I\'ll use a precooked batch of headlines I made earlier...\n')  # noqa
-                    print('Please hold...')
-                    animation_loop(2)
+                    print(
+                        '\nPlease hold...'
+                        'The screen will clear and then ask you the first question!')
+                    animation_loop(3)
                     global _headlines
                     _headlines = test_get_headlines()
                     title_collection = _headlines
                     break
             except ValueError:
-                print('Please enter 1 or 9')
+                print('\nPlease enter 1 or 9')
     return title_collection
 
 
@@ -341,9 +350,7 @@ def update_worksheet_row(worksheet_name, values):
     Adds data to spreadsheet as a new row.
     """
     try:
-        print(f'Updating {worksheet_name} worksheet...\n')
         SHEET.worksheet(worksheet_name).append_row(values)
-        print(f'{Fore.LIGHTGREEN_EX}{worksheet_name} worksheet successfully updated...\n')  # noqa
     except TypeError as e:
         print('Data must be a list: please check')
         while True:
@@ -371,7 +378,6 @@ def update_worksheet_cell(worksheet_name, data):
     Adds data to spreadsheet as a new cell.
     """
     try:
-        print(f'Updating {worksheet_name} worksheet...\n')
         SHEET.worksheet(worksheet_name).append_row(data)
     except TypeError as e:
         raise TypeError(
@@ -403,10 +409,10 @@ def get_user_input1():
     """
     print(SEPARATE)
     print(CENT(
-        f'{Fore.LIGHTRED_EX}Welcome pessimist. '
+        f'{Fore.LIGHTRED_EX}Welcome pessimist.\n'
         'I have two questions for you.\n'))
     print(CENT(
-        f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 1:\n'
+        f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 1:{Back.RESET}\n'
         f'{Style.BRIGHT}How likely is doomsday today?\n'))
     print(CENT(
         f'{Style.NORMAL}Your answer should be a number between 0 and 100.\n'
@@ -419,7 +425,7 @@ def get_user_input1():
         user_answer = input('Enter a number: ')
         if validate_user_input1(user_answer):
             print(f'{Fore.LIGHTGREEN_EX}Awesome, thanks.\n')
-            animation_loop(1)  # ensures user sees answer is received
+            animation_loop(3)  # ensures user sees answer is received
             os.system('clear')
             break
     return user_answer
@@ -462,15 +468,16 @@ def get_user_input2():
     Returns user input 2 as list of strings.
     """
     print(SEPARATE)
-    print(CENT(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 2:\n'))
+    print(CENT(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 2:{Back.RESET}\n'))
     print(CENT(
         f'{Style.BRIGHT}Enter 3 key words you think are in the news today.\n'))
-    print(CENT(
-        f'{Style.NORMAL}I\'ll check your answers against the top headlines from today.'  # noqa
-        'Each correct word will get you a juicy point, '
-        'choose wisely...\n'
-        f'{Style.NORMAL}Separate each by a comma like the example below...\n'))
     print(CENT(f'{Style.DIM}Example: apocalypse, AI, mutation\n'))
+    print(CENT(
+        f'{Style.NORMAL}I\'ll check your answers against the top '
+        'headlines from today.\n'
+        'Each correct word will get you a juicy point, '
+        'so choose wisely.\n'
+        '\nSeparate each by a comma like the example above...\n'))
     print(SEPARATE)
     while True:
         input_data = input('Enter 3 key words: ')
@@ -480,9 +487,10 @@ def get_user_input2():
             break
     print(SEPARATE)
     print(
-        f'{Fore.LIGHTGREEN_EX}Gotcha!'
-        'Logging your answers to my spreadsheets.')
-    print('Hang on just a moment...\n')
+        f'{Fore.LIGHTGREEN_EX}Gotcha!\n'
+        'Logging your answers to my spreadsheets.\n')
+    print('\nHang on just a moment...\n')
+    animation_loop(3)
     print(SEPARATE)
     os.system('clear')  # clear terminal due to Heroku clear
     return user_answer
@@ -637,17 +645,18 @@ def play_again():
     Handles if user input invalid.
     """
     answer = input(
-        'Would you like to play again?'
-        f'({Fore.GREEN}y{Fore.LIGHTBLACK_EX}/{Fore.RED}n): ')
+        'Would you like to play again? '
+        f'({Fore.GREEN}y{Fore.WHITE}/{Fore.RED}n{Fore.WHITE}): ')
     try:
         if answer.lower() == 'y':
             os.system('clear')
             main()
         elif answer.lower() == 'n':
-            print(
+            print(CENT(
                 f'{Fore.RESET}Thank you for playing!'
                 'Be sure to check back tomorrow with tomorrow\'s headlines...'
-                'Who knows, maybe there\'s a real apocalypse tomorrow...')
+                'Who knows, maybe there\'s a real apocalypse tomorrow...'))
+            animation_loop(10)  # give user time to read
             os.system('clear')
             exit()  # terminate program
         else:
@@ -663,7 +672,7 @@ def main():
     """
     start_game()
 
-    global _headlines
+    global _headlines  # global if API call fails, so test headlines used.
     _headlines = get_headlines()
     processed_headlines = process_data(_headlines)
     keyword_list = remove_common_words(processed_headlines)
@@ -699,14 +708,15 @@ def main():
     print(SEPARATE)
     print(CENT(f'{Fore.GREEN}Your answers: {user_full_answer}\n'))
     print(CENT(
-        f'{Fore.RED}Today\'s keywords in the news headlines were:'
-        f'{Fore.LIGHTYELLOW_EX}{headline_matches}'))
-    print(CENT(f'You won: {user_total_score} point(s)\n'))
-    print(CENT(f'Users on this site have an average score of: '
-          f'{average_score} point(s)'))
+        f'{Fore.RED}Today\'s keywords in the news headlines were:\n'
+        f'{Fore.LIGHTYELLOW_EX}{[word for word in headline_matches]}'))
+    print(CENT('You won:\n'))
+    print(CENT(f'{Fore.GREEN}{user_total_score} point(s)\n'))
+    print(CENT('Our users\' average score:\n'))
+    print(CENT(f'{Fore.LIGHTYELLOW_EX}{average_score} point(s)'))
     print(SEPARATE)
     print(CENT(
-        f'{Fore.RED}{Style.BRIGHT}****\n'
+        f'{Fore.RED}****\n'
         f'We are forecasting a {percentage}% chance of apocalypse today!\n'
         '****'))
     print(SEPARATE)
@@ -715,10 +725,10 @@ def main():
     play_again()
 
 
-# prevents file name appearing before program is run on heroku
+# prevent file name appearing before program is run on heroku
 os.system('clear')
 print('launching Zombie Bingo')
-# maintains readable terminal on heroku due to clear() bug (documented in testing).
+# maintain readable terminal on heroku
 os.system('clear')
 if __name__ == '__main__':
     main()
