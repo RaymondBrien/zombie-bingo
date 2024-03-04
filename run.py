@@ -1,4 +1,3 @@
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
 import gspread
 from google.oauth2.service_account import Credentials
 import json
@@ -23,17 +22,14 @@ colorama.init(autoreset=True)  # auto-reset color for each new line
 SEPARATE = ('----------------------------------------------------------------\n').center(80)
 
 # ESSENTIAL TODOs: 
-# TODO centering issues sort (see tim github link)
-# TODO loading whilst running functions? https://stackoverflow.com/questions/22029562/python-how-to-make-simple-animated-loading-while-process-is-running
+# TODO add future feature loading whilst running functions?
 # TODO heroku and local deployment, need heroku and rapid api keys for config vars ADD TO README
 # TODO ADD LINTER SCREENSHOT BEFORE SUBMITTING AFTER ALL COMMENTS REMOVED
 # TODO refactor by using function decorators directly above function def for printing running tests or uploading something (see screenshot)
-# TODO check text formatting in heroku no spillover
 # TODO ENSURE ALL TODOS removed before submitting
 # TODO make sure only one number is allowed for q1
 # TODO remove commented out sections from readme
 # TODO remove commented out sections from testing
-# TODO make all questions, input text prompts and elements consistent in their styling.
 
 SCOPE = [
     'https://www.googleapis.com/auth/spreadsheets',

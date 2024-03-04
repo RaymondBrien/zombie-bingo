@@ -81,6 +81,10 @@ Zombie Bingo 🧟‍♂️ offers a humorous, succinct gaming experience by blen
     - At the end of each game, a sound is played to add additional user feedback for improved UX. This was not possible at the current time of deployment due to issues with static file handling in Heroku. I hope to find a workaround for this to provide user feedback and interactivity that supports the silly and simple themes this game has to offer for an even more engaging experience during gameplay. Sound effects can change depending on whether scores are good or bad, whether the chance of apocalypse according to the program is greater or smaller. Cue impending doom music...
 - If no input is provided then the program will sleep after 2 minutes.
     - This would be useful for power saving at the end of the game or where any user input is required and none is given within the two minutes.
+- Update stock headlines when API is successful
+    -  Each time the API successfully runs, the stock (backup) headlines saved for if there is no internet connection or if the API fails will be updated so that the stock headlines are as contemporary as possible for game maintainability and relevance.
+- Enable loading animation to run whilst the program is gathering data simultaneously. 
+    - The loading animation currently runs just after the program has gathered the data for the game to start (ie loading headlines). This will improve user experience by keeping the user informed that the program is running as it gathers the data needed for the game to start. 
 
 ## Tools & Technologies Used
 
@@ -106,7 +110,7 @@ Below is the flowchart of the main process of this Python program. It shows the 
 
 ![screenshot](documentation/flowchart.png)
 
-### Classes & Functions
+### Primary Functions
 
 The primary functions used on this application are: 
 
