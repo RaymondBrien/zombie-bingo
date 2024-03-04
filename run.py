@@ -19,9 +19,8 @@ from art import text2art
 colorama.init(autoreset=True)  # auto-reset color for each new line
 
 # global variable to avoid repeating
-SEPARATE = ('\n-------------------------------------------------------\n').center(80)
+SEPARATE = ('\n--------------------------------------------------\n').center(80)
 
-# ESSENTIAL TODOs: 
 # TODO heroku and local deployment, need heroku and rapid api keys for config vars ADD TO README
 # TODO ADD LINTER SCREENSHOT BEFORE SUBMITTING AFTER ALL COMMENTS REMOVED
 # TODO ENSURE ALL TODOS removed before submitting
@@ -135,9 +134,9 @@ def get_wordbank_list():
         # If the error is a connection error, wait and try again.
         if e.message in [403, 500, 503]:
             time.sleep(5)
-        else: 
+        else:
             raise RuntimeError(
-            f'Error: {e.with_traceback}: please restart the game.\n')
+                f'Error: {e.with_traceback}: please restart the game.\n')
     return wordbank
 
 
@@ -171,7 +170,7 @@ def get_headlines():
         for news_item in primary_text['news']:
             # ensures only title text returned
             title_collection.append(news_item['title'])
-    # credit ln 174-183: secopshub.com for requests exceptions below. 
+    # credit ln 174-183: secopshub.com for requests exceptions below.
     # See readme.md for details.
     except requests.exceptions.HTTPError as errh:
         return "An Http Error occurred:" + repr(errh)
@@ -461,7 +460,8 @@ def get_user_input2():
         'separate each by a comma like the example below\n')
     print(
         f'{Style.NORMAL}I\'ll check your answers against the top headlines from today.'  # noqa
-        f'{Style.DIM}Each correct word will get you a juicy point - choose wisely...\n')
+        f'{Style.DIM}Each correct word will get you a juicy point'
+        'choose wisely...\n')
     print(f'{Style.DIM}Here\'s an example: apocalypse, AI, mutation\n')
     print(SEPARATE)
     while True:
@@ -633,8 +633,8 @@ def play_again():
         f'({Fore.GREEN}y{Fore.LIGHTBLACK_EX}/{Fore.RED}n): ')
     try:
         if answer.lower() == 'y':
-                os.system('clear')
-                main()
+            os.system('clear')
+            main()
         elif answer.lower() == 'n':
             print(
                 f'{Fore.RESET}Thank you for playing!'
@@ -711,6 +711,7 @@ def main():
 # prevents file name appearing before program is run on heroku
 os.system('clear')
 print('launching Zombie Bingo')
-os.system('clear')  # maintains readable terminal on heroku due to clear() bug documented in testing.
+# maintains readable terminal on heroku due to clear() bug (documented in testing).
+os.system('clear')
 if __name__ == '__main__':
     main()
