@@ -68,7 +68,7 @@ def start_game():
         print(f'{Style.DIM}(Press ctrl + c to exit){Style.RESET_ALL}\n')
         input('Press enter to continue...')
         print(
-            f'\n{Fore.BLACK}Gathering the hottest info: '
+            f'\n{Style.DIM}Gathering the hottest info: '
             f'please wait a moment...\n{Style.RESET_ALL}')
         animation_loop(2)
     # keyboard interrupt handling
