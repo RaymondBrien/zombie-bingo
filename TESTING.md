@@ -48,7 +48,8 @@ Defensive programming was manually tested with the below user acceptance testing
 
 - Rapid API call returns None
 
-    ![screenshot](documentation/bug02.png)
+    ![screenshot](documentation/bug02a.png)
+    ![screenshot](documentation/bug02b.png)
 
     - The rapid API response returns `none` if the maximum amount of calls has been reached for that month. If this happens, this has been handled by asking the user to confirm if some 'precooked' headlines should be used instead. This way the program will still run with preloaded headlines. As documented in the [README.md](README.md) file, these preloaded headlines will be updated in future versions.
 
