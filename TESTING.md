@@ -46,6 +46,12 @@ Defensive programming was manually tested with the below user acceptance testing
 
     - To fix this, I reformatted strings to multiple lines. If this was unavoidable (ie for indented code that could not be formatted on multiple lines) I added `# noqa` where absolutely unavoidable.
 
+- Rapid API call returns None
+
+    ![screenshot](documentation/bug02.png)
+
+    - The rapid API response returns `none` if the maximum amount of calls has been reached for that month. If this happens, this has been handled by asking the user to confirm if some 'precooked' headlines should be used instead. This way the program will still run with preloaded headlines. As documented in the [README.md](README.md) file, these preloaded headlines will be updated in future versions.
+
 ## Unfixed Bugs
 
 - When using a helper `clear()` function, any text above the height of the terminal does not clear, and remains when you scroll up.
