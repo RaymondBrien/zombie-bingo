@@ -22,7 +22,7 @@ colorama.init(autoreset=True)  # auto-reset color for each new line
 CENT = "{:^80}".format
 
 # global variable to avoid repeating
-SEPARATE = ('\n--------------------------------------------------\n').center(40)  # noqa
+SEPARATE = ('\n--------------------------------------------------\n').center(10, '')  # noqa
 
 
 # TODO ADD LINTER SCREENSHOT BEFORE SUBMITTING AFTER ALL COMMENTS REMOVED
@@ -53,20 +53,20 @@ def start_game():
         heading = text2art(('Zombie Bingo!'), font="small")
         
         # Loading and introduction text to user
-        print(f'{Fore.GREEN}{heading}{Fore.RED}o==[]::::::::::::::>')
+        print(f'{Fore.GREEN}\n{heading}{Fore.RED}o==[]::::::::::::::>')
         print(CENT(f'{SEPARATE}'))
         print(CENT(f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}WELCOME TO ZOMBIE BINGO{Style.RESET_ALL}'))  # noqa
         print(CENT(f'{SEPARATE}'))
-        print(CENT('*** LET\'S PLAY *** \n'))
-        print(CENT('How close is the zombie apocalypse according to the news?\n'))
+        print(CENT(f'{Fore.GREEN}*** LET\'S PLAY *** \n'))
+        print(CENT(f'{Fore.RESET}How close is the zombie apocalypse according to the news?\n'))
         print(CENT('Guess the right key words and you win a point!\n'))
         print(CENT(f'{Style.DIM}(Press ctrl + c to exit){Style.RESET_ALL}\n'))
         print(CENT(f'{SEPARATE}'))
 
         # User-initialized game start
-        input('Press enter to continue...')
+        input(CENT('Press enter to continue...'))
         print(
-            f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info:\n'
+            f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}Gathering the hottest info:{Back.RESET}\n'
             f'{Style.DIM}please wait a moment...\n{Style.RESET_ALL}')
         animation_loop(2)
     # keyboard interrupt handling
@@ -189,9 +189,9 @@ def get_headlines():
         return "An Unknown Error occurred" + repr(err)
     except Exception:
         print(
-            'Hello there: rapid API has a cap on the number of requests...\n'
-            'Looks like they are maxed out or another error occurred'
-            'I have taken the liberty of handling this for you'
+            '\nHello there: rapid API has a cap on the number of requests...\n'
+            'Looks like the requests are maxed out or another error occurred\n'
+            '\nI have taken the liberty of handling this for you '
             'with some preloaded headlines\n'
             f'{SEPARATE}')
         while True:
@@ -408,16 +408,16 @@ def get_user_input1():
     Returns user input 1.
     """
     print(SEPARATE)
-    print(CENT(
+    print(
         f'{Fore.LIGHTRED_EX}Welcome pessimist.\n'
-        'I have two questions for you.\n'))
-    print(CENT(
-        f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 1:{Back.RESET}\n'
-        f'{Style.BRIGHT}How likely is doomsday today?\n'))
-    print(CENT(
+        'I have two questions for you.\n')
+    print(
+        f'\n{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 1:{Back.RESET}\n'
+        f'{Style.BRIGHT}How likely is doomsday today?\n')
+    print(
         f'{Style.NORMAL}Your answer should be a number between 0 and 100.\n'
         'Enter 0 if you think the world is in perfect harmony.\n'
-        'Enter 100 if Earth is burning\n'))
+        'Enter 100 if Earth is burning\n')
     print(CENT(f'{Style.DIM}Here\'s an example: 65\n'))
     print(SEPARATE)
 
@@ -646,16 +646,16 @@ def play_again():
     """
     answer = input(
         'Would you like to play again? '
-        f'({Fore.GREEN}y{Fore.WHITE}/{Fore.RED}n{Fore.WHITE}): ')
+        f'({Fore.GREEN}y{Fore.WHITE}/{Fore.RED}n{Fore.WHITE}): \n')
     try:
         if answer.lower() == 'y':
             os.system('clear')
             main()
         elif answer.lower() == 'n':
-            print(CENT(
-                f'{Fore.RESET}Thank you for playing!'
-                'Be sure to check back tomorrow with tomorrow\'s headlines...'
-                'Who knows, maybe there\'s a real apocalypse tomorrow...'))
+            print(
+                f'{Fore.RESET}Thank you for playing!\n'
+                'Be sure to check back tomorrow with tomorrow\'s headlines...\n'
+                'Who knows, maybe there\'s a real apocalypse tomorrow...')
             animation_loop(10)  # give user time to read
             os.system('clear')
             exit()  # terminate program
@@ -715,10 +715,10 @@ def main():
     print(CENT('Our users\' average score:\n'))
     print(CENT(f'{Fore.LIGHTYELLOW_EX}{average_score} point(s)'))
     print(SEPARATE)
-    print(CENT(
-        f'{Fore.RED}****\n'
-        f'We are forecasting a {percentage}% chance of apocalypse today!\n'
-        '****'))
+    print(
+        f'{Fore.RED}**** '
+        f'We are forecasting a {percentage}% chance of apocalypse today! '
+        '****')
     print(SEPARATE)
 
     # play again y/n
