@@ -22,12 +22,9 @@ colorama.init(autoreset=True)  # auto-reset color for each new line
 SEPARATE = ('----------------------------------------------------------------\n').center(80)
 
 # ESSENTIAL TODOs: 
-# TODO add future feature loading whilst running functions?
 # TODO heroku and local deployment, need heroku and rapid api keys for config vars ADD TO README
 # TODO ADD LINTER SCREENSHOT BEFORE SUBMITTING AFTER ALL COMMENTS REMOVED
-# TODO refactor by using function decorators directly above function def for printing running tests or uploading something (see screenshot)
 # TODO ENSURE ALL TODOS removed before submitting
-# TODO make sure only one number is allowed for q1
 # TODO remove commented out sections from readme
 # TODO remove commented out sections from testing
 
@@ -163,7 +160,7 @@ def get_headlines():
         "X-RapidAPI-Host": "newsnow.p.rapidapi.com"
     }
 
-    try: # TODO UPDATE TEST SET so default for future proof 
+    try:
         response = requests.post(url, json=payload, headers=headers)
         primary_text = response.json()
         title_collection = []
@@ -650,8 +647,6 @@ def main():
     percentage = percentage_of_wordbank_matches(keyword_list)
     headline_matches = get_wordbank_matches_list(keyword_list) 
 
-    # TODO Add animation loop whilst functions above are running to keep user updated - see link below
-    # https://stackoverflow.com/questions/22029562/python-how-to-make-simple-animated-loading-while-process-is-running
     animation_loop(1)
 
     # concatenate program answers for easy worksheet parsing
@@ -696,8 +691,7 @@ def main():
 
 
 os.system('clear')  # prevents file name appearing before program is run on heroku
-# TODO add 
 print('launching Zombie Bingo')
-os.system('clear')
+os.system('clear')  # maintains readable terminal on heroku due to clear() bug documented in testing.
 if __name__ == '__main__':
     main()
