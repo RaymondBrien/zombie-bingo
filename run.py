@@ -678,9 +678,7 @@ def main():
     answer2 = get_user_input2()
 
     # concatenate user answers for easy worksheet parsing
-    print(answer1)
     user_full_answer = [answer1] + answer2
-    print(f'user full answer: {user_full_answer}')
 
     # calculate scores
     user_matches = calculate_user_buzzword_points(answer2, headline_matches)
@@ -697,18 +695,18 @@ def main():
 
     # report info to terminal for user
     print(SEPARATE)
-    print(f'{Fore.GREEN}Your answers: {user_full_answer}\n')
-    print(
+    print(CENT(f'{Fore.GREEN}Your answers: {user_full_answer}\n'))
+    print(CENT(
         f'{Fore.RED}Today\'s keywords in the news headlines were:'
-        f'{Fore.LIGHTYELLOW_EX}{headline_matches}')
-    print(f'You won: {user_total_score} point(s)\n')
-    print(f'Users on this site have an average score of: '
-          f'{average_score} point(s)')
+        f'{Fore.LIGHTYELLOW_EX}{headline_matches}'))
+    print(CENT(f'You won: {user_total_score} point(s)\n'))
+    print(CENT(f'Users on this site have an average score of: '
+          f'{average_score} point(s)'))
     print(SEPARATE)
-    print(
+    print(CENT(
         f'{Fore.RED}{Style.BRIGHT}****\n'
         f'We are forecasting a {percentage}% chance of apocalypse today!\n'
-        '****')  # noqa
+        '****'))
     print(SEPARATE)
 
     # play again y/n
