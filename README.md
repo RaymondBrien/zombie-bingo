@@ -30,13 +30,17 @@ Zombie Bingo 🧟‍♂️ offers a humorous, succinct gaming experience by blen
 - **News Headlines API**
 
     - Gathers top news headlines fresh each time the API is called. These headlines are real and broad-ranging offering a gaming experience completely based on real, tangible headlines from across the world, perfect for target audiences including the news junkies! Only the top headlines are offered, meaning that no matter who plays, the headlines are almost guaranteed to be relevant in some way to each user, regardless of background or country. 
+    ***NB***
+    PLEASE NOTE: Due to the nature of this API being capped after a small amount of calls, users may find that the stock headlines will need to be used instead until a budget has been allocated for unlimited rapid API requests. If the API is maxed out, this is handled appropriately as is documented in the [TESTING](TESTING.md) documentation under 'bugs'.
 ![screenshot](documentation/feature_a.png)
+    
 
 
 - **Google Sheets API**
 
     - For the more data-oriented news junkies, or more hard-core players, each time the game is played, answers from both the program (including top keywords from the headlines and the calculated likelihood of apocalypse) and the user. Users can look at their scores overtime and also look back at old faux-pas to learning better strategies for next games! Users can check their answers, scores and the program's answers any time to improve and learn more about the headlines in the real life news as they play.
 ![screenshot](documentation/feature_b.png)
+    
 
 - **User Input via Terminal**
 

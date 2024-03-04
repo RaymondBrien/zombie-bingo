@@ -46,7 +46,7 @@ Defensive programming was manually tested with the below user acceptance testing
     ![screenshot](documentation/bug02a.png)
     ![screenshot](documentation/bug02b.png)
 
-    - The rapid API response returns `none` if the maximum amount of calls has been reached for that month. If this happens, this has been handled by asking the user to confirm if some 'precooked' headlines should be used instead. This way the program will still run with preloaded headlines. As documented in the [README.md](README.md) file, these preloaded headlines will be updated in future versions.
+    - The rapid API response returns `none` if the maximum amount of calls has been reached for that month. If this happens, this has been handled by asking the user to confirm if some 'precooked' headlines should be used instead. This way the program will still run with preloaded headlines. As documented in the [README.md](README.md) future-features section, these preloaded headlines will be updated in future versions, or a new API will be used entirely that does not require a cash injection to run. This matter, however, was discovered after the program had already been built, hence the current headlines API method remains as planned: if the amount of API requests has not been reached, testing has proven that the API is successful and runs accordingly with correct credentials and successful program algorithms.
 
 ## Unfixed Bugs
 
