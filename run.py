@@ -22,7 +22,7 @@ colorama.init(autoreset = True)  # auto-reset color for each new line
 CENT = "{:^80}".format
 
 # global variable to avoid repeating
-SEPARATE = CENT('\n--------------------------------------------------\n')
+SEPARATE = ('\n--------------------------------------------------\n').center(40)
 
 
 # TODO ADD LINTER SCREENSHOT BEFORE SUBMITTING AFTER ALL COMMENTS REMOVED
@@ -52,7 +52,7 @@ def start_game():
             f'{SEPARATE}'
             f'{Fore.BLACK}{Back.LIGHTYELLOW_EX}WELCOME TO ZOMBIE BINGO{Style.RESET_ALL}'  # noqa
             f'{SEPARATE}'
-            'Let\'s play bingo: \n'
+            '*** LET\'S PLAY *** \n'
             'How close is the zombie apocalypse according to the news?\n'
             'Guess the right key words and you win a point!\n'
             f'{Style.DIM}(Press ctrl + c to exit){Style.RESET_ALL}\n'
@@ -60,7 +60,7 @@ def start_game():
         # Clear terminal for terminal readability
         os.system('clear')
         # Loading and introduction text to user
-        heading = text2art(('Zombie Bingo!').center(20), font="small")
+        heading = text2art(('Zombie Bingo!'), font="small")
         print(CENT(f'{Fore.GREEN}{heading}'))
         print(CENT(f'{Fore.RED}o==[]::::::::::::::>'))
         print(CENT(opening_text))
@@ -186,7 +186,9 @@ def get_headlines():
     except requests.exceptions.RequestException as err:
         return "An Unknown Error occurred" + repr(err)
     except Exception:
-        print("An Unknown Error occurred")
+        print(
+            'The rapid API calls may have been maxed out'
+            'or another error has occurred')
         while True:
             try:
                 user_response = int(input(
@@ -400,17 +402,17 @@ def get_user_input1():
     Returns user input 1.
     """
     print(SEPARATE)
-    print(
-        f'{Fore.LIGHTRED_EX}Welcome pessimist.'
-        'I have two questions for you.\n')
-    print(
+    print(CENT(
+        f'{Fore.LIGHTRED_EX}Welcome pessimist. '
+        'I have two questions for you.\n'))
+    print(CENT(
         f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 1:\n'
-        f'{Style.BRIGHT}How likely is doomsday today?\n')
-    print(
+        f'{Style.BRIGHT}How likely is doomsday today?\n'))
+    print(CENT(
         f'{Style.NORMAL}Your answer should be a number between 0 and 100.\n'
         'Enter 0 if you think the world is in perfect harmony.\n'
-        'Enter 100 if Earth is burning\n')
-    print(f'{Style.DIM}Here\'s an example: 65\n')
+        'Enter 100 if Earth is burning\n'))
+    print(CENT(f'{Style.DIM}Here\'s an example: 65\n'))
     print(SEPARATE)
 
     while True:
@@ -460,15 +462,15 @@ def get_user_input2():
     Returns user input 2 as list of strings.
     """
     print(SEPARATE)
-    print(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 2:\n')
-    print(
-        f'{Style.BRIGHT}Enter 3 key words you think are in the news today.\n'
-        f'{Style.NORMAL}Separate each by a comma like the example below...\n')
-    print(
+    print(CENT(f'{Fore.LIGHTRED_EX}{Back.LIGHTYELLOW_EX}Question 2:\n'))
+    print(CENT(
+        f'{Style.BRIGHT}Enter 3 key words you think are in the news today.\n'))
+    print(CENT(
         f'{Style.NORMAL}I\'ll check your answers against the top headlines from today.'  # noqa
         'Each correct word will get you a juicy point, '
-        'choose wisely...\n')
-    print(f'{Style.DIM}Example: apocalypse, AI, mutation\n')
+        'choose wisely...\n'
+        f'{Style.NORMAL}Separate each by a comma like the example below...\n'))
+    print(CENT(f'{Style.DIM}Example: apocalypse, AI, mutation\n'))
     print(SEPARATE)
     while True:
         input_data = input('Enter 3 key words: ')
