@@ -16,7 +16,7 @@ if os.path.exists('env.py'):
     import env
 from art import text2art
 
-colorama.init(autoreset=True)  # auto-reset color for each new line
+colorama.init(autoreset = True)  # auto-reset color for each new line
 
 # always centers text at 80 chars wide.
 CENT = "{:^80}".format

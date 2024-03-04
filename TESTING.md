@@ -55,11 +55,4 @@ Defensive programming was manually tested with the below user acceptance testing
 
     - Attempted fix: I tried to adjust the terminal size, but it only resizes the actual terminal, not the allowable area for text. Instead I have ensured that after each user input, a clear() is used to clear the terminal as much as possible. This also applies to the very start of the program where the file name is displayed, which I tried to clear with `clear()` before the program runs, per line 710.
 
-- My original plan to use an audio file for user feedback at the end of the game has been removed as hosting static files on Heroku is not supported within the current Heroku framework used.
-
-     ![screenshot](documentation/unfixed-bug02.png)
-
-    - Attempted fix: I tried to host static files using a third part library but this failed and ran errors with Heroku. Instead it was simpler to ensure the user feedback was text based (with colors) as the error was Heroku based and not something that was because of my own code.
-
-
 There are no remaining bugs that I am aware of.
