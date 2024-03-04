@@ -670,6 +670,8 @@ def play_again():
         f'({Fore.GREEN}y{Fore.WHITE}/{Fore.RED}n{Fore.WHITE}): \n')
     try:
         if answer.lower() == 'y':
+            print('Let\'s go!')
+            animation_loop(2)
             os.system('clear')
             main()
         elif answer.lower() == 'n':
